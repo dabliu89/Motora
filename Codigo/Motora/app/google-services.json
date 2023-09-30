@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "728995654752",
+    "firebase_url": "https://motora-6a82c-default-rtdb.firebaseio.com",
+    "project_id": "motora-6a82c",
+    "storage_bucket": "motora-6a82c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728995654752:android:f07ada42d6ec879010e705",
+        "android_client_info": {
+          "package_name": "com.example.motora"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD1wQYbpaU32Vj6HqOpardT0ThFprQZt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

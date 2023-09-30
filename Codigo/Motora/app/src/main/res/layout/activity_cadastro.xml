@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D10202"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp"
+    tools:context=".CadastroActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="75dp"
+            android:gravity="center"
+            android:text="@string/motora"
+            android:textColor="#FFFFFF"
+            android:textSize="48sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutPapel"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:hint="Papel"
+            android:textColorHint="#FFFFFF">
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_complete_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bck_texto"
+                android:inputType="none"
+                android:textColorHint="#FFFFFF"
+                android:textColor="@color/white"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <EditText
+            android:id="@+id/editTextNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bck_texto"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="6dp"
+            android:ems="10"
+            android:hint="Nome"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:maxLength="40"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="#F6F0F2"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/editTextE_mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bck_texto"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawablePadding="6dp"
+            android:ems="10"
+            android:hint="E-mail"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:maxLength="35"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="#F6F0F2"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/editTextSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bck_texto"
+            android:drawableStart="@drawable/ic_baseline_lock_24"
+            android:drawablePadding="6dp"
+            android:ems="10"
+            android:hint="Senha"
+            android:importantForAutofill="no"
+            android:inputType="numberPassword"
+            android:maxLength="16"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="#F6F0F2"
+            tools:ignore="TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/editTextConfirmarSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/bck_texto"
+            android:drawableStart="@drawable/ic_baseline_lock_24"
+            android:drawablePadding="6dp"
+            android:ems="10"
+            android:hint="Confirme sua senha"
+            android:importantForAutofill="no"
+            android:inputType="numberPassword"
+            android:maxLength="16"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="#F6F0F2"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bck_botao"
+            android:onClick="validarCampos"
+            android:text="Cadastrar"
+            android:textColor="#FFFFFF"
+            tools:ignore="UsingOnClickInXml" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bck_botao"
+            android:onClick="voltarCadastro"
+            android:text="Voltar"
+            android:textColor="#FFFFFF"
+            tools:ignore="UsingOnClickInXml" />
+
+    </LinearLayout>
+
+</ScrollView>

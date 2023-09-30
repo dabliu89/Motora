@@ -2,7 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
     <fragment
@@ -12,14 +11,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.motora.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_avaliacoes"
+        android:name="com.example.motora.ui.avaliacoes.AvaliacoesFragment"
+        android:label="Avaliações"
+        tools:layout="@layout/fragment_avaliacoes" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.motora.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_perfil"
+        android:name="com.example.motora.ui.perfil.PerfilFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" />
+
+    <fragment
+        android:id="@+id/navigation_report"
+        android:name="com.example.motora.ui.report.ReportFragment"
+        android:label="Report"
+        tools:layout="@layout/fragment_report" />
 </navigation>

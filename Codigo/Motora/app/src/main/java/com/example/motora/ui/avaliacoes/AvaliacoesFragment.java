@@ -1,4 +1,4 @@
-package com.example.motora.ui.dashboard;
+package com.example.motora.ui.avaliacoes;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.motora.databinding.FragmentDashboardBinding;
+import com.example.motora.databinding.FragmentAvaliacoesBinding;
 
-public class DashboardFragment extends Fragment {
+public class AvaliacoesFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentAvaliacoesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        AvaliacoesViewModel avaliacoesViewModel =
+                new ViewModelProvider(this).get(AvaliacoesViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentAvaliacoesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textAvaliacoes;
+        avaliacoesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

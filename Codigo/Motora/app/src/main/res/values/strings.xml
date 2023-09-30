@@ -3,20 +3,5 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="apagar_conta" />
-    <string name="atualizar_senha" />
-    <string name="senhaProfile" />
-    <string name="senha" />
-    <string name="atualizar_dados" />
-    <string name="cadastre_se" />
-    <string name="acessar" />
-    <string name="senhaLogin" />
-    <string name="e_mailLogin" />
-    <string name="motoraLogin" />
-    <string name="voltar" />
-    <string name="cadastrar" />
-    <string name="confirme_sua_senha" />
-    <string name="e_mail" />
-    <string name="nome" />
     <string name="motora" />
 </resources>

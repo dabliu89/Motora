@@ -1,4 +1,4 @@
-package com.example.motora.ui.notifications;
+package com.example.motora.ui.report;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.motora.databinding.FragmentNotificationsBinding;
+import com.example.motora.databinding.FragmentReportBinding;
+import com.example.motora.ui.perfil.PerfilViewModel;
 
-public class NotificationsFragment extends Fragment {
+public class ReportFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentReportBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        ReportViewModel reportViewModel =
+                new ViewModelProvider(this).get(ReportViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentReportBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textReport;
+        reportViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

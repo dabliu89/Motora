@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D10202"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp"
+    tools:context=".LoginActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Motora"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp" />
+
+    <EditText
+        android:id="@+id/editTextE_mailLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bck_texto"
+        android:drawableStart="@drawable/ic_baseline_email_24"
+        android:drawablePadding="6dp"
+        android:ems="10"
+        android:hint="E-mail"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="#F6F0F2"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/editTextSenhaLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bck_texto"
+        android:drawableStart="@drawable/ic_baseline_lock_24"
+        android:drawablePadding="6dp"
+        android:ems="10"
+        android:hint="Senha"
+        android:inputType="numberPassword"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="#F6F0F2"
+        tools:ignore="TextContrastCheck"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/buttonAcessar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bck_botao"
+        android:onClick="validarAutenticacao"
+        android:text="Acessar"
+        android:textColor="#FFFFFF"
+        app:strokeColor="#FFFFFF"
+        tools:ignore="UsingOnClickInXml" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bck_botao"
+        android:onClick="cadastrar"
+        android:text="Cadastre-se"
+        android:textColor="#FFFFFF"
+        app:strokeColor="#FFFFFF"
+        tools:ignore="UsingOnClickInXml" />
+
+</LinearLayout>
