@@ -2,11 +2,13 @@ package com.example.motora;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -16,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,11 +46,13 @@ public class CadastroActivity extends AppCompatActivity {
     Usuario usuario;
     FirebaseAuth autenticacao;
     EditText campoNome, campoEmail, campoSenha, campoConfSenha;
+    TextView tvTemConta, tvNome, tvEmail, tvSenha, tvConfSenha;
     DAOUsuario dao;
     FirebaseFirestore db;
     String nome, email, senha, confSenha;
     String[] papel = {"Professor", "Aluno"};
     String escolha = "";
+    LinearLayout llPrincipal;
     TextInputLayout textInputLayoutPapel;
     AutoCompleteTextView autoCompleteTextViewPapel;
     ArrayAdapter<String> adapterItemsPapel;
@@ -77,12 +82,20 @@ public class CadastroActivity extends AppCompatActivity {
         campoSenha = findViewById(R.id.editTextSenha);
         campoConfSenha = findViewById(R.id.editTextConfirmarSenha);
 
+        llPrincipal = findViewById(R.id.linearLayoutPrincipal);
+        tvTemConta = findViewById(R.id.textViewTemConta);
+        tvNome = findViewById(R.id.textViewNome);
+        tvEmail = findViewById(R.id.textViewEmail);
+        tvSenha = findViewById(R.id.textViewSenha);
+        tvConfSenha = findViewById(R.id.textViewConfSenha);
+
         textInputLayoutPapel = findViewById(R.id.textInputLayoutPapel);
 
         autoCompleteTextViewPapel = findViewById(R.id.auto_complete_text);
         adapterItemsPapel = new ArrayAdapter<>(this, R.layout.list_item_layout, papel);
 
         autoCompleteTextViewPapel.setAdapter(adapterItemsPapel);
+        //autoCompleteTextViewPapel.setDropDownVerticalOffset(0);
 
         textInputLayoutPapel.setHintEnabled(false);
 
@@ -92,9 +105,58 @@ public class CadastroActivity extends AppCompatActivity {
                 //textInputLayoutPapel.setHintEnabled(false);
                 String item = adapterView.getItemAtPosition(i).toString();
                 escolha = item;
+                if ("Professor".equals(item)) {
+                    llPrincipal.setBackgroundColor(Color.BLACK);
+                    tvTemConta.setTextAppearance(R.style.EstiloProfessor);
+                    tvNome.setTextAppearance(R.style.EstiloProfessor);
+                    campoNome.setTextAppearance(R.style.EstiloProfessor);
+                    tvEmail.setTextAppearance(R.style.EstiloProfessor);
+                    campoEmail.setTextAppearance(R.style.EstiloProfessor);
+                    tvSenha.setTextAppearance(R.style.EstiloProfessor);
+                    campoSenha.setTextAppearance(R.style.EstiloProfessor);
+                    tvConfSenha.setTextAppearance(R.style.EstiloProfessor);
+                    campoConfSenha.setTextAppearance(R.style.EstiloProfessor);
+                    //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleWhite);
+                    autoCompleteTextViewPapel.setTextAppearance(R.style.EstiloProfessor);
+
+                    mudarLayoutPapel(item);
+                    //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleWhite);
+
+                    textInputLayoutPapel.setEndIconTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                } else if ("Aluno".equals(item)) {
+                    llPrincipal.setBackgroundColor(Color.WHITE);
+                    tvTemConta.setTextAppearance(R.style.EstiloNormal);
+                    tvNome.setTextAppearance(R.style.EstiloAluno);
+                    campoNome.setTextAppearance(R.style.EstiloAluno);
+                    tvEmail.setTextAppearance(R.style.EstiloAluno);
+                    campoEmail.setTextAppearance(R.style.EstiloAluno);
+                    tvSenha.setTextAppearance(R.style.EstiloAluno);
+                    campoSenha.setTextAppearance(R.style.EstiloAluno);
+                    tvConfSenha.setTextAppearance(R.style.EstiloAluno);
+                    campoConfSenha.setTextAppearance(R.style.EstiloAluno);
+                    //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleBlack);
+                    autoCompleteTextViewPapel.setTextAppearance(R.style.EstiloAluno);
+
+                    mudarLayoutPapel(item);
+                    //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleBlack);
+
+                    textInputLayoutPapel.setEndIconTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
+                }
                 Toast.makeText(CadastroActivity.this, "Opção escolhida: "+item, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void mudarLayoutPapel(String item){
+        if ("Aluno".equals(item)) {
+            adapterItemsPapel = new ArrayAdapter<>(this, R.layout.list_item_layout_black, papel);
+            autoCompleteTextViewPapel.setAdapter(adapterItemsPapel);
+            autoCompleteTextViewPapel.setDropDownBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.custom_dropdown_background_black));
+        } else if ("Professor".equals(item)) {
+            adapterItemsPapel = new ArrayAdapter<>(this, R.layout.list_item_layout, papel);
+            autoCompleteTextViewPapel.setAdapter(adapterItemsPapel);
+            autoCompleteTextViewPapel.setDropDownBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.custom_dropdown_background_white));
+        }
     }
 
     public void validarCampos(View v){

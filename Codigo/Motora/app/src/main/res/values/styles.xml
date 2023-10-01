@@ -2,5 +2,21 @@
 <resources>
 
     <!--<style name="AppTheme"></style>-->
+    <style name="EstiloNormal">
+        <item name="android:textColor">#545F71</item>
+    </style>
 
+    <style name="EstiloAluno">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">#9BA5B7</item>
+        <item name="android:popupBackground">@drawable/border_black_auto_complete_text_black</item>
+    </style>
+
+    <style name="EstiloProfessor">
+        <item name="android:background">@android:color/black</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">#9BA5B7</item>
+        <item name="android:popupBackground">@drawable/border_black_auto_complete_text_white</item>
+    </style>
 </resources>
