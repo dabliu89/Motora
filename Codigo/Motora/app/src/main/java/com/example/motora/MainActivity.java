@@ -1,6 +1,8 @@
 package com.example.motora;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -12,9 +14,16 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.motora.databinding.ActivityMainBinding;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.example.motora.Util.ConfiguraBD;
+
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,16 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        auth = ConfiguraBD.FirebaseAutenticacao();
     }
 
+    public void deslogar(View v){
+        try{
+            auth.signOut();
+            finish();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

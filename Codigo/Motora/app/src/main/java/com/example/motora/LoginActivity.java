@@ -20,6 +20,13 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
+import android.graphics.Paint;
+import android.widget.TextView;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,6 +39,17 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        TextView textView = findViewById(R.id.textViewFazerCadastro);
+        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        SpannableString spannableString = new SpannableString(textView.getText());
+        int corSublinhado = Color.parseColor("#5D9C76");
+        ForegroundColorSpan corSpan = new ForegroundColorSpan(corSublinhado);
+        spannableString.setSpan(corSpan, 0, textView.getText().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        textView.setText(spannableString);
+
 
         auth = ConfiguraBD.FirebaseAutenticacao();
         inicializarComponentes();
@@ -107,6 +125,11 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void recuperarSenha(View v){
+        Intent intent = new Intent(this, RecuperarSenhaActivity.class);
+        startActivity(intent);
+    }
+
     protected void onStart(){
         super.onStart();
         FirebaseUser usuarioAuth = auth.getCurrentUser();
@@ -116,9 +139,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void inicializarComponentes(){
-        campoEmail = findViewById(R.id.editTextE_mailLogin);
+        campoEmail = findViewById(R.id.editTextE_mailRecuperarSenha);
         campoSenha = findViewById(R.id.editTextSenhaLogin);
-        botaoAcessar = findViewById(R.id.buttonAcessar);
+        botaoAcessar = findViewById(R.id.buttonRecuperarSenha);
     }
 
 }
