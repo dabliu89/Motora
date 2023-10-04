@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -81,6 +82,8 @@ public class PerfilFragment extends Fragment {
     TextView campoNomeProfile;
     TextInputEditText campoNome, campoEmail, campoSenha;
     ImageView photo;
+
+    Button atualizarDados, atualizarSenha, apagarConta;
     Uri imageUri;
 
     static boolean valido;
@@ -107,6 +110,10 @@ public class PerfilFragment extends Fragment {
         campoEmail = binding.editTextEmail;
         campoSenha = binding.editTextSenha;
 
+        atualizarDados = binding.buttonAtualizarDados;
+        atualizarSenha = binding.buttonAtualizarSenha;
+        apagarConta = binding.buttonApagarConta;
+
         getUserData();
 
         photo.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +121,30 @@ public class PerfilFragment extends Fragment {
             public void onClick(View view) {
                 // Seu código para tratar o clique na ImageView aqui
                 mudarFoto();
+            }
+        });
+
+        atualizarDados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Seu código para tratar o clique na ImageView aqui
+                update();
+            }
+        });
+
+        atualizarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Seu código para tratar o clique na ImageView aqui
+                updateSenha();
+            }
+        });
+
+        apagarConta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Seu código para tratar o clique na ImageView aqui
+                delete();
             }
         });
 
@@ -380,7 +411,7 @@ public class PerfilFragment extends Fragment {
         return rotate;
     }
 
-    public void update(View v) {
+    public void update() {
         nome = Objects.requireNonNull(campoNome.getText()).toString();
         emailU = Objects.requireNonNull(campoEmail.getText()).toString();
 
@@ -423,7 +454,7 @@ public class PerfilFragment extends Fragment {
         });
     }
 
-    public void updateSenha(View view) {
+    public void updateSenha() {
         senhaU = Objects.requireNonNull(campoSenha.getText()).toString();
 
         Toast.makeText(getContext(), "Senha: " + senhaU, Toast.LENGTH_SHORT).show();
@@ -461,7 +492,7 @@ public class PerfilFragment extends Fragment {
                 });
     }
 
-    public void delete(View v) {
+    public void delete() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setTitle("Tem certeza de que deseja excluir sua conta?");

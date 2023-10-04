@@ -19,4 +19,8 @@
         <item name="android:textColorHint">#9BA5B7</item>
         <item name="android:popupBackground">@drawable/border_black_auto_complete_text_white</item>
     </style>
+
+    <style name="BottomNavigationView">
+        <item name="android:background">@android:color/white</item>
+    </style>
 </resources>

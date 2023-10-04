@@ -93,10 +93,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/buttonAtualizarDados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FF0000"
-                android:onClick="update"
                 android:text="Atualizar dados"
                 android:textColor="#fff"
                 android:textColorHint="#F6F0F2"
@@ -124,22 +124,22 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/buttonAtualizarSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FF0000"
-                android:onClick="updateSenha"
                 android:text="Atualizar senha"
                 android:textColor="#fff"
                 android:textColorHint="#F6F0F2"
                 tools:ignore="TextContrastCheck,UsingOnClickInXml" />
 
             <Button
+                android:id="@+id/buttonApagarConta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:backgroundTint="#FF0000"
-                android:onClick="delete"
                 android:text="Apagar conta"
                 android:textColor="#fff"
                 android:textColorHint="#F6F0F2"
