@@ -1,22 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.perfil.PerfilFragment">
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".UserProfileActivity">
 
-    <TextView
-        android:id="@+id/textPerfil"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="todoProfile"
+                android:onClick="voltarUserProfile"
+                android:padding="15dp"
+                android:src="@drawable/baseline_arrow_back_24"
+                tools:ignore="UsingOnClickInXml,DuplicateSpeakableTextCheck" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="#FF0000"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/image_profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="todoProfile2"
+                android:scaleType="fitXY"
+                android:src="@drawable/baseline_image_24" />
+
+            <TextView
+                android:id="@+id/textView_NomeProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/image_profile"
+                android:includeFontPadding="false"
+                android:text="Nome do usuário"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="Nome"
+                android:textColorHint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/baseline_person_24"
+                    android:drawablePadding="10dp"
+                    android:inputType="textPersonName"
+                    android:maxLength="40"
+                    android:text="Nome"
+                    android:textColor="@color/black"
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="E-mail"
+                android:textColorHint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/baseline_email_24"
+                    android:drawablePadding="10dp"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="35"
+                    android:text="E-mail"
+                    android:textColor="@color/black"
+                    tools:ignore="TextContrastCheck,TextContrastCheck,TouchTargetSizeCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF0000"
+                android:onClick="update"
+                android:text="Atualizar dados"
+                android:textColor="#fff"
+                android:textColorHint="#F6F0F2"
+                tools:ignore="TextContrastCheck,UsingOnClickInXml" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Senha"
+                android:textColorHint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextSenha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/baseline_key_24"
+                    android:drawablePadding="10dp"
+                    android:inputType="number|numberPassword"
+                    android:maxLength="16"
+                    android:text="Senha"
+                    android:textColor="@color/black"
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF0000"
+                android:onClick="updateSenha"
+                android:text="Atualizar senha"
+                android:textColor="#fff"
+                android:textColorHint="#F6F0F2"
+                tools:ignore="TextContrastCheck,UsingOnClickInXml" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:backgroundTint="#FF0000"
+                android:onClick="delete"
+                android:text="Apagar conta"
+                android:textColor="#fff"
+                android:textColorHint="#F6F0F2"
+                tools:ignore="TextContrastCheck,UsingOnClickInXml" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
