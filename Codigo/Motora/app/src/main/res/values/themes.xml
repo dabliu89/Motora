@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Motora" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Motora" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -16,9 +16,14 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Motora.NoActionBar">
+    <style name="Theme.Motora.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="TextAppearanceEditText" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="colorAccent">@color/black</item>
+        <item name="android:colorAccent">@color/black</item>
     </style>
 
 </resources>

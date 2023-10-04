@@ -52,6 +52,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.2.2'
 
     implementation 'com.squareup:android-times-square:1.7.7@aar'
+
+
 }
 
 configurations.implementation {

@@ -1,22 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context="ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/textHome"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textHome"
+            />
+
+        <TextView
+            android:id="@+id/textNovaAvaliacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Nova Avaliação"
+            android:textColor="#5D9C76"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textTipoAvaliacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="5dp"
+        android:text="Tipo de Avaliação:"
+        android:textColor="#545961" />
+
+        <Spinner
+            android:id="@+id/tipoAvaliacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:drawablePadding="6dp"
+            android:ems="10"
+            android:hint="username@gmail.com"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="#9BA5B7"
+            tools:ignore="TextContrastCheck"
+            android:dropDownSelector="@drawable/baseline_arrow_drop_down_24"
+            android:spinnerMode="dropdown"
+            />
+
+
+        <TextView
+            android:id="@+id/textAvaliacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="Avaliação:"
+            android:textColor="#545961" />
+
+        <Spinner
+            android:id="@+id/avaliacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:drawablePadding="6dp"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:hint="username@gmail.com"
+            android:inputType="none"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="#9BA5B7"
+            tools:ignore="TextContrastCheck"
+            android:dropDownSelector="@drawable/baseline_arrow_drop_down_24"
+            android:spinnerMode="dropdown"
+            />
+
+        <TextView
+            android:id="@+id/textAluno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="Aluno:"
+            android:textColor="#545961" />
+
+        <Spinner
+            android:id="@+id/aluno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:drawablePadding="6dp"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:hint="username@gmail.com"
+            android:inputType="none"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="#9BA5B7"
+            tools:ignore="TextContrastCheck"
+            android:dropDownSelector="@drawable/baseline_arrow_drop_down_24"
+            android:spinnerMode="dropdown"
+            />
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:id="@+id/buttonIrParaForm"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#5D9C76"
+            android:gravity="center"
+            android:text="Proximo"
+            android:textColor="#FFFFFF"
+            android:textSize="13dp"
+            tools:ignore="UsingOnClickInXml" />
+
+    </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
