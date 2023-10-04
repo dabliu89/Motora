@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".UserProfileActivity">
 
@@ -14,23 +13,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="todoProfile"
-                android:onClick="voltarUserProfile"
-                android:padding="15dp"
-                android:src="@drawable/baseline_arrow_back_24"
-                tools:ignore="UsingOnClickInXml,DuplicateSpeakableTextCheck" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:background="#FF0000"
             android:padding="20dp">
 
             <ImageView
@@ -52,7 +39,7 @@
                 android:layout_toEndOf="@+id/image_profile"
                 android:includeFontPadding="false"
                 android:text="Nome do usuário"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
         </RelativeLayout>
