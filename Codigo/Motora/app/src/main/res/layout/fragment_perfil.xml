@@ -95,7 +95,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FF0000"
+                android:backgroundTint="#5D9C76"
                 android:onClick="update"
                 android:text="Atualizar dados"
                 android:textColor="#fff"
@@ -126,7 +126,8 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FF0000"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#5D9C76"
                 android:onClick="updateSenha"
                 android:text="Atualizar senha"
                 android:textColor="#fff"
@@ -138,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="#FF0000"
                 android:onClick="delete"
                 android:text="Apagar conta"
