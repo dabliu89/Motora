@@ -4,16 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
+<<<<<<< HEAD
     android:layout_height="match_parent">
+=======
+    android:layout_height="match_parent"
+    style="@style/Theme.Motora.NoActionBar"
+    android:background="#FFFFFF">
+>>>>>>> main
 
     <LinearLayout
+        android:id="@+id/linearLayoutBotaoVoltar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView_back_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:contentDescription="Logout"
             android:onClick="deslogar"
             android:padding="15dp"
@@ -28,10 +39,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:itemTextColor="@color/icons_color"
+        app:itemIconTint="@color/icons_color"
+        app:itemRippleColor="@color/gray"
         app:menu="@menu/bottom_nav_menu" />
 
     <fragment
@@ -39,6 +53,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:theme="@style/FragmentNoActionBar"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintLeft_toLeftOf="parent"

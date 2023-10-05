@@ -16,7 +16,7 @@
             android:id="@+id/imageView_back_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:contentDescription="Logout"
             android:onClick="voltarRecuperarSenha"
@@ -39,7 +39,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center"
             android:text="Recuperar Senha"
             android:textColor="#5D9C76"
@@ -66,7 +66,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="128dp"
+            android:layout_marginTop="40dp"
             android:text="E-mail:"
             android:textColor="#545961" />
 
@@ -74,7 +74,6 @@
             android:id="@+id/editTextE_mailRecuperarSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="250dp"
             android:background="@drawable/border_black"
             android:drawablePadding="6dp"
             android:ems="10"
@@ -87,6 +86,14 @@
             android:textColorHint="#9BA5B7"
             tools:ignore="TextContrastCheck" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="35dp"
+        android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -95,9 +102,9 @@
                 android:id="@+id/progressBar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:visibility="invisible"
-                android:layout_centerInParent="true"/>
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/buttonRecuperarSenha"
@@ -114,7 +121,6 @@
                 tools:ignore="UsingOnClickInXml" />
 
         </RelativeLayout>
-
     </LinearLayout>
 
 </LinearLayout>

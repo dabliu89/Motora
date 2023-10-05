@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +21,8 @@ public class AvaliacoesFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         AvaliacoesViewModel avaliacoesViewModel =
                 new ViewModelProvider(this).get(AvaliacoesViewModel.class);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         binding = FragmentAvaliacoesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
