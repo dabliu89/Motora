@@ -34,14 +34,14 @@
             android:textSize="32sp"
             android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textTipoAvaliacao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="5dp"
-        android:text="Tipo de Avaliação:"
-        android:textColor="#545961" />
+        <TextView
+            android:id="@+id/textTipoAvaliacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="5dp"
+            android:text="Tipo de Avaliação:"
+            android:textColor="#545961" />
 
         <Spinner
             android:id="@+id/tipoAvaliacao"
@@ -121,33 +121,33 @@
 
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:layout_centerInParent="true"/>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:layout_centerInParent="true"/>
 
-        <Button
-            android:id="@+id/buttonIrParaForm"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="#5D9C76"
-            android:gravity="center"
-            android:text="Proximo"
-            android:textColor="#FFFFFF"
-            android:textSize="13dp"
-            tools:ignore="UsingOnClickInXml" />
+            <Button
+                android:id="@+id/buttonIrParaForm"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="#5D9C76"
+                android:gravity="center"
+                android:text="Proximo"
+                android:textColor="#FFFFFF"
+                android:textSize="13dp"
+                tools:ignore="UsingOnClickInXml" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

@@ -4,7 +4,7 @@ public class Aluno  extends Usuario{
 
     private static int CONTADOR = 0;
 
-    private String uid;
+    private String id;
     private String nome;
     private String email;
     private String senha;
@@ -13,18 +13,18 @@ public class Aluno  extends Usuario{
     public Aluno(){}
 
     public Aluno(String id, String nome, String senha) {
-        this.uid = id;
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
     }
 
     public String getUid() {
-        return uid;
+        return id;
     }
 
     public void setUid(String id) {
-        this.uid = uid;
+        this.id = id;
     }
 
     public String getNome() {
@@ -52,9 +52,12 @@ public class Aluno  extends Usuario{
     }
 
     @Override
-    public String toString() {
+    public String toString(){
+        return nome;
+    }
+    public String toStringAll() {
         return "Aluno{" +
-                "id=" + uid +
+                "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
