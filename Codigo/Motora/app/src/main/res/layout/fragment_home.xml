@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_gravity="center"
     android:background="#FFFFFF"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context="ui.home.HomeFragment">
 
 
@@ -13,16 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
+        android:gravity="center_horizontal|center_vertical"
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:id="@+id/textHome"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/textNovaAvaliacao"
@@ -49,18 +50,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:drawablePadding="6dp"
+            android:dropDownSelector="@drawable/baseline_arrow_drop_down_24"
             android:ems="10"
             android:hint="username@gmail.com"
             android:importantForAutofill="no"
             android:inputType="none"
             android:minHeight="48dp"
             android:padding="10dp"
+            android:spinnerMode="dropdown"
             android:textColor="@color/black"
             android:textColorHint="#9BA5B7"
-            tools:ignore="TextContrastCheck"
-            android:dropDownSelector="@drawable/baseline_arrow_drop_down_24"
-            android:spinnerMode="dropdown"
-            />
+            tools:ignore="TextContrastCheck" />
 
 
         <TextView
@@ -78,18 +78,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:drawablePadding="6dp"
+            android:dropDownSelector="@drawable/baseline_arrow_drop_down_24"
             android:ems="10"
-            android:importantForAutofill="no"
             android:hint="username@gmail.com"
+            android:importantForAutofill="no"
             android:inputType="none"
             android:minHeight="48dp"
             android:padding="10dp"
+            android:spinnerMode="dropdown"
             android:textColor="@color/black"
             android:textColorHint="#9BA5B7"
-            tools:ignore="TextContrastCheck"
-            android:dropDownSelector="@drawable/baseline_arrow_drop_down_24"
-            android:spinnerMode="dropdown"
-            />
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/textAluno"
@@ -106,19 +105,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:drawablePadding="6dp"
+            android:dropDownSelector="@drawable/baseline_arrow_drop_down_24"
             android:ems="10"
-            android:importantForAutofill="no"
             android:hint="username@gmail.com"
+            android:importantForAutofill="no"
             android:inputType="none"
             android:minHeight="48dp"
             android:padding="10dp"
+            android:spinnerMode="dropdown"
             android:textColor="@color/black"
             android:textColorHint="#9BA5B7"
-            tools:ignore="TextContrastCheck"
-            android:dropDownSelector="@drawable/baseline_arrow_drop_down_24"
-            android:spinnerMode="dropdown"
-            />
-
+            tools:ignore="TextContrastCheck" />
 
 
         <RelativeLayout
@@ -129,9 +126,9 @@
                 android:id="@+id/progressBar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:visibility="invisible"
-                android:layout_centerInParent="true"/>
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/buttonIrParaForm"
@@ -151,4 +148,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

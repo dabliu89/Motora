@@ -38,9 +38,9 @@
         <activity
             android:name=".TesteActivity"
             android:exported="false" />
-        <activity
+        <!--<activity
             android:name=".TestActivity"
-            android:exported="false" />
+            android:exported="false" />-->
         <activity
             android:name=".RecuperarSenhaActivity"
             android:exported="false"
