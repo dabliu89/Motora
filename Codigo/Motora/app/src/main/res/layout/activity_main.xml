@@ -11,9 +11,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutBotaoVoltar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/imageView_back_arrow"
