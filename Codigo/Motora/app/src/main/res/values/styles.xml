@@ -23,4 +23,9 @@
     <style name="BottomNavigationView">
         <item name="android:background">@android:color/white</item>
     </style>
+
+    <style name="FragmentNoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

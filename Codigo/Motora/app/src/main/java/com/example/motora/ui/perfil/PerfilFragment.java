@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -98,6 +99,8 @@ public class PerfilFragment extends Fragment {
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         //final TextView textView = binding.textPerfil;
         //perfilViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
@@ -119,7 +122,6 @@ public class PerfilFragment extends Fragment {
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Seu código para tratar o clique na ImageView aqui
                 mudarFoto();
             }
         });
@@ -127,7 +129,6 @@ public class PerfilFragment extends Fragment {
         atualizarDados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Seu código para tratar o clique na ImageView aqui
                 update();
             }
         });
@@ -135,7 +136,6 @@ public class PerfilFragment extends Fragment {
         atualizarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Seu código para tratar o clique na ImageView aqui
                 updateSenha();
             }
         });
@@ -143,7 +143,6 @@ public class PerfilFragment extends Fragment {
         apagarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Seu código para tratar o clique na ImageView aqui
                 delete();
             }
         });
@@ -309,72 +308,76 @@ public class PerfilFragment extends Fragment {
 
         storageReference = FirebaseStorage.getInstance().getReference("Usuario/" + key + ".jpg");
 
-        Log.d(String.valueOf(getActivity()), "Data: " + data.getData());
+        if (data != null) {
+            Log.d(String.valueOf(getActivity()), "Data: " + data.getData());
 
-        if (resultCode != Activity.RESULT_CANCELED) {
-            switch (requestCode) {
-                case 0:
-                    if (resultCode == Activity.RESULT_OK && data != null) {
-                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+            if (resultCode != Activity.RESULT_CANCELED) {
+                if (data != null) {
+                    switch (requestCode) {
+                        case 0:
+                            if (resultCode == Activity.RESULT_OK && data != null) {
+                                Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
 
-                        Matrix mat = new Matrix();
-                        mat.postRotate(0);
+                                Matrix mat = new Matrix();
+                                mat.postRotate(0);
 
-                        Bitmap selectedImageRotate = Bitmap.createBitmap(selectedImage, 0, 0, selectedImage.getWidth(), selectedImage.getHeight(), mat, true);
+                                Bitmap selectedImageRotate = Bitmap.createBitmap(selectedImage, 0, 0, selectedImage.getWidth(), selectedImage.getHeight(), mat, true);
 
-                        photo.setImageBitmap(selectedImageRotate);
+                                photo.setImageBitmap(selectedImageRotate);
 
-                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                        selectedImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-                        byte bb[] = bytes.toByteArray();
+                                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                                selectedImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                                byte bb[] = bytes.toByteArray();
 
-                        storageReference.putBytes(bb).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Toast.makeText(getContext(), "Imagem de perfil salva com sucesso", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getContext(), "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                    break;
-                case 1:
-                    if (resultCode == Activity.RESULT_OK && data != null) {
-                        Uri selectedImage = data.getData();
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        if (selectedImage != null) {
-                            Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                            if (cursor != null) {
-
-                                cursor.moveToFirst();
-                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                                String picturePath = cursor.getString(columnIndex);
-
-                                photo.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                photo.setRotation(getCameraPhotoOrientation(picturePath));
-
-                                imageUri = data.getData();
-
-                                storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                storageReference.putBytes(bb).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                        Toast.makeText(getContext(), "Image salva no banco com sucesso", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Imagem de perfil salva com sucesso", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getContext(), "Falha em salvar imagem no banco", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 });
-
-                                cursor.close();
                             }
-                        }
+                            break;
+                        case 1:
+                            if (resultCode == Activity.RESULT_OK && data != null) {
+                                Uri selectedImage = data.getData();
+                                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                                if (selectedImage != null) {
+                                    Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                                    if (cursor != null) {
+
+                                        cursor.moveToFirst();
+                                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                        String picturePath = cursor.getString(columnIndex);
+
+                                        photo.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                        photo.setRotation(getCameraPhotoOrientation(picturePath));
+
+                                        imageUri = data.getData();
+
+                                        storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                Toast.makeText(getContext(), "Image salva no banco com sucesso", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(getContext(), "Falha em salvar imagem no banco", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+                                        cursor.close();
+                                    }
+                                }
+                            }
+                            break;
                     }
-                    break;
+                }
             }
         }
     }
