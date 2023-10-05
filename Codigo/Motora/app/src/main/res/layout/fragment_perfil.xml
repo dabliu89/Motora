@@ -27,6 +27,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="todoProfile2"
                 android:scaleType="fitXY"
+                android:background="@drawable/imagem_redonda"
                 android:src="@drawable/baseline_image_24" />
 
             <TextView

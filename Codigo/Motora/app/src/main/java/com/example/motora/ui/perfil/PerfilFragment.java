@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -90,6 +92,8 @@ public class PerfilFragment extends Fragment {
     static boolean valido;
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
+
+    private OnAccountDeletedListener accountDeletedListener;
 
     private FragmentPerfilBinding binding;
     @Override
@@ -205,7 +209,13 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                photo.setImageBitmap(bitmap);
+
+                RoundedBitmapDrawable roundedDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                roundedDrawable.setCircular(true);
+                photo.setBackground(roundedDrawable); // Define a forma redonda como plano de fundo
+                photo.setImageDrawable(roundedDrawable);
+
+                //photo.setImageBitmap(bitmap);
                 photo.setRotation(getCameraPhotoOrientation(localFile.getAbsolutePath()));
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -495,6 +505,20 @@ public class PerfilFragment extends Fragment {
                 });
     }
 
+    public interface OnAccountDeletedListener {
+        void onAccountDeleted();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            accountDeletedListener = (OnAccountDeletedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " deve implementar OnAccountDeletedListener");
+        }
+    }
+
     public void delete() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -549,12 +573,7 @@ public class PerfilFragment extends Fragment {
 
                                             // Você pode adicionar código aqui para navegar para outra tela ou fazer outra ação após a exclusão da conta
 
-                                            Intent intent = new Intent(getContext(), LoginActivity.class);
-                                            startActivity(intent);
-
-                                            // Certifique-se de atualizar a UI conforme necessário
-
-                                            getActivity().finish();
+                                            accountDeletedListener.onAccountDeleted();
                                         } else {
                                             Log.d(TAG, "Erro em deletar");
                                         }

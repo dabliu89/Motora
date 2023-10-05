@@ -7,10 +7,10 @@
     android:background="@color/white"
     android:gravity="center_vertical"
     android:orientation="vertical"
+    android:id="@+id/linearLayoutPrincipal"
     tools:context=".CadastroActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayoutPrincipal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
