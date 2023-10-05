@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,6 +22,8 @@ public class ReportFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         ReportViewModel reportViewModel =
                 new ViewModelProvider(this).get(ReportViewModel.class);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         binding = FragmentReportBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

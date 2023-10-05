@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".UserProfileActivity">
+    tools:context=".ui.perfil.PerfilFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:padding="20dp">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/image_profile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerVertical="true"
+                android:layout_marginTop="15dp"
                 android:adjustViewBounds="true"
+                android:background="@drawable/imagem_redonda"
                 android:contentDescription="todoProfile2"
                 android:scaleType="fitXY"
                 android:src="@drawable/baseline_image_24" />
@@ -35,14 +37,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_toEndOf="@+id/image_profile"
                 android:includeFontPadding="false"
                 android:text="Nome do usuário"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,8 +53,9 @@
             android:padding="16dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
                 android:hint="Nome"
                 android:textColorHint="@color/black">
@@ -61,6 +64,7 @@
                     android:id="@+id/editTextNome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
                     android:drawableStart="@drawable/baseline_person_24"
                     android:drawablePadding="10dp"
                     android:inputType="textPersonName"
@@ -72,8 +76,9 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
                 android:hint="E-mail"
                 android:textColorHint="@color/black">
@@ -82,6 +87,8 @@
                     android:id="@+id/editTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFFFFF"
                     android:drawableStart="@drawable/baseline_email_24"
                     android:drawablePadding="10dp"
                     android:inputType="textEmailAddress"
@@ -93,18 +100,21 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:layout_width="match_parent"
+                android:id="@+id/buttonAtualizarDados"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FF0000"
-                android:onClick="update"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/verde_base_da_aplicacao"
                 android:text="Atualizar dados"
                 android:textColor="#fff"
                 android:textColorHint="#F6F0F2"
                 tools:ignore="TextContrastCheck,UsingOnClickInXml" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:hint="Senha"
                 android:textColorHint="@color/black">
@@ -113,6 +123,8 @@
                     android:id="@+id/editTextSenha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="#FFFFFF"
                     android:drawableStart="@drawable/baseline_key_24"
                     android:drawablePadding="10dp"
                     android:inputType="number|numberPassword"
@@ -124,22 +136,24 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:layout_width="match_parent"
+                android:id="@+id/buttonAtualizarSenha"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FF0000"
-                android:onClick="updateSenha"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/verde_base_da_aplicacao"
                 android:text="Atualizar senha"
                 android:textColor="#fff"
                 android:textColorHint="#F6F0F2"
                 tools:ignore="TextContrastCheck,UsingOnClickInXml" />
 
             <Button
-                android:layout_width="match_parent"
+                android:id="@+id/buttonApagarConta"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:backgroundTint="#FF0000"
-                android:onClick="delete"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#E10000"
                 android:text="Apagar conta"
                 android:textColor="#fff"
                 android:textColorHint="#F6F0F2"
@@ -148,4 +162,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</ScrollView>
+</LinearLayout>

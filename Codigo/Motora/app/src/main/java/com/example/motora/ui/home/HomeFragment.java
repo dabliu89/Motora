@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +21,8 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

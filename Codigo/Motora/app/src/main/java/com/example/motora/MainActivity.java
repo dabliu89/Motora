@@ -4,6 +4,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.motora.ui.perfil.PerfilFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import com.example.motora.Util.ConfiguraBD;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PerfilFragment.OnAccountDeletedListener{
 
     private ActivityMainBinding binding;
 
@@ -52,5 +53,11 @@ public class MainActivity extends AppCompatActivity {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onAccountDeleted() {
+        // Feche o fragmento de perfil
+        finish();
     }
 }

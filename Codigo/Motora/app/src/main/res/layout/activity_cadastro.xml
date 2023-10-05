@@ -7,12 +7,12 @@
     android:background="@color/white"
     android:gravity="center_vertical"
     android:orientation="vertical"
+    android:id="@+id/linearLayoutPrincipal"
     tools:context=".CadastroActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayoutPrincipal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -78,8 +78,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/border_black"
-                android:popupBackground="@drawable/border_black_auto_complete_text_white"
                 android:inputType="none"
+                android:popupBackground="@drawable/border_black_auto_complete_text_white"
                 android:textColor="@color/black"
                 android:textColorHint="#9BA5B7" />
 
@@ -196,7 +196,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="15dp"
             android:background="@drawable/border_black"
             android:drawablePadding="6dp"
             android:ems="10"
@@ -210,26 +209,26 @@
             android:textColorHint="#9BA5B7"
             tools:ignore="TextContrastCheck" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="16dp"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#5D9C76"
             android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#5D9C76"
-                android:onClick="validarCampos"
-                android:text="Criar"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                tools:ignore="UsingOnClickInXml" />
-        </LinearLayout>
-
+            android:onClick="validarCampos"
+            android:text="Criar"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            tools:ignore="UsingOnClickInXml" />
     </LinearLayout>
 
 </LinearLayout>
