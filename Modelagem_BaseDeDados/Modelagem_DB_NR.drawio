@@ -1,0 +1,85 @@
+<mxfile host="app.diagrams.net" modified="2023-10-05T04:55:43.363Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/118.0" etag="MhUKpxAyjn61257a533d" version="22.0.2" type="device">
+  <diagram name="Página-1" id="yOr5-BuIXVbPf5_vgIRl">
+    <mxGraphModel dx="1434" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="KV1F_hGCFA-UtIInbaun-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Lucida Console;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="720" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="120" width="200" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-3" value="User Collection" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="80" y="100" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-4" value="&lt;b&gt;Tipos Testes Collection&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="560" y="100" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-5" value="Avaliacoes Collection" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="320" y="100" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-6" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="152" y="150" width="56" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-7" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="152" y="240" width="56" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-8" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="152" y="330" width="56" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-9" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="120" width="200" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-10" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="632" y="150" width="56" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-11" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="632" y="240" width="56" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-12" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="632" y="330" width="56" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-13" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="120" width="200" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-14" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=56;exitDy=30;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=default;fontFamily=Lucida Console;endArrow=none;endFill=0;" edge="1" parent="1" source="KV1F_hGCFA-UtIInbaun-15" target="KV1F_hGCFA-UtIInbaun-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-15" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="392" y="150" width="56" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-16" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=56;exitDy=30;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=default;fontFamily=Lucida Console;endArrow=none;endFill=0;" edge="1" parent="1" source="KV1F_hGCFA-UtIInbaun-17" target="KV1F_hGCFA-UtIInbaun-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-17" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="392" y="240" width="56" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-18" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=56;exitDy=30;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=default;fontFamily=Lucida Console;endArrow=none;endFill=0;" edge="1" parent="1" source="KV1F_hGCFA-UtIInbaun-19" target="KV1F_hGCFA-UtIInbaun-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-19" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fontFamily=Tahoma;" vertex="1" parent="1">
+          <mxGeometry x="392" y="330" width="56" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-20" value="nome : string&lt;div&gt;...avaliacaoData&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Lucida Console;" vertex="1" parent="1">
+          <mxGeometry x="320" y="440" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-21" value="&lt;div&gt;email : string&lt;/div&gt;&lt;div&gt;id : string&lt;/div&gt;&lt;div&gt;nome : string&lt;/div&gt;&lt;div&gt;papel : string&lt;/div&gt;&lt;div&gt;senha : string&lt;/div&gt;&lt;div&gt;...userData&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Lucida Console;" vertex="1" parent="1">
+          <mxGeometry x="80" y="440" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-22" value="&lt;div&gt;nome : string&lt;/div&gt;&lt;div&gt;...tiposTestesData&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Lucida Console;" vertex="1" parent="1">
+          <mxGeometry x="560" y="440" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=56;exitDy=50;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;fontFamily=Lucida Console;endArrow=none;endFill=0;strokeColor=default;" edge="1" parent="1" source="KV1F_hGCFA-UtIInbaun-7" target="KV1F_hGCFA-UtIInbaun-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-24" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=56;exitDy=50;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=default;fontFamily=Lucida Console;endArrow=none;endFill=0;" edge="1" parent="1" source="KV1F_hGCFA-UtIInbaun-7" target="KV1F_hGCFA-UtIInbaun-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KV1F_hGCFA-UtIInbaun-25" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=56;exitDy=30;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=default;fontFamily=Lucida Console;endArrow=none;endFill=0;" edge="1" parent="1" source="KV1F_hGCFA-UtIInbaun-8" target="KV1F_hGCFA-UtIInbaun-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
