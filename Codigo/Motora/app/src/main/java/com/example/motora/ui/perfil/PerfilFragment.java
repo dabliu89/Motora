@@ -50,6 +50,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -86,7 +88,7 @@ public class PerfilFragment extends Fragment {
     TextInputEditText campoNome, campoEmail, campoSenha;
     ImageView photo;
 
-    Button atualizarDados, atualizarSenha, apagarConta;
+    Button atualizarDados, apagarConta;
     Uri imageUri;
 
     static boolean valido;
@@ -96,6 +98,8 @@ public class PerfilFragment extends Fragment {
     private OnAccountDeletedListener accountDeletedListener;
 
     private FragmentPerfilBinding binding;
+
+    FirebaseUser user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         PerfilViewModel perfilViewModel = new ViewModelProvider(this).get(PerfilViewModel.class);
@@ -118,10 +122,11 @@ public class PerfilFragment extends Fragment {
         campoSenha = binding.editTextSenha;
 
         atualizarDados = binding.buttonAtualizarDados;
-        atualizarSenha = binding.buttonAtualizarSenha;
         apagarConta = binding.buttonApagarConta;
 
         getUserData();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,14 +138,7 @@ public class PerfilFragment extends Fragment {
         atualizarDados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                update();
-            }
-        });
-
-        atualizarSenha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateSenha();
+                updateEmail();
             }
         });
 
@@ -424,21 +422,39 @@ public class PerfilFragment extends Fragment {
         return rotate;
     }
 
+    private void updateEmail() {
+        emailU = Objects.requireNonNull(campoEmail.getText()).toString();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        Objects.requireNonNull(user).updateEmail(emailU).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), "Email atualizado com sucesso", Toast.LENGTH_SHORT).show();
+                    update();
+                } else {
+                    Toast.makeText(getContext(), "Ocorreu um erro em atualizar o email, faça login novamente e tente de novo.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Task: " + task.getException(), Toast.LENGTH_LONG).show();
+                    Log.d(String.valueOf(getActivity()),"Task: " + task.getException());
+                }
+            }
+        });
+    }
+
     public void update() {
         nome = Objects.requireNonNull(campoNome.getText()).toString();
-        emailU = Objects.requireNonNull(campoEmail.getText()).toString();
 
         if (verEmail()) {
             if (verNome()) {
 
-                updateEmail();
-
                 db.collection("Usuario").document(key)
-                        .update("nome", nome)
+                        .update("nome", nome, "email", emailU)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Toast.makeText(getContext(), "Dados atualizados", Toast.LENGTH_SHORT).show();
+                                updateSenha();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -451,22 +467,6 @@ public class PerfilFragment extends Fragment {
         }
     }
 
-    private void updateEmail() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        user.updateEmail(emailU).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(getContext(), "Email atualizado com sucesso", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "Ocorreu um erro em atualizar o email, faça login novamente e tente de novo.", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(), "Task: " + task.getException(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
     public void updateSenha() {
         senhaU = Objects.requireNonNull(campoSenha.getText()).toString();
 
@@ -474,9 +474,9 @@ public class PerfilFragment extends Fragment {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        user.updatePassword(senhaU).addOnCompleteListener(new OnCompleteListener<Void>() {
+        Objects.requireNonNull(user).updatePassword(senhaU).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(Task<Void> task) {
+            public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
 
                     atualizarSenhaNoBanco();
@@ -528,7 +528,8 @@ public class PerfilFragment extends Fragment {
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
-                apagarConta();
+                apagarContaFirestore();
+                apagarContaAuthentication();
             }
         }).setNegativeButton("Não", new DialogInterface.OnClickListener() {
             @Override
@@ -540,7 +541,7 @@ public class PerfilFragment extends Fragment {
         builder.show();
     }
 
-    private void apagarConta() {
+    private void apagarContaFirestore() {
         db.collection("Usuario").document(key)
                 .delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -554,6 +555,36 @@ public class PerfilFragment extends Fragment {
                         Toast.makeText(getContext(), "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("Usuario")
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .setValue(null)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        FirebaseAuth.getInstance().getCurrentUser().delete()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d(TAG, "Conta deletada com sucesso");
+
+                                            // Você pode adicionar código aqui para navegar para outra tela ou fazer outra ação após a exclusão da conta
+
+                                            accountDeletedListener.onAccountDeleted();
+                                        } else {
+                                            Log.d(TAG, "Erro em deletar");
+                                        }
+                                    }
+                                });
+                    }
+                });
+    }
+
+    private void apagarContaAuthentication() {
 
         FirebaseDatabase
                 .getInstance()

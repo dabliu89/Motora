@@ -24,6 +24,11 @@
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <!-- Google Cloud ACCESS_TOKEN
+    ya29.a0AfB_byCW3LjlH6Ik8oOjt2PuNjnX9ahex0325Ey51DsDj1uR5PBoBTTBkQeK_gc5_KgzTye-TlQsYbUWu5dhR7iFIvJyeVzwXu17oH3ekhMqQtVnjYkUiQC173Dzxcbt9i6-Xro0IXpXse6RweefmsxwBxlZhERTvQsfu8ZIfUVkeVxKih0vZ_JBzSf9Lnu3jf02EKRgI8yNxCwOhp4ghOg6Lovbgf3sA3oMNbavD9YjfArBvFK9v4v3SfHxE8hr_3mO34cDwX2dJlIrUUopNtJBDGjOGLsZKYuDjxx8JkDXCVWYd709Wfa9Tpkxi0somSupGn4Cvlm1EoZIEQFNkQmJEaXW9084wtkQzao0ekx1LzKchAlmQJlTL8i8z798hBNttFwNu1qBhZKwJzwju_m_qc7S9m4aCgYKAXQSARASFQGOcNnCva6yr_TmBJ00K6FIjPhpTA0422
+    PROJECT_ID: motora-6a82c
+    -->
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"

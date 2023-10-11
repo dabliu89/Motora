@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:layout_marginBottom="10dp"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.perfil.PerfilFragment">
@@ -27,9 +29,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="15dp"
                 android:adjustViewBounds="true"
+                android:background="@drawable/imagem_redonda"
                 android:contentDescription="todoProfile2"
                 android:scaleType="fitXY"
-                android:background="@drawable/imagem_redonda"
                 android:src="@drawable/baseline_image_24" />
 
             <TextView
@@ -99,31 +101,20 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/buttonAtualizarDados"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:backgroundTint="@color/verde_base_da_aplicacao"
-                android:text="Atualizar dados"
-                android:textColor="#fff"
-                android:textColorHint="#F6F0F2"
-                tools:ignore="TextContrastCheck,UsingOnClickInXml" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
                 android:hint="Senha"
-                android:textColorHint="@color/black">
+                android:textColorHint="@color/black"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/verde_base_da_aplicacao">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextSenha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:background="#FFFFFF"
                     android:drawableStart="@drawable/baseline_key_24"
                     android:drawablePadding="10dp"
@@ -136,13 +127,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/buttonAtualizarSenha"
+                android:id="@+id/buttonAtualizarDados"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/verde_base_da_aplicacao"
-                android:text="Atualizar senha"
+                android:text="Atualizar dados"
                 android:textColor="#fff"
                 android:textColorHint="#F6F0F2"
                 tools:ignore="TextContrastCheck,UsingOnClickInXml" />
@@ -152,7 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="#E10000"
                 android:text="Apagar conta"
                 android:textColor="#fff"

@@ -158,26 +158,36 @@
             android:text="Senha"
             android:textColor="#545961" />
 
-        <EditText
-            android:id="@+id/editTextSenha"
-            style="?attr/textAppearanceListItemSmall"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/border_black"
-            android:drawablePadding="6dp"
-            android:ems="10"
-            android:hint="XXXXXXXX"
-            android:importantForAutofill="no"
-            android:inputType="numberPassword"
-            android:maxLength="16"
-            android:minHeight="48dp"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="#9BA5B7"
-            tools:ignore="TextContrastCheck" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/verde_base_da_aplicacao"
+            app:hintEnabled="false">
+
+            <EditText
+                android:id="@+id/editTextSenha"
+                style="?attr/textAppearanceListItemSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_black"
+                android:drawablePadding="6dp"
+                android:ems="10"
+                android:hint="XXXXXXXX"
+                android:importantForAutofill="no"
+                android:inputType="numberPassword"
+                android:maxLength="16"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="#9BA5B7"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textViewConfSenha"
@@ -189,25 +199,35 @@
             android:text="Confirmar Senha:"
             android:textColor="#545961" />
 
-        <EditText
-            android:id="@+id/editTextConfirmarSenha"
-            style="?attr/textAppearanceListItemSmall"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/border_black"
-            android:drawablePadding="6dp"
-            android:ems="10"
-            android:hint="XXXXXXXX"
-            android:importantForAutofill="no"
-            android:inputType="numberPassword"
-            android:maxLength="16"
-            android:minHeight="48dp"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="#9BA5B7"
-            tools:ignore="TextContrastCheck" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/verde_base_da_aplicacao"
+            app:hintEnabled="false">
+
+            <EditText
+                android:id="@+id/editTextConfirmarSenha"
+                style="?attr/textAppearanceListItemSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/border_black"
+                android:drawablePadding="6dp"
+                android:ems="10"
+                android:hint="XXXXXXXX"
+                android:importantForAutofill="no"
+                android:inputType="numberPassword"
+                android:maxLength="16"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="#9BA5B7"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
