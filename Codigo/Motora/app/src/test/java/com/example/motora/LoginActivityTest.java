@@ -94,8 +94,8 @@ public class LoginActivityTest {
 
     @Test
     public void updateUITrue() {
-        doCallRealMethod().when(loginActivity).updateUI(true);
-        loginActivity.updateUI(true);
+        doCallRealMethod().when(loginActivity).updateUI(true);;
+        assertEquals(true, loginActivity.updateUI(true));
         verify(loginActivity, times(3)).updateUI(true);
     }
 
@@ -151,7 +151,6 @@ public class LoginActivityTest {
 
     @Test
     public void cadastrar() {
-
         doCallRealMethod().when(loginActivity).cadastrar(v);
         loginActivity.cadastrar(v);
         verify(loginActivity).cadastrar(v);
