@@ -99,7 +99,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="10dp"
             android:background="@drawable/border_black"
             android:drawablePadding="6dp"
             android:ems="10"
@@ -113,14 +112,97 @@
             android:textColorHint="#9BA5B7"
             tools:ignore="TextContrastCheck" />
 
+        <LinearLayout
+            android:id="@+id/linearLayoutIG"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewIdade"
+                    style="?attr/textAppearanceListItemSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="16dp"
+                    android:text="Idade:"
+                    android:textColor="#545961" />
+
+                <EditText
+                    android:id="@+id/editTextIdade"
+                    style="?attr/textAppearanceListItemSmall"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border_black"
+                    android:drawablePadding="6dp"
+                    android:ems="10"
+                    android:hint="6 - 17"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:maxLength="40"
+                    android:minHeight="48dp"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#9BA5B7"
+                    tools:ignore="TextContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutGenero"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:hint="Gênero"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                    android:textColorHint="#545961"
+                    app:endIconTint="@color/black">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_complete_text_genero"
+                        style="?attr/textAppearanceListItemSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_black"
+                        android:inputType="none"
+                        android:popupBackground="@drawable/border_black_auto_complete_text_white"
+                        android:textColor="@color/black"
+                        android:textColorHint="#9BA5B7" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/textViewEmail"
             style="?attr/textAppearanceListItemSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="16dp"
-            android:text="E-mail"
+            android:text="E-mail:"
             android:textColor="#545961" />
 
         <EditText
@@ -151,17 +233,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:text="Senha"
+            android:text="Senha:"
             android:textColor="#545961" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            app:hintEnabled="false"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/verde_base_da_aplicacao"
-            app:hintEnabled="false">
+            app:passwordToggleTint="@color/verde_base_da_aplicacao">
 
             <EditText
                 android:id="@+id/editTextSenha"
@@ -199,10 +280,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            app:hintEnabled="false"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/verde_base_da_aplicacao"
-            app:hintEnabled="false">
+            app:passwordToggleTint="@color/verde_base_da_aplicacao">
 
             <EditText
                 android:id="@+id/editTextConfirmarSenha"
