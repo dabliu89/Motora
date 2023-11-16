@@ -3,6 +3,7 @@ package com.example.motora;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.motora.Util.ConfiguraBD;
+import com.example.motora.dao.DAOUsuario;
 import com.example.motora.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +35,10 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText campoEmail, campoSenha;
     Button botaoAcessar;
+
     private FirebaseAuth auth;
+
+    public static boolean active = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         inicializarComponentes();
     }
 
-    public void validarAutenticacao(View v){
+    public boolean validarAutenticacao(View v){
         String email = campoEmail.getText().toString();
         String senha = campoSenha.getText().toString();
 
@@ -64,84 +69,86 @@ public class LoginActivity extends AppCompatActivity {
                 Usuario usuario = new Usuario();
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
-
-                logar(usuario);
-
+                boolean result = DAOUsuario.authenticate(usuario);
+                updateUI(result);
+                return true;
             }else{
-                Toast.makeText(this, "Preencha o campo Senha", Toast.LENGTH_SHORT).show();
+                showMessage("Preencha o campo Email");
+                return false;
             }
         }else{
-            Toast.makeText(this, "Preencha o campo Email", Toast.LENGTH_SHORT).show();
+            showMessage("Preencha o campo Email");
+            return false;
         }
     }
 
-    private void logar(Usuario usuario) {
-        auth.signInWithEmailAndPassword(
-                usuario.getEmail(),usuario.getSenha()
-        ).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    FirebaseUser user = auth.getCurrentUser();
-                    updateUI(user);
-                }else{
-                    String excecao;
-
-                    try{
-                        throw Objects.requireNonNull(task.getException());
-                    }catch(FirebaseAuthInvalidUserException e){
-                        excecao = "Usuário não cadastrado";
-                    }catch(FirebaseAuthInvalidCredentialsException e){
-                        excecao = "Email ou senha incorreto";
-                    }catch(Exception e){
-                        excecao = "Erro ao logar o usuário " + e.getMessage();
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(LoginActivity.this, excecao, Toast.LENGTH_SHORT).show();
-                    updateUI(null);
-                }
-            }
-        });
+    private void showMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    public void updateUI(FirebaseUser account){
 
-        if(account != null){
-            Toast.makeText(this,"Login realizado com sucesso",Toast.LENGTH_LONG).show();
+    public boolean updateUI(boolean successfulLog){
+
+        if(successfulLog){
+            showMessage("Login realizado com sucesso!");
             abrirHome();
         }else {
-            Toast.makeText(this,"Login não realizado",Toast.LENGTH_LONG).show();
+            showMessage("Login não realizado");
         }
-
+        return true;
     }
 
     private void abrirHome() {
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        this.startActivity(intent);
     }
 
     public void cadastrar(View v){
         Intent intent = new Intent(this, CadastroActivity.class);
-        startActivity(intent);
+        this.startActivity(intent);
     }
 
     public void recuperarSenha(View v){
         Intent intent = new Intent(this, RecuperarSenhaActivity.class);
-        startActivity(intent);
+        this.startActivity(intent);
     }
 
     protected void onStart(){
         super.onStart();
+        active = true;
         FirebaseUser usuarioAuth = auth.getCurrentUser();
         if(usuarioAuth != null){
             abrirHome();
         }
     }
-
-    private void inicializarComponentes(){
-        campoEmail = findViewById(R.id.editTextE_mailRecuperarSenha);
-        campoSenha = findViewById(R.id.editTextSenhaLogin);
-        botaoAcessar = findViewById(R.id.buttonRecuperarSenha);
+    @Override
+    protected void onStop(){
+        super.onStop();
+        active=false;
     }
 
+    public boolean inicializarComponentes(){
+        campoEmail = findViewById(R.id.editTextEmail);
+        campoSenha = findViewById(R.id.editTextSenhaLogin);
+        botaoAcessar = findViewById(R.id.buttonLogar);
+
+        return true;
+    }
+
+    public EditText getCampoEmail() {
+        return campoEmail;
+    }
+
+    public boolean setCampoEmail(EditText campoEmail) {
+        this.campoEmail = campoEmail;
+        return true;
+    }
+
+    public EditText getCampoSenha() {
+        return campoSenha;
+    }
+
+    public void setCampoSenha(EditText campoSenha) {
+        this.campoSenha = campoSenha;
+    }
 }
