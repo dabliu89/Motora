@@ -9,11 +9,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -139,6 +141,7 @@ public class CadastroActivity extends AppCompatActivity {
                     linearLayoutIG.setVisibility(View.GONE);
 
                     mudarLayoutPapel(item);
+                    atualizarCorStatusBar(true);
                     //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleWhite);
 
                     textInputLayoutPapel.setEndIconTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
@@ -161,6 +164,7 @@ public class CadastroActivity extends AppCompatActivity {
                     linearLayoutIG.setVisibility(View.VISIBLE);
 
                     mudarLayoutPapel(item);
+                    atualizarCorStatusBar(false);
                     //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleBlack);
 
                     textInputLayoutPapel.setEndIconTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
@@ -189,6 +193,21 @@ public class CadastroActivity extends AppCompatActivity {
             adapterItemsPapel = new ArrayAdapter<>(this, R.layout.list_item_layout, papel);
             autoCompleteTextViewPapel.setAdapter(adapterItemsPapel);
             autoCompleteTextViewPapel.setDropDownBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.custom_dropdown_background_white));
+        }
+    }
+
+    private void atualizarCorStatusBar(boolean isProfessor) {
+        Window window = getWindow();
+        View decor = window.getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // Se a versão do Android é Lollipop ou superior
+            if (isProfessor) {
+                window.setStatusBarColor(getResources().getColor(R.color.cor_status_bar_professor));
+                decor.setSystemUiVisibility(0);
+            } else {
+                window.setStatusBarColor(getResources().getColor(R.color.cor_status_bar_aluno));
+                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
         }
     }
 
@@ -295,7 +314,9 @@ public class CadastroActivity extends AppCompatActivity {
         if(escolha.equals("Professor")){
             return true;
         } else if (escolha.equals("Aluno")) {
-
+            if(escolha2.isEmpty()){
+                return false;
+            }
         }
 
         return true;
