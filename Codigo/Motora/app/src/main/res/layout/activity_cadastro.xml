@@ -51,7 +51,7 @@
                 android:onClick="voltarCadastro"
                 android:text="Login"
                 android:textColor="#5D9C76"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -67,7 +67,8 @@
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textColorHint="#545961">
+            android:textColorHint="#545961"
+            app:endIconTint="@color/black">
 
             <AutoCompleteTextView
                 android:id="@+id/auto_complete_text"
@@ -77,6 +78,7 @@
                 android:background="@drawable/border_black"
                 android:inputType="none"
                 android:popupBackground="@drawable/border_black_auto_complete_text_white"
+                android:textColor="@color/black"
                 android:textColorHint="#9BA5B7" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -309,7 +311,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:gravity="center"

@@ -11,8 +11,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginBottom="50dp"
-        android:background="#EEF1F4"
+        android:background="@drawable/my_border_report"
         android:backgroundTint="#EEF1F4"
         android:gravity="center"
         android:orientation="horizontal">
@@ -21,7 +23,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
             android:background="@drawable/baseline_info" />
 
         <LinearLayout
@@ -41,7 +43,7 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Reporte com detalhes para que nossa equipe possa solucionar."

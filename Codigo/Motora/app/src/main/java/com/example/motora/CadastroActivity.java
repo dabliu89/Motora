@@ -123,18 +123,18 @@ public class CadastroActivity extends AppCompatActivity {
                 String item = adapterView.getItemAtPosition(i).toString();
                 escolha = item;
                 if ("Professor".equals(item)) {
-                    llPrincipal.setBackgroundColor(Color.WHITE);
-                    tvTemConta.setTextAppearance(R.style.EstiloNormal);
-                    tvNome.setTextAppearance(R.style.EstiloAluno);
-                    campoNome.setTextAppearance(R.style.EstiloAluno);
-                    tvEmail.setTextAppearance(R.style.EstiloAluno);
-                    campoEmail.setTextAppearance(R.style.EstiloAluno);
-                    tvSenha.setTextAppearance(R.style.EstiloAluno);
-                    campoSenha.setTextAppearance(R.style.EstiloAluno);
-                    tvConfSenha.setTextAppearance(R.style.EstiloAluno);
-                    campoConfSenha.setTextAppearance(R.style.EstiloAluno);
+                    llPrincipal.setBackgroundColor(Color.BLACK);
+                    tvTemConta.setTextAppearance(R.style.EstiloProfessor);
+                    tvNome.setTextAppearance(R.style.EstiloProfessor);
+                    campoNome.setTextAppearance(R.style.EstiloProfessor);
+                    tvEmail.setTextAppearance(R.style.EstiloProfessor);
+                    campoEmail.setTextAppearance(R.style.EstiloProfessor);
+                    tvSenha.setTextAppearance(R.style.EstiloProfessor);
+                    campoSenha.setTextAppearance(R.style.EstiloProfessor);
+                    tvConfSenha.setTextAppearance(R.style.EstiloProfessor);
+                    campoConfSenha.setTextAppearance(R.style.EstiloProfessor);
                     //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleWhite);
-                    autoCompleteTextViewPapel.setTextAppearance(R.style.EstiloAluno);
+                    autoCompleteTextViewPapel.setTextAppearance(R.style.EstiloProfessor);
 
                     linearLayoutIG.setVisibility(View.GONE);
 
