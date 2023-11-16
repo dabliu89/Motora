@@ -81,7 +81,8 @@
             android:padding="10dp"
             android:spinnerMode="dropdown"
             android:textColor="@color/black"
-            android:textColorHint="#9BA5B7"
+            android:textColorHint="@color/black"
+            android:background="@drawable/my_border"
             tools:ignore="TextContrastCheck" />
 
 
@@ -109,7 +110,8 @@
             android:padding="10dp"
             android:spinnerMode="dropdown"
             android:textColor="@color/black"
-            android:textColorHint="#9BA5B7"
+            android:textColorHint="@color/black"
+            android:background="@drawable/my_border"
             tools:ignore="TextContrastCheck" />
 
         <TextView
@@ -136,7 +138,8 @@
             android:padding="10dp"
             android:spinnerMode="dropdown"
             android:textColor="@color/black"
-            android:textColorHint="#9BA5B7"
+            android:textColorHint="@color/black"
+            android:background="@drawable/my_border"
             tools:ignore="TextContrastCheck" />
 
 
