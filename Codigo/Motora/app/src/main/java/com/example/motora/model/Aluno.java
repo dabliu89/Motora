@@ -12,7 +12,7 @@ public class Aluno  extends Usuario{
 
     public Aluno(){}
 
-    public Aluno(String id, String nome, String senha) {
+    public Aluno(String id, String nome, String email, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;

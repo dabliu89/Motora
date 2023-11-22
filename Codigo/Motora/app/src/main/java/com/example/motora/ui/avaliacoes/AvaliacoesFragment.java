@@ -27,10 +27,11 @@ public class AvaliacoesFragment extends Fragment {
         binding = FragmentAvaliacoesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textAvaliacoes;
-        avaliacoesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
+
+
 
     @Override
     public void onDestroyView() {
