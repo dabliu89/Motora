@@ -1,38 +1,25 @@
 package com.example.motora;
 
-import static android.content.ContentValues.TAG;
 import static android.text.InputType.TYPE_CLASS_NUMBER;
 import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.example.motora.dao.DAOTestes;
-import com.example.motora.model.Resultado;
+import com.example.motora.model.ResultadosProtocolos;
 import com.example.motora.model.Teste;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,7 +69,7 @@ public class TesteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Map<String, String> map = new HashMap<String, String>();
-                Resultado resultado = new Resultado();
+                ResultadosProtocolos resultado = new ResultadosProtocolos();
                 resultado.setAluno(alunoId);
 
                 for(int i=0;i<labels.size();i++){
@@ -90,6 +77,18 @@ public class TesteActivity extends AppCompatActivity {
                 }
                 resultado.setCampos(map);
                 resultado.setTitulo(teste.getTitulo());
+
+                resultado.direcionadorTeste(teste, nomeTeste, );
+
+                /*resultado.direcionadorTeste();
+                resultado.imcSaude();
+                resultado.corridaCaminhadaSeisMinutos();
+                resultado.rce();
+                resultado.sentarEAlcancar();
+                resultado.abdominaisEmUmMinuto();
+                resultado.arremessoDeMedicineball();
+                resultado.corridaDeVinteMetros();*/
+
                 DAOTestes.createNewAvaliacao(resultado);
 
                 startActivity(new Intent(TesteActivity.this, MainActivity.class));

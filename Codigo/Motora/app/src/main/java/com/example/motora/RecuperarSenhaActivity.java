@@ -37,17 +37,20 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
         btnRecSen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                strEmail = campoEmailRec.getText().toString().trim();
-                if(!TextUtils.isEmpty(strEmail)){
-                    resetarSenha();
-                }else{
-                    campoEmailRec.setError("Este campo não ficar vazio");
-                }
-            }
-        });
+                decision(strEmail);
+        }});
     }
 
-    private void resetarSenha(){
+    public void decision(String email){
+        email = campoEmailRec.getText().toString().trim();
+        if(!TextUtils.isEmpty(email)){
+            resetarSenha();
+        }else{
+            campoEmailRec.setError("Este campo não deve ficar vazio");
+        }
+    }
+
+    public void resetarSenha(){
         progressBar.setVisibility(View.VISIBLE);
         btnRecSen.setVisibility(View.INVISIBLE);
 
@@ -55,17 +58,30 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(RecuperarSenhaActivity.this, "Um link para alterar sua senha foi mandado para o e-mail registrado", Toast.LENGTH_SHORT).show();
-                        finish();
+                        finalizar(true);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RecuperarSenhaActivity.this, "Error: - "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.INVISIBLE);
-                        btnRecSen.setVisibility(View.VISIBLE);
+                        finalizar(false);
                     }
                 });
+    }
+
+    public boolean finalizar(Boolean success){
+        if(success){
+            showMessage("Um link para alterar sua senha foi mandado para o e-mail registrado");
+            finish();
+            return true;
+        } else{
+            progressBar.setVisibility(View.INVISIBLE);
+            btnRecSen.setVisibility(View.VISIBLE);
+            return false;
+        }
+    }
+
+    public void showMessage(String message){
+        Toast.makeText(RecuperarSenhaActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     public void voltarRecuperarSenha(View v) {

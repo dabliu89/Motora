@@ -114,7 +114,6 @@ public class CadastroActivity extends AppCompatActivity {
         autoCompleteTextViewPapel.setAdapter(adapterItemsPapel);
         autoCompleteTextViewGenero.setAdapter(adapterItemsGenero);
         //autoCompleteTextViewPapel.setDropDownVerticalOffset(0);
-
         textInputLayoutPapel.setHintEnabled(false);
         textInputLayoutGenero.setHintEnabled(false);
 
@@ -392,9 +391,7 @@ public class CadastroActivity extends AppCompatActivity {
 
     private void abrirHome() {
         Intent intent = new Intent(this, MainActivity.class);
-
         startActivity(intent);
-
         finish();
     }
 

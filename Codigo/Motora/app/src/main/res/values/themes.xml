@@ -30,4 +30,9 @@
         <item name="android:colorAccent">@color/black</item>
     </style>
 
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>
