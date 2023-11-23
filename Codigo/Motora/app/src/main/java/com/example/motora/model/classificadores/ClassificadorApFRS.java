@@ -1,10 +1,10 @@
 package com.example.motora.model;
 
-public class ResultadosProtocolos extends Teste{
+public class ClassificadorApFRS extends Teste{
 
     private String aluno;
 
-    public ResultadosProtocolos(){super();}
+    public ClassificadorApFRS(){super();}
 
     public String getAluno() {
         return aluno;
