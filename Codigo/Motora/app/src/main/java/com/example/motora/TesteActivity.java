@@ -18,12 +18,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.motora.dao.DAOTestes;
+import com.example.motora.dao.DAOUsuario;
+import com.example.motora.model.AvaliacaoResultado;
 import com.example.motora.model.Teste;
 import com.example.motora.model.classificadores.ClassificadorAntropometria;
 import com.example.motora.model.classificadores.ClassificadorApFRS;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -46,10 +50,13 @@ public class TesteActivity extends AppCompatActivity {
 
     private Button salvar;
 
+    FirebaseUser user;
     private FirebaseFirestore db;
     String nomeProcurado;
     ClassificadorAntropometria classificadorAntropometria = new ClassificadorAntropometria();
     ClassificadorApFRS classificadorApFRS = new ClassificadorApFRS();
+
+    TextView textTitle;
 
     private DAOTestes daoTestes = new DAOTestes();
 
@@ -61,81 +68,101 @@ public class TesteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teste);
 
-        TextView textTitle = findViewById(R.id.textTitleAval);
-        nomeTeste = this.getIntent().getExtras().get("testName").toString();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
-        alunoId = this.getIntent().getExtras().get("alunoName").toString().split(",")[1];
-        alunoId = alunoId.split("=")[1];
+        db = FirebaseFirestore.getInstance();
+
+        textTitle = findViewById(R.id.textTitleAval);
+
+        alunoId = this.getIntent().getExtras().get("alunoId").toString();
 
         nomeProcurado = this.getIntent().getExtras().get("alunoName").toString();
 
         teste = Teste.stringToObject(nomeTeste);
 
-        WebView videoTutorial = findViewById(R.id.videoTutorial);
-        String iFrame = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/e5OuLSDayxs\" title=\"Como Calcular O IMC (Índice De Massa Corporal) + Tabela De Referência | Dicas De Nutrição\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
-        videoTutorial.loadData(iFrame, "text/html", "utf-8");
-        videoTutorial.getSettings().setJavaScriptEnabled(true);
-        videoTutorial.setWebChromeClient(new WebChromeClient());
-        //getFieldsFromFirebase();
+        DAOTestes.getTesteFirebase(this.getIntent().getExtras().get("testeId").toString());
 
-        textTitle.setText(teste.getTitulo());
-        salvar = findViewById(R.id.buttonSalvar);
+    }
 
-        salvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Map<String, String> map = new HashMap<String, String>();
-                ClassificadorApFRS resultado = new ClassificadorApFRS();
-                resultado.setAluno(alunoId);
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-                for(int i=0;i<labels.size();i++){
-                    map.put(labels.get(i).getText().toString().toLowerCase(), boxes.get(i).getText().toString());
-                }
+        if(DAOTestes.t.size() == 0){
+            textTitle.setText(DAOTestes.t.size()+"true");
+            this.recreate();
+        }
+        else{
+            textTitle.setText(DAOTestes.t.size()+"");
 
-                db = FirebaseFirestore.getInstance();
+            teste = DAOTestes.t.get(DAOTestes.t.size()-1);
 
-                CollectionReference usuariosRef = db.collection("Usuarios");
-                usuariosRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String userId = document.getId();
+            WebView videoTutorial = findViewById(R.id.videoTutorial);
+            String iFrame = "<iframe width=\"100%\" height=\"100%\" src=\""+teste.getVideo()+"\" title=\"Como Calcular O IMC (Índice De Massa Corporal) + Tabela De Referência | Dicas De Nutrição\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+            videoTutorial.loadData(iFrame, "text/html", "utf-8");
+            videoTutorial.getSettings().setJavaScriptEnabled(true);
+            videoTutorial.setWebChromeClient(new WebChromeClient());
+            //getFieldsFromFirebase();
 
-                                String nomeDoUsuario = document.getString("nome");
+            textTitle.setText(teste.getTitulo());
+            salvar = findViewById(R.id.buttonSalvar);
 
-                                if (nomeDoUsuario.equals(nomeProcurado)) {
-                                    if(teste.getTipo().equals("Antropometria")){
-                                        classificadorAntropometria.direcionadorTeste(
-                                                teste,
-                                                document.getString("genero"),
-                                                Integer.parseInt(document.getString("idade")),
-                                                );
-                                    }else if(teste.getTipo().equals("ApFRS")){
-                                        classificadorApFRS.direcionadorTeste(teste,
-                                                document.getString("genero"),
-                                                Integer.parseInt(document.getString("idade")),
-                                                );
+            salvar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Map<String, String> map = new HashMap<String, String>();
+                    ClassificadorApFRS resultado = new ClassificadorApFRS();
+                    resultado.setAluno(alunoId);
+
+                    for (int i = 0; i < labels.size(); i++) {
+                        map.put(labels.get(i).getText().toString().toLowerCase(), boxes.get(i).getText().toString());
+                    }
+
+                    CollectionReference usuariosRef = db.collection("Usuarios");
+                    usuariosRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    String userId = document.getId();
+
+                                    String nomeDoUsuario = document.getString("nome");
+
+                                    if (nomeDoUsuario.equals(nomeProcurado)) {
+                                        if(teste.getTipo().equals("Antropometria")){
+                                            classificadorAntropometria.direcionadorTeste(
+                                                    teste,
+                                                    document.getString("genero"),
+                                                    Integer.parseInt(document.getString("idade")),
+                                                    );
+                                        }else if(teste.getTipo().equals("ApFRS")){
+                                            classificadorApFRS.direcionadorTeste(teste,
+                                                    document.getString("genero"),
+                                                    Integer.parseInt(document.getString("idade")),
+                                                    );
+                                        }
                                     }
                                 }
+                            } else {
+                                Toast.makeText(TesteActivity.this, "Task: " + task.getException(), Toast.LENGTH_LONG).show();
                             }
-                        } else {
-                            Toast.makeText(TesteActivity.this, "Task: " + task.getException(), Toast.LENGTH_LONG).show();
                         }
-                    }
-                });
+                    });
 
-                mandarResultado(teste);
+                    mandarResultado(teste);
 
-                DAOTestes.createNewAvaliacao(resultado);
+                    DAOTestes.createNewAvaliacao(resultado);
 
-                startActivity(new Intent(TesteActivity.this, MainActivity.class));
-            }
-        });
+                    resultado.setCampos(map);
+                    resultado.setTituloTeste(teste.getTitulo());
+                    DAOTestes.createNewAvaliacao(resultado);
 
+                    startActivity(new Intent(TesteActivity.this, MainActivity.class));
+                }
+            });
 
-        generateForm();
-
+            generateForm();
+        }
     }
 
     private void generateForm(){
@@ -143,11 +170,12 @@ public class TesteActivity extends AppCompatActivity {
         Map<String, String> campos = teste.getCampos();
 
         for(String key : campos.keySet()){
-            linearLayout.addView(createLabel(key));
-            linearLayout.addView(createBox(campos.get(key)));
+            if(!key.equals("status")){
+                linearLayout.addView(createLabel(key));
+                linearLayout.addView(createBox(campos.get(key)));
+            }
+
         }
-
-
     }
 
     private TextView createLabel(String label){
@@ -176,23 +204,28 @@ public class TesteActivity extends AppCompatActivity {
     }
 
     private void mandarResultado(Teste classTeste){
-        Map<String, Object> doc = new HashMap<>();
-        doc.put("id", user.getUid());
-        doc.put("report", Objects.requireNonNull(campoUserReport.getText()).toString());
-        doc.put("email", user.getEmail());
 
-        db.collection("AvaliacoesResultados").document(user.getUid()).set(doc)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
-                        Toast.makeText(TesteActivity.this, "Resultado cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@androidx.annotation.NonNull Exception e) {
-                        Toast.makeText(TesteActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        if (user != null) {
+            Map<String, Object> doc = new HashMap<>();
+            doc.put("id", user.getUid());
+            doc.put("report", Objects.requireNonNull(campoUserReport.getText()).toString());
+            doc.put("email", user.getEmail());
+
+            db.collection("AvaliacoesResultados").document(user.getUid()).set(doc)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                            Toast.makeText(TesteActivity.this, "Resultado cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@androidx.annotation.NonNull Exception e) {
+                            Toast.makeText(TesteActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }else {
+            Toast.makeText(TesteActivity.this, "Erro em identificar o usuário", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

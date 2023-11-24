@@ -122,8 +122,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeFragment.this.getActivity(), TesteActivity.class);
-                intent.putExtra("alunoName", alunosList.get(aluno.getSelectedItemPosition()).toStringAll());
-                intent.putExtra("testName", avaliacoesList.get(avaliacao.getSelectedItemPosition()).toStringAll());
+                intent.putExtra("alunoId", alunosList.get(aluno.getSelectedItemPosition()).getId());
+                intent.putExtra("testeId", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getId());
                 startActivity(intent);
             }
         });
@@ -132,12 +132,10 @@ public class HomeFragment extends Fragment {
     private void setUpSpinners(Spinner spinner, ArrayAdapter adapter){
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
         spinner.setSelection(1);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
             }
 
             @Override
@@ -156,8 +154,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for (DocumentSnapshot document : value.getDocuments()) {
-                    adapter.notifyDataSetChanged();
                     list.add(document.getString(field));
+                    adapter.notifyDataSetChanged();
                 }
             }
         });

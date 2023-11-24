@@ -35,8 +35,8 @@ public class ReportFragment extends Fragment {
     private FirebaseFirestore db;
     FirebaseUser user;
 
-    TextInputEditText campoUserReport;
-    Button enviarReport;
+    TextInputEditText campoUserReport, campoUserSugestao;
+    Button enviarReport, enviarSugestao;
 
     private FragmentReportBinding binding;
 
@@ -53,20 +53,29 @@ public class ReportFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         campoUserReport = binding.textInputEditTextReport;
+        campoUserSugestao = binding.textInputEditTextSugestao;
 
         enviarReport = binding.buttonEnviarReport;
+        enviarSugestao = binding.buttonEnviarSugestao;
 
         enviarReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateUI();
+                fazerReport();
+            }
+        });
+
+        enviarSugestao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fazerSugestao();
             }
         });
 
         return root;
     }
 
-    private void updateUI() {
+    private void fazerReport() {
         if (user != null) {
 
             if(!campoUserReport.getText().toString().equals("Reporte aqui") && !campoUserReport.getText().toString().equals("")){
@@ -94,6 +103,35 @@ public class ReportFragment extends Fragment {
             Toast.makeText(getContext(), "Erro em identificar o usuário", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void fazerSugestao() {
+        if (user != null) {
+
+            if(!campoUserReport.getText().toString().equals("Escreva-nos alguma possível melhoria que gostaria de ver aqui.") && !campoUserReport.getText().toString().equals("")){
+                Map<String, Object> doc = new HashMap<>();
+                doc.put("id", user.getUid());
+                doc.put("sugestao", Objects.requireNonNull(campoUserSugestao.getText()).toString());
+                doc.put("email", user.getEmail());
+
+                db.collection("Sugestoes").document(user.getUid()).set(doc)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(getContext(), "Agradecemos pela atenção", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }else{
+                Toast.makeText(getContext(), "Não esqueça de incluir uma sugestão", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getContext(), "Erro em identificar o usuário", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

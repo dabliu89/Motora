@@ -9,8 +9,13 @@ import androidx.annotation.Nullable;
 
 import com.example.motora.model.Teste;
 import com.example.motora.model.classificadores.ClassificadorApFRS;
+import com.example.motora.model.AvaliacaoResultado;
+import com.example.motora.model.Teste;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -19,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
@@ -26,7 +32,7 @@ import java.util.concurrent.Semaphore;
 public class DAOTestes {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public ArrayList<Teste> t = new ArrayList<Teste>();
+    public static ArrayList<Teste> t = new ArrayList<Teste>();
 
     public DAOTestes(){super();}
 
@@ -49,22 +55,32 @@ public class DAOTestes {
         return list;
     }
 
-    public void getTesteFirebase(String testeId, ArrayList<Teste> x){
+    public static void getTesteFirebase(String testeId){
         DocumentReference testes = db.collection("Avaliacoes").document(testeId);
 
-        Semaphore semaphore = new Semaphore(0);
-        testes.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        Source source = Source.CACHE;
+
+
+        testes.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-               Teste teste = documentSnapshot.toObject(Teste.class);
-               teste.setId(testeId);
-                x.add(teste);
-                setT(teste);
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    Teste ob = document.toObject(Teste.class);
+                    ob.setId(document.getId());
+                    t.add(ob);
+                }
+                else{
+                    Log.d(TAG, "Cached get failed: ", task.getException());
+                }
             }
         });
-
     }
-
+//
+//    private void setT(Teste teste){
+//        t.add(teste);
+//        Log.d(TAG, t.toString());
+//    }
     private void setT(Teste teste){
         t.add(teste);
         Log.d(TAG, t.toString());

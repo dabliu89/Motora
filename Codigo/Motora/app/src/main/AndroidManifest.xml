@@ -40,7 +40,9 @@
             android:exported="false" />
         <activity
             android:name=".TesteActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Motora.NoActionBar" />
         <!--
 <activity
             android:name=".TestActivity"

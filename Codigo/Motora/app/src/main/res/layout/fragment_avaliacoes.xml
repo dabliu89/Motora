@@ -12,6 +12,7 @@
         android:id="@+id/listaAvaliacoes"
         android:scrollbars="vertical"
         android:layout_marginTop="12dp"
+        android:layout_marginBottom="60dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
         tools:listitem="@layout/list_avaliacoes_item"/>
