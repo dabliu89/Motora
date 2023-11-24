@@ -1,4 +1,4 @@
-package com.example.motora.model;
+package com.example.motora.model.classificadores;
 
 public class ClassificadorApFRS extends Teste{
 
@@ -14,26 +14,26 @@ public class ClassificadorApFRS extends Teste{
         this.aluno = aluno;
     }
 
-        public String direcionadorTeste (String categoria, String teste, String genero, int idade, double resultado) {
-                if (categoria.equals("Aptidão Física") && teste.equals("IMC")) {
+        public String direcionadorTeste (String teste, String genero, int idade, double resultado) {
+                if (teste.equals("IMC")) {
                         return imcSaude(genero,idade,resultado);
                 }
-                else if (categoria.equals("Aptidão Física") && teste.equals("Corrida de 6 minutos")) {
+                else if (teste.equals("Corrida de 6 minutos")) {
                         return corridaCaminhadaSeisMinutos(genero,idade, (int) resultado);
                 }
-                else if (categoria.equals("Aptidão Física") && teste.equals("RCE")) {
+                else if (teste.equals("RCE")) {
                         return rce(genero,idade,resultado);
                 }
-                else if (categoria.equals("Aptidão Física") && teste.equals("Sentar e Alcançar")) {
+                else if (teste.equals("Sentar e Alcançar")) {
                         return sentarEAlcancar(genero,idade,resultado);
                 }
-                else if (categoria.equals("Aptidão Física") && teste.equals("Abdominais em Um Minuto")) {
+                else if (teste.equals("Abdominais em Um Minuto")) {
                         return abdominaisEmUmMinuto(genero,idade, (int) resultado);
                 }
-                else if (categoria.equals("Aptidão Física") && teste.equals("Arremesso de Medicineball")) {
+                else if (teste.equals("Arremesso de Medicineball")) {
                         return arremessoDeMedicineball(genero,idade,resultado);
                 }
-                else if (categoria.equals("Aptidão Física") && teste.equals("Corrida de 20 metros")) {
+                else if (teste.equals("Corrida de 20 metros")) {
                         return corridaDeVinteMetros(genero,idade,resultado);
                 }
                 return "";
