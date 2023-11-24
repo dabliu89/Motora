@@ -15,9 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.motora.dao.DAOTestes;
-import com.example.motora.model.ResultadosProtocolos;
+import com.example.motora.dao.DAOUsuario;
+import com.example.motora.model.AvaliacaoResultado;
 import com.example.motora.model.Teste;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,6 +39,8 @@ public class TesteActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
+    TextView textTitle;
+
     private DAOTestes daoTestes = new DAOTestes();
 
     private ArrayList<TextView> labels = new ArrayList<>();
@@ -47,44 +51,58 @@ public class TesteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teste);
 
-        TextView textTitle = findViewById(R.id.textTitleAval);
-        nomeTeste = this.getIntent().getExtras().get("testName").toString();
+        textTitle = findViewById(R.id.textTitleAval);
 
-        alunoId = this.getIntent().getExtras().get("alunoName").toString().split(",")[1];
-        alunoId = alunoId.split("=")[1];
+        alunoId = this.getIntent().getExtras().get("alunoId").toString();
 
-        teste = Teste.stringToObject(nomeTeste);
+        DAOTestes.getTesteFirebase(this.getIntent().getExtras().get("testeId").toString());
 
-        WebView videoTutorial = findViewById(R.id.videoTutorial);
-        String iFrame = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/e5OuLSDayxs\" title=\"Como Calcular O IMC (Índice De Massa Corporal) + Tabela De Referência | Dicas De Nutrição\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
-        videoTutorial.loadData(iFrame, "text/html", "utf-8");
-        videoTutorial.getSettings().setJavaScriptEnabled(true);
-        videoTutorial.setWebChromeClient(new WebChromeClient());
-        //getFieldsFromFirebase();
+    }
 
-        textTitle.setText(teste.getTitulo());
-        salvar = findViewById(R.id.buttonSalvar);
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-        salvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Map<String, String> map = new HashMap<String, String>();
-                ResultadosProtocolos resultado = new ResultadosProtocolos();
-                resultado.setAluno(alunoId);
+        if(DAOTestes.t.size() == 0){
+            textTitle.setText(DAOTestes.t.size()+"true");
+            this.recreate();
+        }
+        else{
+            textTitle.setText(DAOTestes.t.size()+"");
 
-                for(int i=0;i<labels.size();i++){
-                    map.put(labels.get(i).getText().toString().toLowerCase(), boxes.get(i).getText().toString());
+            teste = DAOTestes.t.get(DAOTestes.t.size()-1);
+
+            WebView videoTutorial = findViewById(R.id.videoTutorial);
+            String iFrame = "<iframe width=\"100%\" height=\"100%\" src=\""+teste.getVideo()+"\" title=\"Como Calcular O IMC (Índice De Massa Corporal) + Tabela De Referência | Dicas De Nutrição\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+            videoTutorial.loadData(iFrame, "text/html", "utf-8");
+            videoTutorial.getSettings().setJavaScriptEnabled(true);
+            videoTutorial.setWebChromeClient(new WebChromeClient());
+            //getFieldsFromFirebase();
+
+            textTitle.setText(teste.getTitulo());
+            salvar = findViewById(R.id.buttonSalvar);
+
+            salvar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    AvaliacaoResultado resultado = new AvaliacaoResultado();
+                    resultado.setAluno(alunoId);
+
+                    for(int i=0;i<labels.size();i++){
+                        map.put(labels.get(i).getText().toString().toLowerCase(), boxes.get(i).getText().toString());
+                    }
+                    resultado.setCampos(map);
+                    resultado.setTituloTeste(teste.getTitulo());
+                    DAOTestes.createNewAvaliacao(resultado);
+
+                    startActivity(new Intent(TesteActivity.this, MainActivity.class));
                 }
-                resultado.setCampos(map);
-                resultado.setTitulo(teste.getTitulo());
-                DAOTestes.createNewAvaliacao(resultado);
-
-                startActivity(new Intent(TesteActivity.this, MainActivity.class));
-            }
-        });
+            });
 
 
-        generateForm();
+            generateForm();
+        }
 
     }
 
@@ -93,11 +111,12 @@ public class TesteActivity extends AppCompatActivity {
         Map<String, String> campos = teste.getCampos();
 
         for(String key : campos.keySet()){
-            linearLayout.addView(createLabel(key));
-            linearLayout.addView(createBox(campos.get(key)));
+            if(!key.equals("status")){
+                linearLayout.addView(createLabel(key));
+                linearLayout.addView(createBox(campos.get(key)));
+            }
+
         }
-
-
     }
 
     private TextView createLabel(String label){

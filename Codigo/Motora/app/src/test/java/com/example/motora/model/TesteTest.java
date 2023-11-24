@@ -32,8 +32,8 @@ public class TesteTest {
 
     @Test
     public void setTtpo(){
-        teste.setTipo(documentReference);
-        assertEquals(documentReference, teste.getTipo());
+        teste.setTipo(documentReference.toString());
+        assertEquals(documentReference.toString(), teste.getTipo());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TesteTest {
 
     @Test
     public void createTesteCompleto(){
-        teste = new Teste(documentReference, "Titulo");
+        teste = new Teste(documentReference.toString(), "Titulo");
 
         assertEquals(documentReference, teste.getTipo());
         assertEquals("Titulo", teste.getTitulo());
@@ -58,7 +58,7 @@ public class TesteTest {
                 ", titulo='" + teste.getTitulo() + '\'' +
                 ", campos=" + teste.getCampos() +
                 '}';
-        teste = new Teste(documentReference, "Titulo");
+        teste = new Teste(documentReference.toString(), "Titulo");
         teste.setId("123456");
 
         assertEquals("Titulo", teste.toString());

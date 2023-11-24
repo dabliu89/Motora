@@ -15,14 +15,25 @@ import java.util.Map;
 public class Teste {
 
     private String id;
-    private DocumentReference tipo;
+    private String tipo;
     private String titulo;
     private Map<String, String> campos;
 
+    private String video;
+
     public Teste(){super();}
-    public Teste(DocumentReference tipo, String titulo) {
+
+    public Teste(String tipo, String titulo) {
         this.tipo = tipo;
         this.titulo = titulo;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 
     public String getId() {
@@ -33,11 +44,11 @@ public class Teste {
         this.id = id;
     }
 
-    public DocumentReference getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(DocumentReference tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
