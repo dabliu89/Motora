@@ -7,8 +7,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.motora.model.ResultadosProtocolos;
 import com.example.motora.model.Teste;
+import com.example.motora.model.classificadores.ClassificadorApFRS;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -70,7 +70,7 @@ public class DAOTestes {
         Log.d(TAG, t.toString());
     }
 
-    public static void createNewAvaliacao(ResultadosProtocolos resultado){
+    public static void createNewAvaliacao(ClassificadorApFRS resultado){
         db.collection("AvaliacoesResultados").add(resultado).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
