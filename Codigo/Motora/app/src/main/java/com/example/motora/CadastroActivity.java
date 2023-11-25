@@ -9,11 +9,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -45,17 +47,24 @@ public class CadastroActivity extends AppCompatActivity {
 
     Usuario usuario;
     FirebaseAuth autenticacao;
-    EditText campoNome, campoEmail, campoSenha, campoConfSenha;
-    TextView tvTemConta, tvNome, tvEmail, tvSenha, tvConfSenha;
+    EditText campoNome, campoEmail, campoSenha, campoConfSenha, campoIdade;
+    TextView tvTemConta, tvNome, tvEmail, tvSenha, tvConfSenha, tvIdade;
     DAOUsuario dao;
     FirebaseFirestore db;
-    String nome, email, senha, confSenha;
+    String nome, email, senha, confSenha, idade;
     String[] papel = {"Professor", "Aluno"};
-    String escolha = "";
+    String[] genero = {"Masculino", "Feminino"};
+    String escolha = "", escolha2 = "";
     LinearLayout llPrincipal;
     TextInputLayout textInputLayoutPapel;
     AutoCompleteTextView autoCompleteTextViewPapel;
     ArrayAdapter<String> adapterItemsPapel;
+
+    TextInputLayout textInputLayoutGenero;
+    AutoCompleteTextView autoCompleteTextViewGenero;
+    ArrayAdapter<String> adapterItemsGenero;
+
+    LinearLayout linearLayoutIG;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -81,6 +90,7 @@ public class CadastroActivity extends AppCompatActivity {
         campoEmail = findViewById(R.id.editTextE_mail);
         campoSenha = findViewById(R.id.editTextSenha);
         campoConfSenha = findViewById(R.id.editTextConfirmarSenha);
+        campoIdade = findViewById(R.id.editTextIdade);
 
         llPrincipal = findViewById(R.id.linearLayoutPrincipal);
         tvTemConta = findViewById(R.id.textViewTemConta);
@@ -88,15 +98,25 @@ public class CadastroActivity extends AppCompatActivity {
         tvEmail = findViewById(R.id.textViewEmail);
         tvSenha = findViewById(R.id.textViewSenha);
         tvConfSenha = findViewById(R.id.textViewConfSenha);
+        tvIdade = findViewById(R.id.textViewIdade);
+
+        linearLayoutIG = findViewById(R.id.linearLayoutIG);
 
         textInputLayoutPapel = findViewById(R.id.textInputLayoutPapel);
+        textInputLayoutGenero = findViewById(R.id.textInputLayoutGenero);
 
         autoCompleteTextViewPapel = findViewById(R.id.auto_complete_text);
         adapterItemsPapel = new ArrayAdapter<>(this, R.layout.list_item_layout, papel);
 
+        autoCompleteTextViewGenero = findViewById(R.id.auto_complete_text_genero);
+        adapterItemsGenero = new ArrayAdapter<>(this, R.layout.list_item_layout, genero);
+
         autoCompleteTextViewPapel.setAdapter(adapterItemsPapel);
+        autoCompleteTextViewGenero.setAdapter(adapterItemsGenero);
         //autoCompleteTextViewPapel.setDropDownVerticalOffset(0);
         textInputLayoutPapel.setHintEnabled(false);
+        textInputLayoutGenero.setHintEnabled(false);
+
         autoCompleteTextViewPapel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -117,7 +137,10 @@ public class CadastroActivity extends AppCompatActivity {
                     //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleWhite);
                     autoCompleteTextViewPapel.setTextAppearance(R.style.EstiloProfessor);
 
+                    linearLayoutIG.setVisibility(View.GONE);
+
                     mudarLayoutPapel(item);
+                    atualizarCorStatusBar(true);
                     //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleWhite);
 
                     textInputLayoutPapel.setEndIconTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
@@ -132,14 +155,29 @@ public class CadastroActivity extends AppCompatActivity {
                     campoSenha.setTextAppearance(R.style.EstiloAluno);
                     tvConfSenha.setTextAppearance(R.style.EstiloAluno);
                     campoConfSenha.setTextAppearance(R.style.EstiloAluno);
+                    tvIdade.setTextAppearance(R.style.EstiloAluno);
+                    campoIdade.setTextAppearance(R.style.EstiloAluno);
                     //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleBlack);
                     autoCompleteTextViewPapel.setTextAppearance(R.style.EstiloAluno);
 
+                    linearLayoutIG.setVisibility(View.VISIBLE);
+
                     mudarLayoutPapel(item);
+                    atualizarCorStatusBar(false);
                     //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleBlack);
 
                     textInputLayoutPapel.setEndIconTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.black));
                 }
+                Toast.makeText(CadastroActivity.this, "Opção escolhida: "+item, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        autoCompleteTextViewGenero.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //textInputLayoutPapel.setHintEnabled(false);
+                String item = adapterView.getItemAtPosition(i).toString();
+                escolha2 = item;
                 Toast.makeText(CadastroActivity.this, "Opção escolhida: "+item, Toast.LENGTH_SHORT).show();
             }
         });
@@ -157,13 +195,29 @@ public class CadastroActivity extends AppCompatActivity {
         }
     }
 
+    private void atualizarCorStatusBar(boolean isProfessor) {
+        Window window = getWindow();
+        View decor = window.getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // Se a versão do Android é Lollipop ou superior
+            if (isProfessor) {
+                window.setStatusBarColor(getResources().getColor(R.color.cor_status_bar_professor));
+                decor.setSystemUiVisibility(0);
+            } else {
+                window.setStatusBarColor(getResources().getColor(R.color.cor_status_bar_aluno));
+                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        }
+    }
+
     public void validarCampos(View v){
         nome = campoNome.getText().toString();
         email = campoEmail.getText().toString();
         senha = campoSenha.getText().toString();
         confSenha = campoConfSenha.getText().toString();
+        idade = campoIdade.getText().toString();
 
-        if(verNome()){
+        if(verNome() && verIdade() && verGenero()){
             if(!email.isEmpty()){
                 if(senha.length() >= 8){
                     if(!confSenha.equals(senha)){
@@ -176,6 +230,8 @@ public class CadastroActivity extends AppCompatActivity {
                             usuario.setEmail(email);
                             usuario.setSenha(senha);
                             usuario.setPapel(escolha);
+                            usuario.setIdade(null);
+                            usuario.setGenero(null);
 
                         }else if(!escolha.isEmpty() && (escolha.equals("Aluno") || escolha.equals("aluno"))){
                             usuario = new Usuario();
@@ -183,6 +239,8 @@ public class CadastroActivity extends AppCompatActivity {
                             usuario.setEmail(email);
                             usuario.setSenha(senha);
                             usuario.setPapel(escolha);
+                            usuario.setIdade(idade);
+                            usuario.setGenero(escolha2);
                         }else{
                             Toast.makeText(this, "Por favor selecione o papel que deseja representar nesta aplicação", Toast.LENGTH_SHORT).show();
                         }
@@ -223,6 +281,40 @@ public class CadastroActivity extends AppCompatActivity {
                     Toast.makeText(this, "Preencha o campo Nome apropriadamente (Verifique espaços indesejados)", Toast.LENGTH_SHORT).show();
                     return false;
                 }
+            }
+        }
+
+        return true;
+    }
+
+    private boolean verIdade(){
+        if(escolha.equals("Professor")){
+            return true;
+        } else if (escolha.equals("Aluno")) {
+            for (int i = 0; i < idade.length(); ++i) {
+                char ch = idade.charAt(i);
+
+                if (((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= 'á' && ch <= 'ú') || (ch >= 'Á' && ch <= 'Ú') || ch == 'ã' || ch == 'õ' || ch == ' ') || (i == 0 && ch == ' ')) {
+                    Toast.makeText(this, "Preencha o campo Idade só com números", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+
+            if(Integer.parseInt(idade) > 17 || Integer.parseInt(idade) < 6){
+                Toast.makeText(CadastroActivity.this, "Este App foi desenvolvido para atender a professores de educação física e alunos com a idade entre 6 e 17 anos", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean verGenero(){
+        if(escolha.equals("Professor")){
+            return true;
+        } else if (escolha.equals("Aluno")) {
+            if(escolha2.isEmpty()){
+                return false;
             }
         }
 
@@ -274,6 +366,8 @@ public class CadastroActivity extends AppCompatActivity {
             doc.put("email", usuario.getEmail());
             doc.put("senha", usuario.getSenha());
             doc.put("papel", usuario.getPapel());
+            doc.put("idade", usuario.getIdade());
+            doc.put("genero", usuario.getGenero());
 
             db.collection("Usuario").document(user.getUid()).set(doc)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {

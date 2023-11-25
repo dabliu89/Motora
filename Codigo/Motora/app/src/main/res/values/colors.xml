@@ -11,4 +11,6 @@
     <color name="gray">#7E7E7E</color>
     <color name="verde_base_da_aplicacao">#5D9C76</color>
     <color name="ActionBarTitleColor">#B30000</color>
+    <color name="cor_status_bar_professor">#000000</color>
+    <color name="cor_status_bar_aluno">#FFFFFF</color>
 </resources>

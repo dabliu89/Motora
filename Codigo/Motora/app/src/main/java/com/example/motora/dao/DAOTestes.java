@@ -7,6 +7,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.motora.model.Teste;
+import com.example.motora.model.classificadores.ClassificadorApFRS;
 import com.example.motora.model.AvaliacaoResultado;
 import com.example.motora.model.Teste;
 import com.example.motora.ui.avaliacoes.ListAvaliacoesAdapter;
@@ -77,8 +79,12 @@ public class DAOTestes {
 //        t.add(teste);
 //        Log.d(TAG, t.toString());
 //    }
+    private void setT(Teste teste){
+        t.add(teste);
+        Log.d(TAG, t.toString());
+    }
 
-    public static void createNewAvaliacao(AvaliacaoResultado resultado){
+    public static void createNewAvaliacao(ClassificadorApFRS resultado){
         db.collection("AvaliacoesResultados").add(resultado).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
