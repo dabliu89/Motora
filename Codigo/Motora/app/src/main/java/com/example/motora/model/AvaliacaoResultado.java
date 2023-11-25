@@ -1,6 +1,7 @@
 package com.example.motora.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class AvaliacaoResultado {
     String aluno;
@@ -9,7 +10,6 @@ public class AvaliacaoResultado {
     HashMap<String, String> campos;
     String message;
     String data;
-
     String id;
 
     int image;
@@ -99,5 +99,21 @@ public class AvaliacaoResultado {
                 ", campos='" + campos + '\'' +
                 ", message='" + message + '\'' +
                 '}';
+    }
+
+    public static AvaliacaoResultado stringToObject(String string){
+        HashMap<String, String> map = new HashMap<>();
+        AvaliacaoResultado avaliacaoResultado = new AvaliacaoResultado();
+
+        string=string.replace("=", " ");
+        string=string.replace("AvaliacaoResultado{", "");
+        string=string.replace("}", "");
+        String[] split = string.split("'");
+
+        avaliacaoResultado.setAluno(split[1]);
+        avaliacaoResultado.setTitulo(split[3]);
+        avaliacaoResultado.setMessage(split[7]);
+
+        return avaliacaoResultado;
     }
 }

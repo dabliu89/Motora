@@ -45,6 +45,13 @@ public class AvaliacoesFragment extends Fragment {
         binding = FragmentAvaliacoesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+
+        return root;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         avaliacoesResultados = new ArrayList<AvaliacaoResultado>();
 
         listAdapter = new ListAvaliacoesAdapter(this.getContext(), avaliacoesResultados);
@@ -55,17 +62,11 @@ public class AvaliacoesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(AvaliacoesFragment.this.getContext(), ResultadosDetalhadosActivity.class);
-                intent.putExtra("resultId", avaliacoesResultados.get(i).getId());
+                intent.putExtra("avalResult", avaliacoesResultados.get(i).toString());
+                intent.putExtra("avalCampos", avaliacoesResultados.get(i).getCampos().toString());
                 startActivity(intent);
             }
         });
-
-        return root;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         DAOTestes.getResultados(avaliacoesResultados, listAdapter);
     }
 
