@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.example.motora.model.AvaliacaoResultado;
 import com.example.motora.model.Teste;
+import com.example.motora.ui.avaliacoes.ListAvaliacoesAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,10 +56,7 @@ public class DAOTestes {
 
     public static void getTesteFirebase(String testeId){
         DocumentReference testes = db.collection("Avaliacoes").document(testeId);
-
         Source source = Source.CACHE;
-
-
         testes.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -94,5 +92,34 @@ public class DAOTestes {
                     }
                 });
         ;
+    }
+
+    public static ArrayList<AvaliacaoResultado> getResultados(ArrayList<AvaliacaoResultado> list, ListAvaliacoesAdapter adapter){
+        CollectionReference testes = db.collection("AvaliacoesResultados");
+        Query query = testes.orderBy("titulo");
+
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (DocumentSnapshot document : value.getDocuments()) {
+                    AvaliacaoResultado ob = document.toObject(AvaliacaoResultado.class);
+                    ob.setId(document.getId());
+                    db.collection("Usuario").whereEqualTo("id", ob.getAluno()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            for (DocumentSnapshot doc : value.getDocuments()){
+                                if(doc.exists()) {
+                                    ob.setAluno(doc.getString("nome"));
+                                    list.add(ob);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        return list;
     }
 }

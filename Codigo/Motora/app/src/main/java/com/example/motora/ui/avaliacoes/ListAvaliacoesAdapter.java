@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.motora.R;
+import com.example.motora.dao.DAOUsuario;
+import com.example.motora.model.Aluno;
 import com.example.motora.model.AvaliacaoResultado;
 
 import java.util.ArrayList;
@@ -23,23 +25,28 @@ public class ListAvaliacoesAdapter extends ArrayAdapter<AvaliacaoResultado> {
         super(context, R.layout.list_avaliacoes_item, dataArrayList);
     }
 
+    public static String alunoName;
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         AvaliacaoResultado avaliacaoResultado = getItem(position);
-
+//        ArrayList<Aluno> alunos = new ArrayList<>();
+//        alunos = DAOUsuario.getAlunoById(avaliacaoResultado.getAluno(), alunos);
+//        Aluno al = DAOUsuario.aluno.get(DAOUsuario.aluno.size()-1);
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_avaliacoes_item, parent, false);
         }
+            ImageView listImage = view.findViewById(R.id.listAvaliacaoImage);
+            TextView listTitle = view.findViewById(R.id.avaliacaoTitulo);
+            TextView listAlunoData = view.findViewById(R.id.alunoEData);
 
-        ImageView listImage = view.findViewById(R.id.listAvaliacaoImage);
-        TextView listTitle = view.findViewById(R.id.avaliacaoTitulo);
-        TextView listAlunoData = view.findViewById(R.id.alunoEData);
-
-        listImage.setImageResource(avaliacaoResultado.getImage());
-        listAlunoData.setText(avaliacaoResultado.getAluno() + ", " + avaliacaoResultado.getData());
-        listTitle.setText(avaliacaoResultado.getTituloTeste());
+            listImage.setImageResource(avaliacaoResultado.getImage());
+            listAlunoData.setText(avaliacaoResultado.getAluno());
+            listTitle.setText(avaliacaoResultado.getTitulo());
 
         return view;
     }
+
+
 }

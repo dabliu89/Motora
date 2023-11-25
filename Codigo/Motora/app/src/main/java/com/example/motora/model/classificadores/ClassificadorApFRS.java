@@ -1,6 +1,8 @@
 package com.example.motora.model.classificadores;
 
-public class ClassificadorApFRS extends Teste{
+import com.example.motora.model.Teste;
+
+public class ClassificadorApFRS extends Teste {
 
     private String aluno;
 

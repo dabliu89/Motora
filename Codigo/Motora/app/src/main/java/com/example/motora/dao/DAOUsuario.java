@@ -1,7 +1,9 @@
 package com.example.motora.dao;
 
+import static android.content.ContentValues.TAG;
 import static androidx.test.InstrumentationRegistry.getContext;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.example.motora.LoginActivity;
 import com.example.motora.Util.ConfiguraBD;
 import com.example.motora.model.Aluno;
+import com.example.motora.model.Teste;
 import com.example.motora.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,11 +25,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +40,11 @@ import java.util.Objects;
 public class DAOUsuario {
 
     private DatabaseReference databaseReference;
-    private static FirebaseAuth auth = ConfiguraBD.FirebaseAutenticacao();;
+    private static FirebaseAuth auth = ConfiguraBD.FirebaseAutenticacao();
+
+    public static ArrayList<Aluno> aluno =  new ArrayList<Aluno>();
+
+    public static String alunoName = "";
 
     static boolean successfulLog;
 
@@ -107,6 +116,30 @@ public class DAOUsuario {
 
 
         return alunos;
+    }
+
+    public static String getAluno(String alunoId){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference testes = db.collection("Usuario").document(alunoId);
+        Source source = Source.SERVER;
+        testes.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        Aluno al = document.toObject(Aluno.class);
+                        al.setId(document.getId());
+                        aluno.add(al);
+                    }
+                }
+                else{
+                    Log.d(TAG, "Cached get failed: ", task.getException());
+                }
+            }
+        });
+
+        return alunoName;
     }
 }
 

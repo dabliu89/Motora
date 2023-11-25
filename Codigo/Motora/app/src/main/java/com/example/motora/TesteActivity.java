@@ -15,10 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.motora.dao.DAOTestes;
-import com.example.motora.dao.DAOUsuario;
 import com.example.motora.model.AvaliacaoResultado;
 import com.example.motora.model.Teste;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -93,7 +91,8 @@ public class TesteActivity extends AppCompatActivity {
                         map.put(labels.get(i).getText().toString().toLowerCase(), boxes.get(i).getText().toString());
                     }
                     resultado.setCampos(map);
-                    resultado.setTituloTeste(teste.getTitulo());
+                    resultado.setTitulo(teste.getTitulo());
+                    resultado.setTipo(teste.getTipo());
                     DAOTestes.createNewAvaliacao(resultado);
 
                     startActivity(new Intent(TesteActivity.this, MainActivity.class));
