@@ -22,8 +22,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -34,7 +36,9 @@ public class ReportFragment extends Fragment {
 
     private FirebaseFirestore db;
     FirebaseUser user;
+    private String key, papel;
 
+    TextView textViewSugerir;
     TextInputEditText campoUserReport, campoUserSugestao;
     Button enviarReport, enviarSugestao;
 
@@ -51,6 +55,8 @@ public class ReportFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+        textViewSugerir = binding.textViewSugerir;
 
         campoUserReport = binding.textInputEditTextReport;
         campoUserSugestao = binding.textInputEditTextSugestao;
@@ -72,7 +78,41 @@ public class ReportFragment extends Fragment {
             }
         });
 
+        verifProfessor();
+
         return root;
+    }
+
+    private void verifProfessor(){
+
+        key = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("Usuario").document(key).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+
+                            DocumentSnapshot documentSnapshot = task.getResult();
+
+                            if(documentSnapshot != null && documentSnapshot.exists()){
+                                papel = documentSnapshot.getString("papel");
+
+                                if(papel.equals("Aluno") || papel.equals("aluno")){
+                                    textViewSugerir.setVisibility(textViewSugerir.GONE);
+                                    campoUserSugestao.setVisibility(campoUserSugestao.GONE);
+                                    enviarSugestao.setVisibility(enviarSugestao.GONE);
+                                }
+                            }
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Erro: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
     private void fazerReport() {
