@@ -67,6 +67,7 @@ public class AvaliacoesFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         DAOTestes.getResultados(avaliacoesResultados, listAdapter);
     }
 

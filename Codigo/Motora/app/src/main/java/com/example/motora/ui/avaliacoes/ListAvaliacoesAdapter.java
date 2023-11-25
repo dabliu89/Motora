@@ -31,9 +31,6 @@ public class ListAvaliacoesAdapter extends ArrayAdapter<AvaliacaoResultado> {
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         AvaliacaoResultado avaliacaoResultado = getItem(position);
-//        ArrayList<Aluno> alunos = new ArrayList<>();
-//        alunos = DAOUsuario.getAlunoById(avaliacaoResultado.getAluno(), alunos);
-//        Aluno al = DAOUsuario.aluno.get(DAOUsuario.aluno.size()-1);
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_avaliacoes_item, parent, false);
         }

@@ -3,11 +3,14 @@ package com.example.motora;
 import static android.text.InputType.TYPE_CLASS_NUMBER;
 import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -15,8 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.motora.dao.DAOTestes;
+import com.example.motora.model.Aluno;
 import com.example.motora.model.AvaliacaoResultado;
 import com.example.motora.model.Teste;
 import com.example.motora.model.classificadores.ClassificadorAntropometria;
@@ -27,13 +32,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -74,9 +85,6 @@ public class TesteActivity extends AppCompatActivity {
 
         alunoId = this.getIntent().getExtras().get("alunoId").toString();
 
-        nomeProcurado = this.getIntent().getExtras().get("alunoName").toString();
-
-        teste = Teste.stringToObject(nomeTeste);
 
         DAOTestes.getTesteFirebase(this.getIntent().getExtras().get("testeId").toString());
 
@@ -92,9 +100,7 @@ public class TesteActivity extends AppCompatActivity {
         }
         else{
             textTitle.setText(DAOTestes.t.size()+"");
-
             teste = DAOTestes.t.get(DAOTestes.t.size()-1);
-
             WebView videoTutorial = findViewById(R.id.videoTutorial);
             String iFrame = "<iframe width=\"100%\" height=\"100%\" src=\""+teste.getVideo()+"\" title=\"Como Calcular O IMC (Índice De Massa Corporal) + Tabela De Referência | Dicas De Nutrição\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
             videoTutorial.loadData(iFrame, "text/html", "utf-8");
@@ -108,53 +114,50 @@ public class TesteActivity extends AppCompatActivity {
             salvar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Map<String, String> map = new HashMap<String, String>();
-                    ClassificadorApFRS resultado = new ClassificadorApFRS();
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    AvaliacaoResultado resultado = new AvaliacaoResultado();
                     resultado.setAluno(alunoId);
 
-                    for (int i = 0; i < labels.size(); i++) {
+                    for(int i=0;i<labels.size();i++){
                         map.put(labels.get(i).getText().toString().toLowerCase(), boxes.get(i).getText().toString());
                     }
-
-                    CollectionReference usuariosRef = db.collection("Usuarios");
-                    usuariosRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    String userId = document.getId();
-
-                                    String nomeDoUsuario = document.getString("nome");
-
-                                    if (nomeDoUsuario.equals(nomeProcurado)) {
-                                        if(teste.getTipo().equals("Antropometria")){
-                                            classificadorAntropometria.direcionadorTeste(
-                                                    teste,
-                                                    document.getString("genero"),
-                                                    Integer.parseInt(document.getString("idade")),
-                                                    );
-                                        }else if(teste.getTipo().equals("ApFRS")){
-                                            classificadorApFRS.direcionadorTeste(teste,
-                                                    document.getString("genero"),
-                                                    Integer.parseInt(document.getString("idade")),
-                                                    );
-                                        }
-                                    }
-                                }
-                            } else {
-                                Toast.makeText(TesteActivity.this, "Task: " + task.getException(), Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
-                    mandarResultado(teste);
-
-                    DAOTestes.createNewAvaliacao(resultado);
 
                     resultado.setCampos(map);
                     resultado.setTitulo(teste.getTitulo());
                     resultado.setTipo(teste.getTipo());
-                    DAOTestes.createNewAvaliacao(resultado);
+                    String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+                    resultado.setData(date);
+
+                    CollectionReference collectionReference = db.collection("Usuario");
+                    Query query = collectionReference.whereEqualTo("id", alunoId);
+
+                    query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            for (DocumentSnapshot document : value.getDocuments()) {
+                                Aluno ob = document.toObject(Aluno.class);
+                                ob.setUid(document.getId().toString());
+                                String message = "";
+                                double calculo = 0;
+                                for(String key : resultado.getCampos().keySet()){
+                                    calculo = Double.parseDouble(resultado.getCampos().get(key));
+                                }
+
+                                if(resultado.getTitulo().equals("IMC")) calculo = ClassificadorApFRS.imcCalc(Float.parseFloat(resultado.getCampos().get("massa")), Float.parseFloat(resultado.getCampos().get("altura")));
+                                if(resultado.getTitulo().equals("RCE")) calculo = ClassificadorApFRS.imcCalc(Float.parseFloat(resultado.getCampos().get("cintura")), Float.parseFloat(resultado.getCampos().get("estatura")));
+
+                                if(resultado.getTipo().equals("Antropometria")){
+                                    message = classificadorAntropometria.direcionadorTeste(resultado.getTitulo(), ob.getGenero(), (int) ob.getIdade(), calculo);
+                                }
+                                if(resultado.getTipo().equals("ApFRS")){
+                                    message = classificadorApFRS.direcionadorTeste(resultado.getTitulo(), ob.getGenero(), (int) ob.getIdade(), calculo);
+                                }
+
+                                resultado.setMessage(message);
+                                DAOTestes.createNewAvaliacao(resultado);
+                            }
+                        }
+                    });
 
                     startActivity(new Intent(TesteActivity.this, MainActivity.class));
                 }
@@ -200,31 +203,6 @@ public class TesteActivity extends AppCompatActivity {
         boxes.add(valueET);
 
         return boxes.get(boxes.size()-1);
-    }
-
-    private void mandarResultado(Teste classTeste){
-
-        if (user != null) {
-            Map<String, Object> doc = new HashMap<>();
-            doc.put("id", user.getUid());
-            doc.put("report", Objects.requireNonNull(campoUserReport.getText()).toString());
-            doc.put("email", user.getEmail());
-
-            db.collection("AvaliacoesResultados").document(user.getUid()).set(doc)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
-                            Toast.makeText(TesteActivity.this, "Resultado cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@androidx.annotation.NonNull Exception e) {
-                            Toast.makeText(TesteActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }else {
-            Toast.makeText(TesteActivity.this, "Erro em identificar o usuário", Toast.LENGTH_SHORT).show();
-        }
     }
 
 }

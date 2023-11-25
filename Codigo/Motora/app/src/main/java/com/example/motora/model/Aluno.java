@@ -9,7 +9,7 @@ public class Aluno  extends Usuario{
     private String email;
     private String senha;
 
-    private int idade;
+    private long idade;
 
     private String genero;
 
@@ -73,12 +73,12 @@ public class Aluno  extends Usuario{
         this.id = id;
     }
 
-    public int getIdade() {
+    public long getIdade() {
         return idade;
     }
 
-    public void setIdade(String idade) {
-        this.idade = Integer.parseInt(idade);
+    public void setIdade(long idade) {
+        this.idade = idade;
     }
 
     public String getGenero() {

@@ -8,10 +8,12 @@ import java.util.ArrayList;
 public class Usuario {
     @Exclude
     private String key;
-    private String nome, email, senha, papel, idade, genero;
+    private String nome, email, senha, papel, genero;
+
+    private long idade;
     private String id;
 
-    public Usuario(int id, String nome, String email, String senha, String papel, String idade, String genero) {
+    public Usuario(int id, String nome, String email, String senha, String papel, long idade, String genero) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -67,11 +69,11 @@ public class Usuario {
         this.papel = papel;
     }
 
-    public String getIdade() {
+    public long getIdade() {
         return idade;
     }
 
-    public void setIdade(String idade) {
+    public void setIdade(long idade) {
         this.idade = idade;
     }
 

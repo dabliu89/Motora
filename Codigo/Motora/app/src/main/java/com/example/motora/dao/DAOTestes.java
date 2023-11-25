@@ -84,7 +84,7 @@ public class DAOTestes {
         Log.d(TAG, t.toString());
     }
 
-    public static void createNewAvaliacao(ClassificadorApFRS resultado){
+    public static void createNewAvaliacao(AvaliacaoResultado resultado){
         db.collection("AvaliacoesResultados").add(resultado).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
