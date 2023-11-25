@@ -9,6 +9,8 @@ import com.example.motora.R;
 import com.example.motora.dao.DAOTestes;
 import com.example.motora.model.AvaliacaoResultado;
 
+import java.util.Locale;
+
 public class ResultadosDetalhadosActivity extends AppCompatActivity {
 
     TextView tituloTeste;
@@ -30,7 +32,13 @@ public class ResultadosDetalhadosActivity extends AppCompatActivity {
 
         tituloTeste.setText(avaliacaoResultado.getTitulo());
         nomeAluno.setText((avaliacaoResultado.getAluno()));
-        resultadosAvaliacao.setText(this.getIntent().getExtras().get("avalCampos").toString());
+
+        String textoResultados = this.getIntent().getExtras().get("avalCampos").toString().replace("{", "");
+        textoResultados = textoResultados.replace("}", "");
+        textoResultados = textoResultados.toUpperCase(Locale.ROOT);
+        textoResultados = textoResultados + "\n" + avaliacaoResultado.getMessage();
+
+        resultadosAvaliacao.setText(textoResultados);
 
     }
 
