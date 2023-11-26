@@ -47,11 +47,11 @@ public class CadastroActivity extends AppCompatActivity {
 
     Usuario usuario;
     FirebaseAuth autenticacao;
-    EditText campoNome, campoEmail, campoSenha, campoConfSenha, campoIdade;
-    TextView tvTemConta, tvNome, tvEmail, tvSenha, tvConfSenha, tvIdade;
+    EditText campoNome, campoEmail, campoSenha, campoConfSenha, campoIdade, campoNomeProfRes;
+    TextView tvTemConta, tvNome, tvEmail, tvSenha, tvConfSenha, tvIdade, tvNomeProfRes;
     DAOUsuario dao;
     FirebaseFirestore db;
-    String nome, email, senha, confSenha, idade;
+    String nome, email, senha, confSenha, idade, nomeProfRes;
     String[] papel = {"Professor", "Aluno"};
     String[] genero = {"Masculino", "Feminino"};
     String escolha = "", escolha2 = "";
@@ -91,6 +91,7 @@ public class CadastroActivity extends AppCompatActivity {
         campoSenha = findViewById(R.id.editTextSenha);
         campoConfSenha = findViewById(R.id.editTextConfirmarSenha);
         campoIdade = findViewById(R.id.editTextIdade);
+        campoNomeProfRes = findViewById(R.id.editTextNomeDoProfessorRes);
 
         llPrincipal = findViewById(R.id.linearLayoutPrincipal);
         tvTemConta = findViewById(R.id.textViewTemConta);
@@ -99,6 +100,7 @@ public class CadastroActivity extends AppCompatActivity {
         tvSenha = findViewById(R.id.textViewSenha);
         tvConfSenha = findViewById(R.id.textViewConfSenha);
         tvIdade = findViewById(R.id.textViewIdade);
+        tvNomeProfRes = findViewById(R.id.textViewNomeDoProfessorRes);
 
         linearLayoutIG = findViewById(R.id.linearLayoutIG);
 
@@ -137,6 +139,8 @@ public class CadastroActivity extends AppCompatActivity {
                     //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleWhite);
                     autoCompleteTextViewPapel.setTextAppearance(R.style.EstiloProfessor);
 
+                    tvNomeProfRes.setVisibility(View.GONE);
+                    campoNomeProfRes.setVisibility(View.GONE);
                     linearLayoutIG.setVisibility(View.GONE);
 
                     mudarLayoutPapel(item);
@@ -157,9 +161,13 @@ public class CadastroActivity extends AppCompatActivity {
                     campoConfSenha.setTextAppearance(R.style.EstiloAluno);
                     tvIdade.setTextAppearance(R.style.EstiloAluno);
                     campoIdade.setTextAppearance(R.style.EstiloAluno);
+                    tvNomeProfRes.setTextAppearance(R.style.EstiloAluno);
+                    campoNomeProfRes.setTextAppearance(R.style.EstiloAluno);
                     //autoCompleteTextViewPapel.setTextAppearance(R.style.CustomAutoCompleteTextViewStyleBlack);
                     autoCompleteTextViewPapel.setTextAppearance(R.style.EstiloAluno);
 
+                    tvNomeProfRes.setVisibility(View.VISIBLE);
+                    campoNomeProfRes.setVisibility(View.VISIBLE);
                     linearLayoutIG.setVisibility(View.VISIBLE);
 
                     mudarLayoutPapel(item);
@@ -216,8 +224,9 @@ public class CadastroActivity extends AppCompatActivity {
         senha = campoSenha.getText().toString();
         confSenha = campoConfSenha.getText().toString();
         idade = campoIdade.getText().toString();
+        nomeProfRes = campoNomeProfRes.getText().toString();
 
-        if(verNome() && verIdade() && verGenero()){
+        if(verNome(nome) && verIdade() && verGenero() && verProfRes()){
             if(!email.isEmpty()){
                 if(senha.length() >= 8){
                     if(!confSenha.equals(senha)){
@@ -232,7 +241,7 @@ public class CadastroActivity extends AppCompatActivity {
                             usuario.setPapel(escolha);
                             usuario.setIdade(null);
                             usuario.setGenero(null);
-
+                            usuario.setNomeProfRes(null);
                         }else if(!escolha.isEmpty() && (escolha.equals("Aluno") || escolha.equals("aluno"))){
                             usuario = new Usuario();
                             usuario.setNome(nome);
@@ -241,6 +250,7 @@ public class CadastroActivity extends AppCompatActivity {
                             usuario.setPapel(escolha);
                             usuario.setIdade(idade);
                             usuario.setGenero(escolha2);
+                            usuario.setNomeProfRes(nomeProfRes);
                         }else{
                             Toast.makeText(this, "Por favor selecione o papel que deseja representar nesta aplicação", Toast.LENGTH_SHORT).show();
                         }
@@ -258,12 +268,12 @@ public class CadastroActivity extends AppCompatActivity {
         }
     }
 
-    private boolean verNome() {
-        for(int i = 0; i < nome.length(); ++i) {
-            char ch = nome.charAt(i);
+    private boolean verNome(String nomes) {
+        for(int i = 0; i < nomes.length(); ++i) {
+            char ch = nomes.charAt(i);
 
-            if(i < nome.length()-1){
-                char ch1 = nome.charAt(i + 1);
+            if(i < nomes.length()-1){
+                char ch1 = nomes.charAt(i + 1);
 
                 if (ch == ' ' && ch1 == ' ') {
                     return false;
@@ -271,14 +281,14 @@ public class CadastroActivity extends AppCompatActivity {
             }
         }
 
-        if (nome.length() == 0) {
+        if (nomes.length() == 0) {
             return false;
         } else {
-            for (int i = 0; i < nome.length(); ++i) {
-                char ch = nome.charAt(i);
+            for (int i = 0; i < nomes.length(); ++i) {
+                char ch = nomes.charAt(i);
 
                 if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= 'á' && ch <= 'ú') || (ch >= 'Á' && ch <= 'Ú') || ch == 'ã' || ch == 'õ' || ch == ' ') || (i == 0 && ch == ' ')) {
-                    Toast.makeText(this, "Preencha o campo Nome apropriadamente (Verifique espaços indesejados)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Preencha o(s) campo(s) de nome apropriadamente (Verifique espaços indesejados)", Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -316,6 +326,16 @@ public class CadastroActivity extends AppCompatActivity {
             if(escolha2.isEmpty()){
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    private boolean verProfRes(){
+        if(escolha.equals("Professor")){
+            return true;
+        } else if (escolha.equals("Aluno")) {
+            verNome(nomeProfRes);
         }
 
         return true;
@@ -368,6 +388,7 @@ public class CadastroActivity extends AppCompatActivity {
             doc.put("papel", usuario.getPapel());
             doc.put("idade", usuario.getIdade());
             doc.put("genero", usuario.getGenero());
+            doc.put("prof_responsavel", usuario.getNomeProfRes());
 
             db.collection("Usuario").document(user.getUid()).set(doc)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
