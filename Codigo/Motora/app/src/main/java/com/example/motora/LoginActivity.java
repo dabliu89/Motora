@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +39,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
 
+    private static Context context;
+
     public static boolean active = false;
+
+    private static int openCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +60,11 @@ public class LoginActivity extends AppCompatActivity {
 
         textView.setText(spannableString);
 
+        context = getBaseContext();
+
 
         auth = ConfiguraBD.FirebaseAutenticacao();
+
         inicializarComponentes();
     }
 
@@ -82,12 +90,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void showMessage(String message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private static void showMessage(String message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
 
-    public boolean updateUI(boolean successfulLog){
+    public static boolean updateUI(boolean successfulLog){
 
         if(successfulLog){
             showMessage("Login realizado com sucesso!");
@@ -98,14 +106,16 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private void abrirHome() {
-        Intent intent = new Intent(this, MainActivity.class);
-        this.startActivity(intent);
+    public static void abrirHome() {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
-    private void abrirVisaoAluno(){
-        Intent intent = new Intent(this, VisaoAluno.class);
-        this.startActivity(intent);
+    public static void abrirVisaoAluno(){
+        Intent intent = new Intent(context, VisaoAluno.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     public void cadastrar(View v){
@@ -121,14 +131,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         active = true;
+
         FirebaseUser usuarioAuth = auth.getCurrentUser();
         if(usuarioAuth != null){
             DAOUsuario.getPapelUser(usuarioAuth.getUid());
-            if(DAOUsuario.papel.equals("Aluno")){
-                abrirVisaoAluno();
-            } else {
-                abrirHome();
-            }
         }
     }
     @Override

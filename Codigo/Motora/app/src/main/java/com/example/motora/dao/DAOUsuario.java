@@ -63,7 +63,9 @@ public class DAOUsuario {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     successfulLog = true;
+                    LoginActivity.updateUI(true);
                 }else{
+                    LoginActivity.updateUI(false);
                     String excecao;
                     try{
                         throw Objects.requireNonNull(task.getException());
@@ -155,6 +157,11 @@ public class DAOUsuario {
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
                         papel = document.getString("papel");
+                        if(papel.equals("Aluno")){
+                            LoginActivity.abrirVisaoAluno();
+                        } else {
+                            LoginActivity.abrirHome();
+                        }
                     }
                 }
                 else{

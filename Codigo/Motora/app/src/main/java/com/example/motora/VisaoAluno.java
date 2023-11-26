@@ -1,6 +1,7 @@
 package com.example.motora;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.example.motora.dao.DAOTestes;
+import com.example.motora.databinding.ActivityVisaoAlunoBinding;
 import com.example.motora.databinding.FragmentAvaliacoesBinding;
 import com.example.motora.model.AvaliacaoResultado;
 import com.example.motora.ui.avaliacoes.AvaliacoesFragment;
@@ -23,7 +25,7 @@ public class VisaoAluno extends AppCompatActivity {
 
     private FirebaseAuth auth;
 
-    private FragmentAvaliacoesBinding binding;
+    private ActivityVisaoAlunoBinding binding;
 
     ListAvaliacoesAdapter listAdapter;
     ArrayList<AvaliacaoResultado> avaliacoesResultados;
@@ -35,7 +37,7 @@ public class VisaoAluno extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        binding = FragmentAvaliacoesBinding.inflate(getLayoutInflater());
+        binding = ActivityVisaoAlunoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
 
@@ -59,5 +61,14 @@ public class VisaoAluno extends AppCompatActivity {
         });
 
         DAOTestes.getResultadosAlunoEspecifico(avaliacoesResultados, listAdapter, auth.getCurrentUser().getUid());
+    }
+
+    public void deslogar(View v){
+        try{
+            auth.signOut();
+            finish();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

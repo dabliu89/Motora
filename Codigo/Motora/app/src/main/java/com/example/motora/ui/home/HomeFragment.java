@@ -66,6 +66,8 @@ public class HomeFragment extends Fragment {
 
     DAOUsuario daoUsuario = new DAOUsuario();
 
+    View root;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -76,13 +78,12 @@ public class HomeFragment extends Fragment {
 
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        root = binding.getRoot();
 
         tiposAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, tiposList);
         avaliacoesAdapter = new ArrayAdapter<Teste>(this.getActivity(), android.R.layout.simple_spinner_item, avaliacoesList);
         alunosAdapter = new ArrayAdapter<Aluno>(this.getActivity(), android.R.layout.simple_spinner_item, alunosList);
 
-        initView(root);
 
         return root;
     }
@@ -90,6 +91,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        initView(root);
     }
 
     private void initView(View root){
@@ -133,7 +135,7 @@ public class HomeFragment extends Fragment {
     private void setUpSpinners(Spinner spinner, ArrayAdapter adapter){
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setSelection(1);
+        spinner.setSelection(0);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -161,10 +163,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-
-
-
 
     @Override
     public void onDestroyView() {
