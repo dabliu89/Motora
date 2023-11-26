@@ -1,23 +1,42 @@
 package com.example.motora.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class AvaliacaoResultado {
     String aluno;
-    String tituloTeste;
+    String titulo;
+    String tipo;
     HashMap<String, String> campos;
     String message;
     String data;
+    String id;
 
     int image;
 
-    public AvaliacaoResultado(String aluno, String tituloTeste, HashMap<String, String> campos, String message, String data, int image) {
+    public AvaliacaoResultado(String aluno, String titulo, HashMap<String, String> campos, String message, String data, int image) {
         this.aluno = aluno;
-        this.tituloTeste = tituloTeste;
+        this.titulo = titulo;
         this.campos = campos;
         this.message = message;
         this.data = data;
         this.image = image;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipoTeste) {
+        this.tipo = tipoTeste;
     }
 
     public String getData() {
@@ -40,12 +59,12 @@ public class AvaliacaoResultado {
         this.aluno = aluno;
     }
 
-    public String getTituloTeste() {
-        return tituloTeste;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTituloTeste(String tituloTeste) {
-        this.tituloTeste = tituloTeste;
+    public void setTitulo(String tituloTeste) {
+        this.titulo = tituloTeste;
     }
 
     public HashMap<String, String> getCampos() {
@@ -76,9 +95,25 @@ public class AvaliacaoResultado {
     public String toString() {
         return "AvaliacaoResultado{" +
                 "aluno='" + aluno + '\'' +
-                ", tituloTeste='" + tituloTeste + '\'' +
+                ", tituloTeste='" + titulo + '\'' +
                 ", campos='" + campos + '\'' +
                 ", message='" + message + '\'' +
                 '}';
+    }
+
+    public static AvaliacaoResultado stringToObject(String string){
+        HashMap<String, String> map = new HashMap<>();
+        AvaliacaoResultado avaliacaoResultado = new AvaliacaoResultado();
+
+        string=string.replace("=", " ");
+        string=string.replace("AvaliacaoResultado{", "");
+        string=string.replace("}", "");
+        String[] split = string.split("'");
+
+        avaliacaoResultado.setAluno(split[1]);
+        avaliacaoResultado.setTitulo(split[3]);
+        avaliacaoResultado.setMessage(split[7]);
+
+        return avaliacaoResultado;
     }
 }

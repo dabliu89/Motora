@@ -124,6 +124,7 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(HomeFragment.this.getActivity(), TesteActivity.class);
                 intent.putExtra("alunoId", alunosList.get(aluno.getSelectedItemPosition()).getId());
                 intent.putExtra("testeId", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getId());
+                intent.putExtra("tipoTeste", tiposList.get(tipoAvaliacao.getSelectedItemPosition()));
                 startActivity(intent);
             }
         });
