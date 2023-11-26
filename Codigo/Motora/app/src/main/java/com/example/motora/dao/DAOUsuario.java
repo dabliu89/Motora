@@ -46,6 +46,8 @@ public class DAOUsuario {
 
     public static String alunoName = "";
 
+    public static String papel = "";
+
     static boolean successfulLog;
 
     public DAOUsuario(){
@@ -61,7 +63,9 @@ public class DAOUsuario {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     successfulLog = true;
+                    LoginActivity.updateUI(true);
                 }else{
+                    LoginActivity.updateUI(false);
                     String excecao;
                     try{
                         throw Objects.requireNonNull(task.getException());
@@ -140,6 +144,33 @@ public class DAOUsuario {
         });
 
         return alunoName;
+    }
+
+    public static String getPapelUser(String userId){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference testes = db.collection("Usuario").document(userId);
+        Source source = Source.SERVER;
+        testes.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        papel = document.getString("papel");
+                        if(papel.equals("Aluno")){
+                            LoginActivity.abrirVisaoAluno();
+                        } else {
+                            LoginActivity.abrirHome();
+                        }
+                    }
+                }
+                else{
+                    Log.d(TAG, "Cached get failed: ", task.getException());
+                }
+            }
+        });
+
+        return papel;
     }
 }
 
