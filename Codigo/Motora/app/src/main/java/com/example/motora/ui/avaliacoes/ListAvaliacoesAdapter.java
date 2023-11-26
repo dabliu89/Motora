@@ -1,5 +1,6 @@
 package com.example.motora.ui.avaliacoes;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.example.motora.R;
 import com.example.motora.dao.DAOUsuario;
@@ -31,6 +33,7 @@ public class ListAvaliacoesAdapter extends ArrayAdapter<AvaliacaoResultado> {
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         AvaliacaoResultado avaliacaoResultado = getItem(position);
+
         if (view == null) {
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_avaliacoes_item, parent, false);
         }
@@ -38,9 +41,19 @@ public class ListAvaliacoesAdapter extends ArrayAdapter<AvaliacaoResultado> {
             TextView listTitle = view.findViewById(R.id.avaliacaoTitulo);
             TextView listAlunoData = view.findViewById(R.id.alunoEData);
 
-            listImage.setImageResource(avaliacaoResultado.getImage());
+            //listImage.setImageResource(avaliacaoResultado.getImage());
             listAlunoData.setText(avaliacaoResultado.getAluno());
             listTitle.setText(avaliacaoResultado.getTitulo());
+
+        if(!avaliacaoResultado.getMessage().equals("ZONA SAUDÁVEL")){
+            listImage.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.ActionBarTitleColor));
+        }
+
+        if(avaliacaoResultado.getTipo().equals("ApFRS")){
+            listImage.setImageResource(R.drawable.aptidao_icon);
+        } else {
+            listImage.setImageResource(R.drawable.antropometria_icon);
+        }
 
         return view;
     }
