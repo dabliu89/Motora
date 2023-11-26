@@ -98,6 +98,7 @@ public class AvaliacaoResultado {
                 ", tituloTeste='" + titulo + '\'' +
                 ", campos='" + campos + '\'' +
                 ", message='" + message + '\'' +
+                ", tipoTeste='" + tipo + '\'' +
                 '}';
     }
 
@@ -113,6 +114,7 @@ public class AvaliacaoResultado {
         avaliacaoResultado.setAluno(split[1]);
         avaliacaoResultado.setTitulo(split[3]);
         avaliacaoResultado.setMessage(split[7]);
+        avaliacaoResultado.setTipo(split[9]);
 
         return avaliacaoResultado;
     }

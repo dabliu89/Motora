@@ -15,8 +15,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="14dp"
         android:text="Nome do Teste"
-        android:textColor="@color/gray"
-        android:textSize="24sp"
+        android:textColor="@color/green"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <androidx.cardview.widget.CardView
@@ -47,17 +47,17 @@
         android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
-        android:textSize="18dp"
+        android:textSize="25dp"
         android:id="@+id/nomeDoAluno"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Esta parte vai ser substituída pelois resultados dos testes: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel velit et augue molestie accumsan. In tellus orci, tincidunt eu ipsum vitae, ultrices blandit nulla. Proin nulla quam, venenatis vel ex in, aliquet mollis dui. Morbi elementum dignissim augue non molestie. Pellentesque aliquet neque mi, non sollicitudin purus fermentum sit amet. Morbi non bibendum libero. Nam ligula quam, sodales in dapibus nec, ultricies vitae elit. Vivamus interdum euismod fringilla. Fusce eget dignissim lorem. Nulla id mauris massa. Fusce rhoncus non felis a tempus."
+        android:text="Esta parte vai ser substituída pelois resultados dos testes: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel velit et augue molestie accumsan. In tellus orci, tincidunt eu ipsum vitae, ultrices blandit nulla. Proin nulla quam, venena"
         android:textColor="@color/black"
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:id="@+id/resultadosAvaliacao"/>
 
 

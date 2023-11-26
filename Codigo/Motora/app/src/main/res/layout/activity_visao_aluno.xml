@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/avaliacoesFragment"
+    tools:context=".VisaoAluno">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBotaoVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imageView_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="Logout"
+            android:onClick="deslogar"
+            android:padding="15dp"
+            android:src="@drawable/ic_arrow_back"
+            tools:ignore="UsingOnClickInXml,DuplicateSpeakableTextCheck" />
+
+    </LinearLayout>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listaAvaliacoes"
+        android:scrollbars="vertical"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="60dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        tools:listitem="@layout/list_avaliacoes_item"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
