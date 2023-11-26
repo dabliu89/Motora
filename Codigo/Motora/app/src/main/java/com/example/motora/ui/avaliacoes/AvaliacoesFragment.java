@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,24 +36,58 @@ public class AvaliacoesFragment extends Fragment {
     ArrayList<AvaliacaoResultado> avaliacoesResultados;
     AvaliacaoResultado avalResult;
 
+
+//    public View onCreateView(@NonNull LayoutInflater inflater,
+//                             ViewGroup container, Bundle savedInstanceState) {
+//        AvaliacoesViewModel avaliacoesViewModel =
+//                new ViewModelProvider(this).get(AvaliacoesViewModel.class);
+//
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+//
+//        binding = FragmentAvaliacoesBinding.inflate(inflater, container, false);
+//        View root = binding.getRoot();
+//
+//        return root;
+//    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        AvaliacoesViewModel avaliacoesViewModel =
-                new ViewModelProvider(this).get(AvaliacoesViewModel.class);
-
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-
         binding = FragmentAvaliacoesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        SearchView searchView = root.findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Se desejar lidar com a submissão do texto de pesquisa
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Chama a função de busca quando o texto é alterado
+                buscarAvaliacoesPorAluno(newText);
+                return true;
+            }
+        });
+
+        listAdapter = new ListAvaliacoesAdapter(getContext(), avaliacoesResultados);
+        binding.listaAvaliacoes.setAdapter(listAdapter);
 
         return root;
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
-        avaliacoesResultados = new ArrayList<AvaliacaoResultado>();
+
+        // Verifique se avaliacoesResultados é nulo e, se for, inicialize-o
+        if (avaliacoesResultados == null) {
+            avaliacoesResultados = new ArrayList<>();
+        }
 
         listAdapter = new ListAvaliacoesAdapter(this.getContext(), avaliacoesResultados);
         binding.listaAvaliacoes.setAdapter(listAdapter);
@@ -71,6 +106,22 @@ public class AvaliacoesFragment extends Fragment {
         DAOTestes.getResultados(avaliacoesResultados, listAdapter);
     }
 
+
+    // Função para buscar avaliações pelo nome do aluno
+    private void buscarAvaliacoesPorAluno(String nomeAluno) {
+        ArrayList<AvaliacaoResultado> resultadosFiltrados = new ArrayList<>();
+
+        for (AvaliacaoResultado resultado : avaliacoesResultados) {
+            if (resultado.getAluno().toLowerCase().contains(nomeAluno.toLowerCase())) {
+                resultadosFiltrados.add(resultado);
+            }
+        }
+
+        // Limpa o adaptador e adiciona os resultados filtrados
+        listAdapter.clear();
+        listAdapter.addAll(resultadosFiltrados);
+        listAdapter.notifyDataSetChanged();
+    }
 
 
     @Override

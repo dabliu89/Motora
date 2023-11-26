@@ -4,18 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/avaliacoesFragment"
     tools:context=".ui.avaliacoes.AvaliacoesFragment">
+    <LinearLayout
+        android:id="@+id/linearLayoutBotaoVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+        <ImageView
+            android:id="@+id/imageView_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="Logout"
+            android:onClick="deslogar"
+            android:padding="15dp"
+            android:src="@drawable/ic_arrow_back"
+            tools:ignore="UsingOnClickInXml,DuplicateSpeakableTextCheck" />
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:iconifiedByDefault="false"
 
+            android:queryHint="Buscar aluno" />
+    </LinearLayout>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listaAvaliacoes"
         android:scrollbars="vertical"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="95dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
-        tools:listitem="@layout/list_avaliacoes_item"/>
-
+        tools:listitem="@layout/list_avaliacoes_item"
+        app:layout_constraintTop_toBottomOf="@id/search_view"
+        tools:ignore="NotSibling" />
 </androidx.constraintlayout.widget.ConstraintLayout>

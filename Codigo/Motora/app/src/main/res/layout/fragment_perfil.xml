@@ -101,19 +101,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-<<<<<<< HEAD
-=======
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#5D9C76"
-                android:onClick="update"
-                android:text="Atualizar dados"
-                android:textColor="#fff"
-                android:textColorHint="#F6F0F2"
-                tools:ignore="TextContrastCheck,UsingOnClickInXml" />
-
->>>>>>> alteracoesDudu
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
@@ -143,17 +130,10 @@
                 android:id="@+id/buttonAtualizarDados"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/verde_base_da_aplicacao"
                 android:text="Atualizar dados"
-=======
-                android:layout_marginTop="10dp"
-                android:backgroundTint="#5D9C76"
-                android:onClick="updateSenha"
-                android:text="Atualizar senha"
->>>>>>> alteracoesDudu
                 android:textColor="#fff"
                 android:textColorHint="#F6F0F2"
                 tools:ignore="TextContrastCheck,UsingOnClickInXml" />
@@ -162,17 +142,9 @@
                 android:id="@+id/buttonApagarConta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="#E10000"
-=======
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#FF0000"
-                android:onClick="delete"
->>>>>>> alteracoesDudu
                 android:text="Apagar conta"
                 android:textColor="#fff"
                 android:textColorHint="#F6F0F2"
