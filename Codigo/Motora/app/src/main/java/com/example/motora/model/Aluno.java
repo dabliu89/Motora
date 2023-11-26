@@ -9,6 +9,10 @@ public class Aluno  extends Usuario{
     private String email;
     private String senha;
 
+    private long idade;
+
+    private String genero;
+
 
     public Aluno(){}
 
@@ -49,6 +53,40 @@ public class Aluno  extends Usuario{
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public static int getCONTADOR() {
+        return CONTADOR;
+    }
+
+    public static void setCONTADOR(int CONTADOR) {
+        Aluno.CONTADOR = CONTADOR;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public long getIdade() {
+        return idade;
+    }
+
+    public void setIdade(long idade) {
+        this.idade = idade;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
     @Override

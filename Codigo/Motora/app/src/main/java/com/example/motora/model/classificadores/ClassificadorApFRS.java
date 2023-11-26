@@ -41,6 +41,14 @@ public class ClassificadorApFRS extends Teste {
                 return "";
         }
 
+        public static double imcCalc(float massa, float altura){
+            return massa / (altura * altura);
+        }
+
+        public static double rCE(float cintura, float estatura){
+            return cintura/estatura;
+        }
+
         public String imcSaude(String genero, int idade, double resultado) {
 
                 if (genero.equals("masculino")) {

@@ -230,7 +230,6 @@ public class CadastroActivity extends AppCompatActivity {
                             usuario.setEmail(email);
                             usuario.setSenha(senha);
                             usuario.setPapel(escolha);
-                            usuario.setIdade(null);
                             usuario.setGenero(null);
 
                         }else if(!escolha.isEmpty() && (escolha.equals("Aluno") || escolha.equals("aluno"))){
@@ -239,7 +238,7 @@ public class CadastroActivity extends AppCompatActivity {
                             usuario.setEmail(email);
                             usuario.setSenha(senha);
                             usuario.setPapel(escolha);
-                            usuario.setIdade(idade);
+                            usuario.setIdade(Integer.parseInt(idade));
                             usuario.setGenero(escolha2);
                         }else{
                             Toast.makeText(this, "Por favor selecione o papel que deseja representar nesta aplicação", Toast.LENGTH_SHORT).show();
