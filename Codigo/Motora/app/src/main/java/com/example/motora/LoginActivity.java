@@ -103,6 +103,11 @@ public class LoginActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
+    private void abrirVisaoAluno(){
+        Intent intent = new Intent(this, VisaoAluno.class);
+        this.startActivity(intent);
+    }
+
     public void cadastrar(View v){
         Intent intent = new Intent(this, CadastroActivity.class);
         this.startActivity(intent);
@@ -118,7 +123,12 @@ public class LoginActivity extends AppCompatActivity {
         active = true;
         FirebaseUser usuarioAuth = auth.getCurrentUser();
         if(usuarioAuth != null){
-            abrirHome();
+            DAOUsuario.getPapelUser(usuarioAuth.getUid());
+            if(DAOUsuario.papel.equals("Aluno")){
+                abrirVisaoAluno();
+            } else {
+                abrirHome();
+            }
         }
     }
     @Override

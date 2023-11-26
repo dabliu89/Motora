@@ -26,4 +26,9 @@
         <item name="colorAccent">@color/black</item>
         <item name="android:colorAccent">@color/black</item>
     </style>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Motora" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
 </resources>
