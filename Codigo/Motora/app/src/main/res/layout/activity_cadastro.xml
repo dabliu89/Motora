@@ -185,7 +185,7 @@
                         android:ems="10"
                         android:hint="6 - 17"
                         android:importantForAutofill="no"
-                        android:inputType="textPersonName"
+                        android:inputType="number"
                         android:maxLength="40"
                         android:minHeight="48dp"
                         android:padding="10dp"

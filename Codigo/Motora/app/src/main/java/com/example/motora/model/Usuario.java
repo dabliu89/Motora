@@ -8,10 +8,11 @@ import java.util.ArrayList;
 public class Usuario {
     @Exclude
     private String key;
-    private String nome, email, senha, papel, idade, genero, nomeProfRes;
+    private String nome, email, senha, papel, genero, nomeProfRes;
+    private int idade;
     private String id;
 
-    public Usuario(String id, String nome, String email, String senha, String papel, String idade, String genero, String nomeProfRes) {
+    public Usuario(String id, String nome, String email, String senha, String papel, int idade, String genero, String nomeProfRes) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -68,11 +69,11 @@ public class Usuario {
         this.papel = papel;
     }
 
-    public String getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(String idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 

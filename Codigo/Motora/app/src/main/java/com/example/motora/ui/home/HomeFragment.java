@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.motora.MainActivity;
@@ -61,29 +62,29 @@ public class HomeFragment extends Fragment {
 
 
     ArrayAdapter<String> tiposAdapter;
-    ArrayAdapter<Teste> avaliacoesAdapter;
-    ArrayAdapter<Aluno> alunosAdapter;
+    ArrayAdapter</*Teste*/String> avaliacoesAdapter;
+    ArrayAdapter</*Aluno*/String> alunosAdapter;
 
     DAOUsuario daoUsuario = new DAOUsuario();
 
     View root;
 
-
+    private static final String TAG = "ViewDatabase";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
 
-
+        Log.d(TAG, "Iniciou o fragment");
+        Toast.makeText(getContext(), "Fragment iniciado", Toast.LENGTH_SHORT).show();
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         root = binding.getRoot();
 
-        tiposAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, tiposList);
-        avaliacoesAdapter = new ArrayAdapter<Teste>(this.getActivity(), android.R.layout.simple_spinner_item, avaliacoesList);
-        alunosAdapter = new ArrayAdapter<Aluno>(this.getActivity(), android.R.layout.simple_spinner_item, alunosList);
+        initView(root);
 
+        /*tiposAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, tiposList);
+        avaliacoesAdapter = new ArrayAdapter<Teste>(this.getActivity(), android.R.layout.simple_spinner_item, avaliacoesList);
+        alunosAdapter = new ArrayAdapter<Aluno>(this.getActivity(), android.R.layout.simple_spinner_item, alunosList);*/
 
         return root;
     }
@@ -91,10 +92,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        initView(root);
+
+        //initView(root);
     }
 
     private void initView(View root){
+
         tipoAvaliacao = root.findViewById(R.id.tipoAvaliacao);
         avaliacao = root.findViewById(R.id.avaliacao);
         aluno = root.findViewById(R.id.aluno);
@@ -104,17 +107,37 @@ public class HomeFragment extends Fragment {
 
         tiposList = new ArrayList<String>();
 
-        avaliacoesList = new ArrayList<Teste>();
+        avaliacoesList = new ArrayList<>();
         avaliacoesList = DAOTestes.getTestes(avaliacoesList);
-        avaliacoesAdapter.notifyDataSetChanged();
+        //avaliacoesAdapter.notifyDataSetChanged();
 
-        alunosList = new ArrayList<Aluno>();
+        alunosList = new ArrayList<>();
         alunosList = daoUsuario.getListAlunos(alunosList);
-        alunosAdapter.notifyDataSetChanged();
+        //alunosAdapter.notifyDataSetChanged();
+
+        ArrayList<String> avalList = new ArrayList<>();
+        ArrayList<String> aluList = new ArrayList<>();
+
+        for(int i = 0; i < avaliacoesList.size(); ++i){
+            avalList.add(avaliacoesList.get(i).toString());
+        }
+
+        for(int i = 0; i < alunosList.size(); ++i){
+            aluList.add(alunosList.get(i).toString());
+        }
+
+        tiposAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, tiposList);
+        avaliacoesAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, /*avaliacoesList*/avalList);
+        alunosAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, /*alunosList*/aluList);
 
         getListasFirestore("TiposTestes", "nome", tiposAdapter, tiposList);
-        //getListasFirestore("Avaliacoes", "titulo", avaliacoesAdapter, avaliacoesList);
-        //getListasFirestoreFilter("Usuario", "papel", "Aluno", alunosAdapter, alunosList);
+        getListasFirestore("Avaliacoes", "titulo", avaliacoesAdapter, /*avaliacoesList*/avalList);
+        getListasFirestore("Usuario", "nome", /*"Aluno",*/ alunosAdapter, /*alunosList*/aluList);
+
+        // Após preencher as listas, adicione as chamadas notifyDataSetChanged
+        tiposAdapter.notifyDataSetChanged();
+        avaliacoesAdapter.notifyDataSetChanged();
+        alunosAdapter.notifyDataSetChanged();
 
         setUpSpinners(tipoAvaliacao, tiposAdapter);
         setUpSpinners(avaliacao, avaliacoesAdapter);

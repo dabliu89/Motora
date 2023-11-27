@@ -51,7 +51,8 @@ public class CadastroActivity extends AppCompatActivity {
     TextView tvTemConta, tvNome, tvEmail, tvSenha, tvConfSenha, tvIdade, tvNomeProfRes;
     DAOUsuario dao;
     FirebaseFirestore db;
-    String nome, email, senha, confSenha, idade, nomeProfRes;
+    String nome, email, senha, confSenha, nomeProfRes;
+    Integer idade;
     String[] papel = {"Professor", "Aluno"};
     String[] genero = {"Masculino", "Feminino"};
     String escolha = "", escolha2 = "";
@@ -223,7 +224,7 @@ public class CadastroActivity extends AppCompatActivity {
         email = campoEmail.getText().toString();
         senha = campoSenha.getText().toString();
         confSenha = campoConfSenha.getText().toString();
-        idade = campoIdade.getText().toString();
+        idade = Integer.parseInt(campoIdade.getText().toString());
         nomeProfRes = campoNomeProfRes.getText().toString();
 
         if(verNome(nome) && verIdade() && verGenero() && verProfRes()){
@@ -301,16 +302,7 @@ public class CadastroActivity extends AppCompatActivity {
         if(escolha.equals("Professor")){
             return true;
         } else if (escolha.equals("Aluno")) {
-            for (int i = 0; i < idade.length(); ++i) {
-                char ch = idade.charAt(i);
-
-                if (((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= 'á' && ch <= 'ú') || (ch >= 'Á' && ch <= 'Ú') || ch == 'ã' || ch == 'õ' || ch == ' ') || (i == 0 && ch == ' ')) {
-                    Toast.makeText(this, "Preencha o campo Idade só com números", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-            }
-
-            if(Integer.parseInt(idade) > 17 || Integer.parseInt(idade) < 6){
+            if(idade > 17 || idade < 6){
                 Toast.makeText(CadastroActivity.this, "Este App foi desenvolvido para atender a professores de educação física e alunos com a idade entre 6 e 17 anos", Toast.LENGTH_SHORT).show();
                 return false;
             }
