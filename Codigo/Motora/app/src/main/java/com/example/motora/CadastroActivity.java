@@ -405,10 +405,14 @@ public class CadastroActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(CadastroActivity.this, "Sucesso ao cadastrar o usuário", Toast.LENGTH_SHORT).show();
 
                     FirebaseUser user = autenticacao.getCurrentUser();
-                    updateUI(user);
+                    if(usuario.getPapel().equals("Aluno")){
+                        Toast.makeText(CadastroActivity.this, "Sucesso ao cadastrar o Aluno", Toast.LENGTH_SHORT).show();
+                    } else{
+                        Toast.makeText(CadastroActivity.this, "Sucesso ao cadastrar o usuário", Toast.LENGTH_SHORT).show();
+                        updateUI(user);
+                    }
 
                 }else{
                     String excecao;
