@@ -16,12 +16,15 @@ public class AvaliacaoResultado {
 
     int image;
 
-    public AvaliacaoResultado(String aluno, String titulo, HashMap<String, String> campos, String message, String data, int image) {
+    public AvaliacaoResultado(String aluno, String titulo, String tipo, HashMap<String, String> campos, String message, String data, String id, String professor, int image) {
         this.aluno = aluno;
         this.titulo = titulo;
+        this.tipo = tipo;
         this.campos = campos;
         this.message = message;
         this.data = data;
+        this.id = id;
+        this.professor = professor;
         this.image = image;
     }
 
