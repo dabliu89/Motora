@@ -148,7 +148,7 @@ public class ReportFragment extends Fragment {
     private void fazerSugestao() {
         if (user != null) {
 
-            if(!campoUserReport.getText().toString().equals("Escreva-nos alguma possível melhoria que gostaria de ver aqui.") && !campoUserReport.getText().toString().equals("")){
+            if(!campoUserSugestao.getText().toString().equals("Escreva-nos alguma possível melhoria que gostaria de ver aqui.") && !campoUserSugestao.getText().toString().equals("")){
                 Map<String, Object> doc = new HashMap<>();
                 doc.put("id", user.getUid());
                 doc.put("sugestao", Objects.requireNonNull(campoUserSugestao.getText()).toString());

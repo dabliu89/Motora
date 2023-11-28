@@ -14,17 +14,42 @@
         android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewReportarErro"
+        <LinearLayout
+            android:id="@+id/linearLayoutBotaoVoltar"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="center"
-            android:text="Reportar erro"
-            android:textColor="#5D9C76"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/imageView_back_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="Logout"
+                android:onClick="deslogar"
+                android:padding="15dp"
+                android:src="@drawable/ic_arrow_back"
+                tools:ignore="UsingOnClickInXml,DuplicateSpeakableTextCheck" />
+
+            <TextView
+                android:id="@+id/textViewReportarErro"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:text="Reportar erro"
+                android:textColor="#5D9C76"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,6 +124,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="10dp"
+            android:backgroundTint="@color/verde_base_da_aplicacao"
             android:text="Enviar"
             android:textColor="@color/white"
             app:icon="@drawable/baseline_send"
@@ -146,6 +172,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="100dp"
+            android:backgroundTint="@color/verde_base_da_aplicacao"
             android:text="Sugerir"
             android:textColor="@color/white"
             app:icon="@drawable/baseline_send"

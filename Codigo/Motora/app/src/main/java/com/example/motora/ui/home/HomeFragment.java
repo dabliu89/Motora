@@ -69,9 +69,13 @@ public class HomeFragment extends Fragment {
     private String meuNome, key;
     ArrayAdapter<String> tiposAdapter;
     ArrayAdapter</*Teste*/String> avaliacoesAdapter;
-    ArrayAdapter</*Aluno*/String> alunosAdapter;
+    ArrayAdapter<Aluno/*String*/> alunosAdapter;
 
     //DAOUsuario daoUsuario = new DAOUsuario();
+
+    private String id, nome, email, senha, genero, papel, profResp;
+    private long idade;
+    ArrayList<Aluno> alunos;
 
     View root;
 
@@ -135,7 +139,7 @@ public class HomeFragment extends Fragment {
                 });
 
         alunosList = new ArrayList<>();
-        alunosList = /*daoUsuario*/DAOUsuario.getListAlunos(alunosList, meuNome);
+        //alunosList = /*daoUsuario*/DAOUsuario.getListAlunos(alunosList, meuNome);
         //alunosAdapter.notifyDataSetChanged();
 
         ArrayList<String> avalList = new ArrayList<>();
@@ -151,7 +155,7 @@ public class HomeFragment extends Fragment {
 
         tiposAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, tiposList);
         avaliacoesAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, /*avaliacoesList*/avalList);
-        alunosAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, /*alunosList*/aluList);
+        alunosAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, alunosList/*aluList*/);
 
         getListasFirestore("TiposTestes", "nome", tiposAdapter, tiposList);
         getListasFirestore("Avaliacoes", "titulo", avaliacoesAdapter, /*avaliacoesList*/avalList);
@@ -233,6 +237,8 @@ public class HomeFragment extends Fragment {
             //CollectionReference usuariosRef = db.collection("Usuarios");
 
             // Obtendo documentos da coleção "Usuarios"
+
+            alunos = new ArrayList<>();
             tipos.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -240,9 +246,33 @@ public class HomeFragment extends Fragment {
                         for (DocumentSnapshot document : task.getResult()) {
                             // Para cada documento, você pode obter o nome do usuário
                             String nomeUsuario = document.getString("nome");
+                            //String idUsuario = document.getString("id");
                             String nomeProf = document.getString("prof_responsavel");
+
                             if(nomeProf != null && nomeProf.equals(meuNome)){
-                                list.add(nomeUsuario);
+                                email = document.getString("email");
+                                genero = document.getString("genero");
+                                id = document.getString("id");
+                                idade = document.getLong("idade");
+                                nome = document.getString("nome");
+                                papel = document.getString("papel");
+                                profResp = document.getString("prof_responsavel");
+                                senha = document.getString("senha");
+
+                                Aluno ob = document.toObject(Aluno.class);
+                                ob.setEmail(email);
+                                ob.setGenero(genero);
+                                ob.setUid(id);
+                                ob.setId(id);
+                                ob.setIdade((int) idade);
+                                ob.setNome(nome);
+                                ob.setPapel(papel);
+                                ob.setNomeProfRes(profResp);
+                                ob.setSenha(senha);
+
+                                alunosList.add(ob);
+
+                                //list.add(nomeUsuario);
                                 adapter.notifyDataSetChanged();
                             }
                         }
