@@ -12,6 +12,8 @@ public class AvaliacaoResultado {
     String data;
     String id;
 
+    String professor;
+
     int image;
 
     public AvaliacaoResultado(String aluno, String titulo, HashMap<String, String> campos, String message, String data, int image) {
@@ -91,6 +93,14 @@ public class AvaliacaoResultado {
         this.image = image;
     }
 
+    public String getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(String professor) {
+        this.professor = professor;
+    }
+
     @Override
     public String toString() {
         return "AvaliacaoResultado{" +
@@ -99,6 +109,7 @@ public class AvaliacaoResultado {
                 ", campos='" + campos + '\'' +
                 ", message='" + message + '\'' +
                 ", tipoTeste='" + tipo + '\'' +
+                ", professor='" + professor + '\'' +
                 '}';
     }
 
@@ -115,6 +126,7 @@ public class AvaliacaoResultado {
         avaliacaoResultado.setTitulo(split[3]);
         avaliacaoResultado.setMessage(split[7]);
         avaliacaoResultado.setTipo(split[9]);
+        avaliacaoResultado.setProfessor(split[11]);
 
         return avaliacaoResultado;
     }
