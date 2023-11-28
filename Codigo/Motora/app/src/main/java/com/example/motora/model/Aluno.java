@@ -1,6 +1,6 @@
 package com.example.motora.model;
 
-public class Aluno  extends Usuario{
+public class Aluno extends Usuario{
 
     private static int CONTADOR = 0;
 
@@ -9,7 +9,7 @@ public class Aluno  extends Usuario{
     private String email;
     private String senha;
 
-    private long idade;
+    private Integer idade;
 
     private String genero;
 
@@ -73,11 +73,11 @@ public class Aluno  extends Usuario{
         this.id = id;
     }
 
-    public long getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(long idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 

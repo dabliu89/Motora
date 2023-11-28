@@ -119,6 +119,37 @@
                 android:textColorHint="#9BA5B7"
                 tools:ignore="TextContrastCheck" />
 
+            <TextView
+                android:id="@+id/textViewNomeDoProfessorRes"
+                style="?attr/textAppearanceListItemSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="16dp"
+                android:text="Nome do professor responsável:"
+                android:textColor="#545961" />
+
+            <EditText
+                android:id="@+id/editTextNomeDoProfessorRes"
+                style="?attr/textAppearanceListItemSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/border_black"
+                android:drawablePadding="6dp"
+                android:ems="10"
+                android:hint="Nome Completo do Prof. Responsável"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:maxLength="40"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="#9BA5B7"
+                tools:ignore="TextContrastCheck" />
+
             <LinearLayout
                 android:id="@+id/linearLayoutIG"
                 android:layout_width="match_parent"
@@ -154,7 +185,7 @@
                         android:ems="10"
                         android:hint="6 - 17"
                         android:importantForAutofill="no"
-                        android:inputType="textPersonName"
+                        android:inputType="number"
                         android:maxLength="40"
                         android:minHeight="48dp"
                         android:padding="10dp"

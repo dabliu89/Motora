@@ -8,18 +8,18 @@ import java.util.ArrayList;
 public class Usuario {
     @Exclude
     private String key;
-    private String nome, email, senha, papel, genero;
-
-    private long idade;
+    private String nome, email, senha, papel, genero, nomeProfRes;
+    private int idade;
     private String id;
 
-    public Usuario(int id, String nome, String email, String senha, String papel, long idade, String genero) {
+    public Usuario(String id, String nome, String email, String senha, String papel, int idade, String genero, String nomeProfRes) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.papel = papel;
         this.idade = idade;
         this.genero = genero;
+        this.nomeProfRes = nomeProfRes;
     }
 
     public Usuario() {
@@ -69,11 +69,11 @@ public class Usuario {
         this.papel = papel;
     }
 
-    public long getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(long idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 
@@ -83,5 +83,13 @@ public class Usuario {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public String getNomeProfRes() {
+        return nomeProfRes;
+    }
+
+    public void setNomeProfRes(String nomeProfRes) {
+        this.nomeProfRes = nomeProfRes;
     }
 }

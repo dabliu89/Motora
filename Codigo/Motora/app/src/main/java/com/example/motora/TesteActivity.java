@@ -144,13 +144,13 @@ public class TesteActivity extends AppCompatActivity {
                                 }
 
                                 if(resultado.getTitulo().equals("IMC")) calculo = ClassificadorApFRS.imcCalc(Float.parseFloat(resultado.getCampos().get("massa")), Float.parseFloat(resultado.getCampos().get("altura")));
-                                if(resultado.getTitulo().equals("RCE")) calculo = ClassificadorApFRS.imcCalc(Float.parseFloat(resultado.getCampos().get("cintura")), Float.parseFloat(resultado.getCampos().get("estatura")));
+                                if(resultado.getTitulo().equals("RCE")) calculo = ClassificadorApFRS.rCE(Float.parseFloat(resultado.getCampos().get("cintura")), Float.parseFloat(resultado.getCampos().get("estatura")));
 
                                 if(resultado.getTipo().equals("Antropometria")){
-                                    message = classificadorAntropometria.direcionadorTeste(resultado.getTitulo(), ob.getGenero(), (int) ob.getIdade(), calculo);
+                                    message = classificadorAntropometria.direcionadorTeste(resultado.getTitulo(), ob.getGenero(), ob.getIdade(), calculo);
                                 }
                                 if(resultado.getTipo().equals("ApFRS")){
-                                    message = classificadorApFRS.direcionadorTeste(resultado.getTitulo(), ob.getGenero(), (int) ob.getIdade(), calculo);
+                                    message = classificadorApFRS.direcionadorTeste(resultado.getTitulo(), ob.getGenero(), ob.getIdade(), calculo);
                                 }
 
                                 resultado.setMessage(message);
@@ -203,6 +203,10 @@ public class TesteActivity extends AppCompatActivity {
         boxes.add(valueET);
 
         return boxes.get(boxes.size()-1);
+    }
+
+    public void voltar(View v){
+        finish();
     }
 
 }

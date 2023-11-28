@@ -12,26 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp">
+        android:gravity="start|center_horizontal"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/imageView_back_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Logout"
-                android:onClick="deslogar"
-                android:padding="15dp"
-                android:src="@drawable/ic_arrow_back"
-                tools:ignore="UsingOnClickInXml,DuplicateSpeakableTextCheck" />
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="Voltar"
+            android:onClick="voltar"
+            android:padding="15dp"
+            android:src="@drawable/ic_arrow_back"
+            tools:ignore="UsingOnClickInXml,DuplicateSpeakableTextCheck" />
 
         <TextView
             android:id="@+id/textTitleAval"
@@ -44,11 +38,13 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/container"
-            android:paddingTop="15dp">
+            android:paddingLeft="32dp"
+            android:paddingTop="15dp"
+            android:paddingRight="32dp">
 
             <WebView
                 android:id="@+id/videoTutorial"
@@ -62,15 +58,17 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp">
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:visibility="invisible"
-                android:layout_centerInParent="true"/>
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/buttonSalvar"
