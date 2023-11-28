@@ -33,6 +33,7 @@
                 android:src="@drawable/ic_arrow_back"
                 tools:ignore="UsingOnClickInXml,DuplicateSpeakableTextCheck" />
 
+<<<<<<< HEAD
             <SearchView
                 android:id="@+id/search_view"
                 android:inputType="text"
@@ -46,6 +47,11 @@
         </LinearLayout>
 
         <ListView
+=======
+        <android.widget.SearchView
+            android:id="@+id/search_view"
+            android:inputType="text"
+>>>>>>> 2352726f0ec32b1ce3e14f52eeab96e4f4b453c8
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/listaAvaliacoes"

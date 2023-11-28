@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -32,6 +34,8 @@ import java.util.concurrent.Semaphore;
 
 public class DAOTestes {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    static FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();;
 
     public static ArrayList<Teste> t = new ArrayList<Teste>();
 
@@ -114,7 +118,7 @@ public class DAOTestes {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                             for (DocumentSnapshot doc : value.getDocuments()){
-                                if(doc.exists()) {
+                                if(doc.exists() && ob.getProfessor().equals(user.getUid())) {
                                     ob.setAluno(doc.getString("nome"));
                                     list.add(ob);
                                     adapter.notifyDataSetChanged();

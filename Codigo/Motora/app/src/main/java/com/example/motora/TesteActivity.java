@@ -122,6 +122,7 @@ public class TesteActivity extends AppCompatActivity {
                         map.put(labels.get(i).getText().toString().toLowerCase(), boxes.get(i).getText().toString());
                     }
 
+                    resultado.setProfessor(user.getUid());
                     resultado.setCampos(map);
                     resultado.setTitulo(teste.getTitulo());
                     resultado.setTipo(teste.getTipo());
