@@ -112,20 +112,23 @@ public class DAOTestes {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for (DocumentSnapshot document : value.getDocuments()) {
-                    AvaliacaoResultado ob = document.toObject(AvaliacaoResultado.class);
-                    ob.setId(document.getId());
-                    db.collection("Usuario").whereEqualTo("id", ob.getAluno()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            for (DocumentSnapshot doc : value.getDocuments()){
-                                if(doc.exists() && ob.getProfessor().equals(user.getUid())) {
-                                    ob.setAluno(doc.getString("nome"));
-                                    list.add(ob);
-                                    adapter.notifyDataSetChanged();
+                    if(document.exists()){
+                        AvaliacaoResultado ob = document.toObject(AvaliacaoResultado.class);
+                        String professor = document.getString("professor");
+                        ob.setId(document.getId());
+                        db.collection("Usuario").whereEqualTo("id", ob.getAluno()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                for (DocumentSnapshot doc : value.getDocuments()){
+                                    if(doc.exists() && professor.equals(user.getUid())) {
+                                        ob.setAluno(doc.getString("nome"));
+                                        list.add(ob);
+                                        adapter.notifyDataSetChanged();
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             }
         });
