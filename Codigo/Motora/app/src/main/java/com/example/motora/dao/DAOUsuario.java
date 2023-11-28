@@ -102,14 +102,17 @@ public class DAOUsuario {
         return databaseReference.child(key);
     }
 
-    public ArrayList<Aluno> getListAlunos(ArrayList<Aluno> alunos){
+    public static ArrayList<Aluno> getListAlunos(ArrayList<Aluno> alunos, String nomeProf){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference tipos = db.collection("Usuario");
+        //com.google.firebase.firestore.Query query = tipos.whereEqualTo("prof_responsavel", nomeProf);
         com.google.firebase.firestore.Query query = tipos.whereEqualTo("papel", "Aluno");
+        //com.google.firebase.firestore.Query query = tipos.whereArrayContains("prof_responsavel", nomeProf);
 
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                alunos.clear();
                 for (DocumentSnapshot document : value.getDocuments()) {
                     Aluno ob = document.toObject(Aluno.class);
                     ob.setUid(document.getId().toString());
