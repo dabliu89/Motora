@@ -56,7 +56,7 @@ public class AvaliacoesFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchView.setQuery("", false);
+                searchView.setQuery(query, false);
                 return true;
             }
 
