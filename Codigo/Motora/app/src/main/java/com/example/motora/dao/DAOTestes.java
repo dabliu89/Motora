@@ -113,13 +113,12 @@ public class DAOTestes {
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for (DocumentSnapshot document : value.getDocuments()) {
                     AvaliacaoResultado ob = document.toObject(AvaliacaoResultado.class);
-                    ob.getProfessor().equals(user.getUid());
                     ob.setId(document.getId());
                     db.collection("Usuario").whereEqualTo("id", ob.getAluno()).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                             for (DocumentSnapshot doc : value.getDocuments()){
-                                if(doc.exists()) {
+                                if(doc.exists() && ob.getProfessor().equals(user.getUid())) {
                                     ob.setAluno(doc.getString("nome"));
                                     list.add(ob);
                                     adapter.notifyDataSetChanged();
