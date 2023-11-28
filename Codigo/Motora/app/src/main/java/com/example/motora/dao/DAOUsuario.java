@@ -159,8 +159,7 @@ public class DAOUsuario {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
-                        papel = document.getString("papel");
-                        if(papel.equals("Aluno")){
+                        if(document.getString("papel").equals("aaaaaaa")){
                             LoginActivity.abrirVisaoAluno();
                         } else {
                             LoginActivity.abrirHome();
