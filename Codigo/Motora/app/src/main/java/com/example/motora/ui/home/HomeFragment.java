@@ -31,7 +31,11 @@ import com.example.motora.dao.DAOUsuario;
 import com.example.motora.databinding.FragmentHomeBinding;
 import com.example.motora.model.Aluno;
 import com.example.motora.model.Teste;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.collection.LLRBNode;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -41,10 +45,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -60,12 +66,12 @@ public class HomeFragment extends Fragment {
     private ArrayList<Teste> avaliacoesList = new ArrayList<Teste>();
     private ArrayList<Aluno> alunosList = new ArrayList<Aluno>();
 
-
+    private String meuNome, key;
     ArrayAdapter<String> tiposAdapter;
     ArrayAdapter</*Teste*/String> avaliacoesAdapter;
     ArrayAdapter</*Aluno*/String> alunosAdapter;
 
-    DAOUsuario daoUsuario = new DAOUsuario();
+    //DAOUsuario daoUsuario = new DAOUsuario();
 
     View root;
 
@@ -73,9 +79,6 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        Log.d(TAG, "Iniciou o fragment");
-        Toast.makeText(getContext(), "Fragment iniciado", Toast.LENGTH_SHORT).show();
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         root = binding.getRoot();
@@ -111,8 +114,28 @@ public class HomeFragment extends Fragment {
         avaliacoesList = DAOTestes.getTestes(avaliacoesList);
         //avaliacoesAdapter.notifyDataSetChanged();
 
+        key = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection("Usuario").document(key).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            if (documentSnapshot != null && documentSnapshot.exists()) {
+                                meuNome = documentSnapshot.getString("nome");
+                            }
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
         alunosList = new ArrayList<>();
-        alunosList = daoUsuario.getListAlunos(alunosList);
+        alunosList = /*daoUsuario*/DAOUsuario.getListAlunos(alunosList, meuNome);
         //alunosAdapter.notifyDataSetChanged();
 
         ArrayList<String> avalList = new ArrayList<>();
@@ -122,9 +145,9 @@ public class HomeFragment extends Fragment {
             avalList.add(avaliacoesList.get(i).toString());
         }
 
-        for(int i = 0; i < alunosList.size(); ++i){
+        /*for(int i = 0; i < alunosList.size(); ++i){
             aluList.add(alunosList.get(i).toString());
-        }
+        }*/
 
         tiposAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, tiposList);
         avaliacoesAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, /*avaliacoesList*/avalList);
@@ -173,18 +196,64 @@ public class HomeFragment extends Fragment {
 
     private void getListasFirestore(String collection, String field, ArrayAdapter adapter, ArrayList<String> list){
         CollectionReference tipos = db.collection(collection);
-        Query query = tipos.orderBy(field);
-        ArrayList<String> temp = new ArrayList<String>();
 
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                for (DocumentSnapshot document : value.getDocuments()) {
-                    list.add(document.getString(field));
-                    adapter.notifyDataSetChanged();
+        if(!collection.equals("Usuario")){
+            Query query = tipos.orderBy(field);
+            ArrayList<String> temp = new ArrayList<String>();
+
+            query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    for (DocumentSnapshot document : value.getDocuments()) {
+                        list.add(document.getString(field));
+                        adapter.notifyDataSetChanged();
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            /*Query query = tipos.orderBy(field);
+            //com.google.firebase.firestore.Query query = tipos.whereEqualTo("prof_responsavel", meuNome);
+
+            query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    for (DocumentSnapshot document : value.getDocuments()) {
+                        if(Objects.equals(document.getString("prof_responsavel"), meuNome)){
+                            list.add(document.getString("nome"));
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                    for(int i = 0; i < alunosList.size(); ++i){
+                        list.add(alunosList.get(i).toString());
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            });*/
+
+            //CollectionReference usuariosRef = db.collection("Usuarios");
+
+            // Obtendo documentos da coleção "Usuarios"
+            tipos.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            // Para cada documento, você pode obter o nome do usuário
+                            String nomeUsuario = document.getString("nome");
+                            String nomeProf = document.getString("prof_responsavel");
+                            if(nomeProf != null && nomeProf.equals(meuNome)){
+                                list.add(nomeUsuario);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    } else {
+                        Log.w(TAG, "Erro ao acessar o banco de dados", task.getException());
+                    }
+                }
+            });
+
+        }
+
     }
 
     @Override

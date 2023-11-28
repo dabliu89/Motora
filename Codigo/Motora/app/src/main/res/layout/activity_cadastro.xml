@@ -356,7 +356,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#5D9C76"
                     android:gravity="center"
-                    android:onClick="validarCampos"
+                    android:onClick="termos"
                     android:text="Criar"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"

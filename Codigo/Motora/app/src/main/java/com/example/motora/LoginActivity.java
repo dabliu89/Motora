@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 updateUI(result);
                 return true;
             }else{
-                showMessage("Preencha o campo Email");
+                showMessage("Preencha o campo Senha");
                 return false;
             }
         }else{
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
             showMessage("Login realizado com sucesso!");
             abrirHome();
         }else {
-            showMessage("Login não realizado");
+            showMessage("Espere um pouco... (Se demorar demais, então é porque o login não foi realizado)");
         }
         return true;
     }

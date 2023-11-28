@@ -1,10 +1,12 @@
 package com.example.motora;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -52,7 +54,7 @@ public class CadastroActivity extends AppCompatActivity {
     DAOUsuario dao;
     FirebaseFirestore db;
     String nome, email, senha, confSenha, nomeProfRes;
-    Integer idade;
+    int idade;
     String[] papel = {"Professor", "Aluno"};
     String[] genero = {"Masculino", "Feminino"};
     String escolha = "", escolha2 = "";
@@ -219,12 +221,73 @@ public class CadastroActivity extends AppCompatActivity {
         }
     }
 
-    public void validarCampos(View v){
+    public void termos(View v){
+        AlertDialog.Builder builder = new AlertDialog.Builder(CadastroActivity.this);
+
+        builder.setTitle("Termos de Uso");
+        builder.setMessage("Política de Segurança do Motora\n" +
+                "\n" +
+                "Última Atualização: 28/11/2023\n" +
+                "\n" +
+                "Bem-vindo ao Motora!\n" +
+                "\n" +
+                "Esta Política de Segurança descreve como tratamos a segurança das informações coletadas ou recebidas quando você usa nosso aplicativo e explica as medidas que tomamos para proteger essas informações.\n" +
+                "\n" +
+                "Coleta de Informações:\n" +
+                "\n" +
+                "O Motora pode coletar informações limitadas e relevantes necessárias para fornecer e melhorar nossos serviços. Isso pode incluir informações do dispositivo, como modelo, sistema operacional e versão do aplicativo.\n" +
+                "\n" +
+                "Uso de Informações:\n" +
+                "\n" +
+                "As informações coletadas são utilizadas para operar, manter e melhorar a segurança do aplicativo. Elas podem ser usadas para personalizar sua experiência e fornecer atualizações relevantes.\n" +
+                "\n" +
+                "Compartilhamento de Informações:\n" +
+                "\n" +
+                "Não compartilhamos informações pessoais identificáveis com terceiros, a menos que seja necessário para fornecer nossos serviços ou quando exigido por lei.\n" +
+                "\n" +
+                "Segurança de Dados:\n" +
+                "\n" +
+                "Implementamos medidas de segurança para proteger suas informações contra acesso não autorizado, alteração, divulgação ou destruição não autorizada. Isso inclui a criptografia de dados sensíveis.\n" +
+                "\n" +
+                "Atualizações da Política de Segurança:\n" +
+                "\n" +
+                "Podemos fazer alterações nesta Política de Segurança periodicamente. A data da última atualização será indicada no início do documento. Recomendamos que você reveja esta política regularmente.\n" +
+                "\n" +
+                "Contato:\n" +
+                "\n" +
+                "Se você tiver dúvidas ou preocupações sobre nossa Política de Segurança, entre em contato conosco em equipemotora@hotmail.com.\n" +
+                "Ao utilizar o Motora, você concorda com os termos desta Política de Segurança.\n" +
+                "\n" +
+                "Obrigado por confiar no Motora!\n" +
+                "\n" +
+                "Ass: Equipe de Desenvolvimento do Motora");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Concordo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                validarCampos();
+            }
+        }).setNegativeButton("Não Concordo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void validarCampos(){
         nome = campoNome.getText().toString();
         email = campoEmail.getText().toString();
         senha = campoSenha.getText().toString();
         confSenha = campoConfSenha.getText().toString();
-        idade = Integer.parseInt(campoIdade.getText().toString());
+        if(campoIdade.getText().toString().equals("") || campoIdade.getText().toString().equals(null)){
+            idade = 0;
+        }else{
+            idade = Integer.parseInt(campoIdade.getText().toString());
+        }
         nomeProfRes = campoNomeProfRes.getText().toString();
 
         if(verNome(nome) && verIdade() && verGenero() && verProfRes()){
@@ -240,7 +303,7 @@ public class CadastroActivity extends AppCompatActivity {
                             usuario.setEmail(email);
                             usuario.setSenha(senha);
                             usuario.setPapel(escolha);
-                            usuario.setIdade(null);
+                            usuario.setIdade(idade);
                             usuario.setGenero(null);
                             usuario.setNomeProfRes(null);
                         }else if(!escolha.isEmpty() && (escolha.equals("Aluno") || escolha.equals("aluno"))){
