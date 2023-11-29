@@ -1,5 +1,11 @@
 package com.example.motora.model.classificadores;
 
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
+
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.motora.TesteActivity;
 import com.example.motora.model.Teste;
 
 public class ClassificadorAntropometria extends Teste {
@@ -27,7 +33,7 @@ public class ClassificadorAntropometria extends Teste {
     }
 
     public String percentualGordura(String genero, double percentualGordura) {
-        if (genero.equals("masculino")) {
+        if (genero.equals("Masculino")) {
             if (percentualGordura <= 6.0) {
                 return "Excessivamente Baixa";
             } else if (percentualGordura >= 6.01 && percentualGordura <= 10.0) {
@@ -41,7 +47,7 @@ public class ClassificadorAntropometria extends Teste {
             } else {
                 return "Excessivamente alta";
             }
-        } else if (genero.equals("feminino")) {
+        } else if (genero.equals("Feminino")) {
             if (percentualGordura <= 12.0) {
                 return "Excessivamente Baixa";
             } else if (percentualGordura >= 12.01 && percentualGordura <= 15.0) {
@@ -60,7 +66,7 @@ public class ClassificadorAntropometria extends Teste {
     }
 
     public String circunferenciaDaCintura(String genero, int idade, double circunferenciaCintura) {
-        if (genero.equals("masculino")) {
+        if (genero.equals("Masculino")) {
             if (idade == 11 && circunferenciaCintura >= 72.4) {
                 return "Elevado";
             } else if (idade == 12 && circunferenciaCintura >= 74.7) {
@@ -78,7 +84,7 @@ public class ClassificadorAntropometria extends Teste {
             } else {
                 return "Normal";
             }
-        } else if (genero.equals("feminino")) {
+        } else if (genero.equals("Feminino")) {
             if (idade == 11 && circunferenciaCintura >= 71.8) {
                 return "Elevado";
             } else if (idade == 12 && circunferenciaCintura >= 73.8) {

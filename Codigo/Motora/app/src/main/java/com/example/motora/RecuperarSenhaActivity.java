@@ -44,17 +44,17 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
     public void decision(String email){
         email = campoEmailRec.getText().toString().trim();
         if(!TextUtils.isEmpty(email)){
-            resetarSenha();
+            resetarSenha(email);
         }else{
             campoEmailRec.setError("Este campo não deve ficar vazio");
         }
     }
 
-    public void resetarSenha(){
+    public void resetarSenha(String email){
         progressBar.setVisibility(View.VISIBLE);
         btnRecSen.setVisibility(View.INVISIBLE);
 
-        mAuth.sendPasswordResetEmail(strEmail)
+        mAuth.sendPasswordResetEmail(email)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -81,7 +81,7 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
     }
 
     public void showMessage(String message){
-        Toast.makeText(RecuperarSenhaActivity.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(RecuperarSenhaActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
     public void voltarRecuperarSenha(View v) {

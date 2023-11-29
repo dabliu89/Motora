@@ -88,9 +88,11 @@ public class AvaliacoesFragment extends Fragment {
         listaAvaliacoes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AvaliacaoResultado selectedItem = (AvaliacaoResultado) listAdapter.getItem(i);
+
                 Intent intent = new Intent(AvaliacoesFragment.this.getContext(), ResultadosDetalhadosActivity.class);
-                intent.putExtra("avalResult", avaliacoesResultados.get(i).toString());
-                intent.putExtra("avalCampos", avaliacoesResultados.get(i).getCampos().toString());
+                intent.putExtra("avalResult", /*avaliacoesResultados.get(i).toString()*/selectedItem.toString());
+                intent.putExtra("avalCampos", /*avaliacoesResultados.get(i).getCampos().toString()*/selectedItem.getCampos().toString());
                 startActivity(intent);
             }
         });

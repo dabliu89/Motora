@@ -257,7 +257,6 @@
                 android:hint="username@gmail.com"
                 android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
-                android:maxLength="35"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 android:textColor="@color/black"

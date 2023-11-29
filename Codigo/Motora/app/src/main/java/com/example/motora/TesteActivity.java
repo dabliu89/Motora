@@ -130,7 +130,18 @@ public class TesteActivity extends AppCompatActivity {
                     AvaliacaoResultado resultado = new AvaliacaoResultado();
                     resultado.setAluno(alunoId);
 
+                    String labelText;
+                    String boxText;
+
                     for(int i=0;i<labels.size();i++){
+                        labelText = labels.get(i).getText().toString();
+                        boxText = boxes.get(i).getText().toString();
+
+                        if (labelText.isEmpty() || boxText.isEmpty()) {
+                            Toast.makeText(TesteActivity.this, "Não deixe campos de informação vazios", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         map.put(labels.get(i).getText().toString().toLowerCase(), boxes.get(i).getText().toString());
                     }
 
@@ -156,8 +167,12 @@ public class TesteActivity extends AppCompatActivity {
                                     calculo = Double.parseDouble(resultado.getCampos().get(key));
                                 }
 
-                                if(resultado.getTitulo().equals("IMC")) calculo = ClassificadorApFRS.imcCalc(Float.parseFloat(resultado.getCampos().get("massa")), Float.parseFloat(resultado.getCampos().get("altura")));
-                                if(resultado.getTitulo().equals("RCE")) calculo = ClassificadorApFRS.rCE(Float.parseFloat(resultado.getCampos().get("cintura")), Float.parseFloat(resultado.getCampos().get("estatura")));
+                                if(resultado.getTitulo().equals("IMC")) {
+                                    calculo = ClassificadorApFRS.imcCalc(Float.parseFloat(resultado.getCampos().get("massa")), Float.parseFloat(resultado.getCampos().get("altura")));
+                                }
+                                if(resultado.getTitulo().equals("RCE")) {
+                                    calculo = ClassificadorApFRS.rCE(Float.parseFloat(resultado.getCampos().get("cintura")), Float.parseFloat(resultado.getCampos().get("estatura")));
+                                }
 
                                 if(resultado.getTipo().equals("Antropometria")){
                                     message = classificadorAntropometria.direcionadorTeste(resultado.getTitulo(), ob.getGenero(), ob.getIdade(), calculo);
@@ -172,6 +187,7 @@ public class TesteActivity extends AppCompatActivity {
                         }
                     });
 
+                    Toast.makeText(TesteActivity.this, "Sucesso em cadastrar novo teste", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(TesteActivity.this, MainActivity.class));
                 }
             });

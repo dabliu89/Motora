@@ -51,7 +51,7 @@ public class ClassificadorApFRS extends Teste {
 
         public String imcSaude(String genero, int idade, double resultado) {
 
-                if (genero.equals("masculino")) {
+                if (genero.equals("Masculino")) {
                         if (idade == 6 && resultado > 17.7) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado > 17.8) {
@@ -75,7 +75,7 @@ public class ClassificadorApFRS extends Teste {
                         } else if (idade == 17 && resultado > 25.4) {
                                 return "ZONA DE RISCO À SAÚDE";
                         }
-                } else if (genero.equals("feminino")) {
+                } else if (genero.equals("Feminino")) {
                         if (idade == 6 && resultado > 17.0) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado > 17.1) {
@@ -101,7 +101,7 @@ public class ClassificadorApFRS extends Teste {
         }
 
         public String corridaCaminhadaSeisMinutos(String genero, int idade, int resultado) {
-                if (genero.equals("masculino")) {
+                if (genero.equals("Masculino")) {
                         if (idade == 6 && resultado < 675) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado < 730) {
@@ -129,7 +129,7 @@ public class ClassificadorApFRS extends Teste {
                         } else {
                                 return "ZONA SAUDÁVEL";
                         }
-                } else if (genero.equals("feminino")) {
+                } else if (genero.equals("Feminino")) {
                         if (idade == 6 && resultado < 630) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado < 683) {
@@ -170,7 +170,7 @@ public class ClassificadorApFRS extends Teste {
         }
 
         public String sentarEAlcancar(String genero, int idade, double resultado) {
-                if (genero.equals("masculino")) {
+                if (genero.equals("Masculino")) {
                         if (idade == 6 && resultado < 29) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado < 29) {
@@ -198,7 +198,7 @@ public class ClassificadorApFRS extends Teste {
                         } else {
                                 return "ZONA SAUDÁVEL";
                         }
-                } else if (genero.equals("feminino")) {
+                } else if (genero.equals("Feminino")) {
                         if (idade == 6 && resultado < 40.5) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado < 40.5) {
@@ -231,7 +231,7 @@ public class ClassificadorApFRS extends Teste {
         }
 
         public String abdominaisEmUmMinuto(String genero, int idade, int resultado) {
-                if (genero.equals("masculino")) {
+                if (genero.equals("Masculino")) {
                         if (idade == 6 && resultado < 18) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado < 18) {
@@ -255,7 +255,7 @@ public class ClassificadorApFRS extends Teste {
                         } else {
                                 return "ZONA SAUDÁVEL";
                         }
-                } else if (genero.equals("feminino")) {
+                } else if (genero.equals("Feminino")) {
                         if (idade >= 6 && idade <= 8 && resultado < 18) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 9 && resultado < 20) {
@@ -276,7 +276,7 @@ public class ClassificadorApFRS extends Teste {
         }
 
         public String arremessoDeMedicineball(String genero, int idade, double resultado) {
-                if (genero.equals("masculino")) {
+                if (genero.equals("Masculino")) {
                         if (idade == 6 && resultado < 147.0) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado < 168.7) {
@@ -304,7 +304,7 @@ public class ClassificadorApFRS extends Teste {
                         } else {
                                 return "ZONA SAUDÁVEL";
                         }
-                } else if (genero.equals("feminino")) {
+                } else if (genero.equals("Feminino")) {
                         if (idade == 6 && resultado < 125.0) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado < 140.0) {
@@ -335,7 +335,7 @@ public class ClassificadorApFRS extends Teste {
         }
 
         public String corridaDeVinteMetros(String genero, int idade, double resultado) {
-                if (genero.equals("masculino")) {
+                if (genero.equals("Masculino")) {
                         if (idade == 6 && resultado > 4.81) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado > 4.52) {
@@ -363,7 +363,7 @@ public class ClassificadorApFRS extends Teste {
                         } else {
                                 return "ZONA SAUDÁVEL";
                         }
-                } else if (genero.equals("feminino")) {
+                } else if (genero.equals("Feminino")) {
                         if (idade == 6 && resultado > 5.22) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado > 4.88) {

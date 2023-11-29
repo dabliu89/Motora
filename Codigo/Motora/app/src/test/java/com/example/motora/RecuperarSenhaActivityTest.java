@@ -64,7 +64,7 @@ public class RecuperarSenhaActivityTest {
         recuperarSenhaActivity.campoEmailRec.setText("teste@teste.com");
         recuperarSenhaActivity.decision("teste@teste.com");
         verify(recuperarSenhaActivity).decision("teste@teste.com");
-        verify(recuperarSenhaActivity).resetarSenha();
+        verify(recuperarSenhaActivity).resetarSenha("teste@teste.com");
     }
 
     @Test
