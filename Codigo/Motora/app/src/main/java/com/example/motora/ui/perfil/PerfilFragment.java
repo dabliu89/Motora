@@ -527,7 +527,6 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 apagarContaFirestore();
-                apagarContaAuthentication();
             }
         }).setNegativeButton("Não", new DialogInterface.OnClickListener() {
             @Override
@@ -546,6 +545,7 @@ public class PerfilFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getContext(), "Conta excluída com sucesso", Toast.LENGTH_SHORT).show();
+                        apagarContaAuthentication();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
