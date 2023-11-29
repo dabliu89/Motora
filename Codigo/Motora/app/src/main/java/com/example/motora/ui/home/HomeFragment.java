@@ -46,10 +46,12 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
@@ -68,7 +70,7 @@ public class HomeFragment extends Fragment {
 
     private String meuNome, key;
     ArrayAdapter<String> tiposAdapter;
-    ArrayAdapter</*Teste*/String> avaliacoesAdapter;
+    ArrayAdapter<Teste/*String*/> avaliacoesAdapter;
     ArrayAdapter<Aluno/*String*/> alunosAdapter;
 
     //DAOUsuario daoUsuario = new DAOUsuario();
@@ -76,6 +78,11 @@ public class HomeFragment extends Fragment {
     private String id, nome, email, senha, genero, papel, profResp;
     private long idade;
     ArrayList<Aluno> alunos;
+
+    private String idAva, tipo, titulo, video;
+    private Map<String, String> campos;
+
+    Teste ob2;
 
     View root;
 
@@ -115,7 +122,7 @@ public class HomeFragment extends Fragment {
         tiposList = new ArrayList<String>();
 
         avaliacoesList = new ArrayList<>();
-        avaliacoesList = DAOTestes.getTestes(avaliacoesList);
+        //avaliacoesList = DAOTestes.getTestes(avaliacoesList);
         //avaliacoesAdapter.notifyDataSetChanged();
 
         key = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -154,7 +161,7 @@ public class HomeFragment extends Fragment {
         }*/
 
         tiposAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, tiposList);
-        avaliacoesAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, /*avaliacoesList*/avalList);
+        avaliacoesAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, avaliacoesList/*avalList*/);
         alunosAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, alunosList/*aluList*/);
 
         getListasFirestore("TiposTestes", "nome", tiposAdapter, tiposList);
@@ -175,7 +182,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(HomeFragment.this.getActivity(), TesteActivity.class);
                 intent.putExtra("alunoId", alunosList.get(aluno.getSelectedItemPosition()).getId());
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("camposTeste", (Serializable) avaliacoesList.get(avaliacao.getSelectedItemPosition()).getCampos());
+
                 intent.putExtra("testeId", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getId());
+                intent.putExtra("tituloTeste", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getTitulo());
+                intent.putExtra("bundle", bundle);
+                intent.putExtra("videoTeste", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getVideo());
+
                 intent.putExtra("tipoTeste", tiposList.get(tipoAvaliacao.getSelectedItemPosition()));
                 startActivity(intent);
             }
@@ -201,7 +216,7 @@ public class HomeFragment extends Fragment {
     private void getListasFirestore(String collection, String field, ArrayAdapter adapter, ArrayList<String> list){
         CollectionReference tipos = db.collection(collection);
 
-        if(!collection.equals("Usuario")){
+        if(collection.equals("TiposTestes")){
             Query query = tipos.orderBy(field);
             ArrayList<String> temp = new ArrayList<String>();
 
@@ -212,6 +227,75 @@ public class HomeFragment extends Fragment {
                         list.add(document.getString(field));
                         adapter.notifyDataSetChanged();
                     }
+                }
+            });
+        }else if(collection.equals("Avaliacoes")){
+            //avaliacoesList = DAOTestes.getTestes(avaliacoesList);
+            //adapter.notifyDataSetChanged();
+
+            /*tipos.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            idAva = document.getId();
+                            campos = (Map<String, String>) document.get("campos");
+                            tipo = document.getString("tipo");
+                            titulo = document.getString("titulo");
+                            video = document.getString("video");
+
+                            Teste ob2 = document.toObject(Teste.class);
+                            ob2.setId(idAva);
+                            ob2.setCampos(campos);
+                            ob2.setTipo(tipo);
+                            ob2.setTitulo(titulo);
+                            ob2.setVideo(video);
+
+                            avaliacoesList.add(ob2);
+
+                            //list.add(nomeUsuario);
+                            adapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        Log.w(TAG, "Erro ao acessar o banco de dados", task.getException());
+                    }
+                }
+            });*/
+
+            Query query = tipos.orderBy(field);
+            ArrayList<String> temp = new ArrayList<String>();
+
+            query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    tipos.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    idAva = document.getId();
+                                    campos = (Map<String, String>) document.get("campos");
+                                    tipo = document.getString("tipo");
+                                    titulo = document.getString("titulo");
+                                    video = document.getString("video");
+
+                                    ob2 = document.toObject(Teste.class);
+                                    ob2.setId(idAva);
+                                    ob2.setCampos(campos);
+                                    ob2.setTipo(tipo);
+                                    ob2.setTitulo(titulo);
+                                    ob2.setVideo(video);
+
+                                    avaliacoesList.add(ob2);
+
+                                    //list.add(nomeUsuario);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            } else {
+                                Log.w(TAG, "Erro ao acessar o banco de dados", task.getException());
+                            }
+                        }
+                    });
                 }
             });
         }else{

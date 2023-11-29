@@ -52,7 +52,7 @@ public class AvaliacoesFragment extends Fragment {
         binding.listaAvaliacoes.setAdapter(listAdapter);
         binding.listaAvaliacoes.setClickable(true);
 
-        SearchView searchView = (SearchView) binding.searchView;
+        SearchView searchView = binding.searchView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -64,6 +64,7 @@ public class AvaliacoesFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 listAdapter.getFilter().filter(newText);
+                listAdapter.notifyDataSetChanged();
                 return false;
             }
         });

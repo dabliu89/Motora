@@ -72,6 +72,7 @@ public class TesteActivity extends AppCompatActivity {
     private ArrayList<TextView> labels = new ArrayList<>();
     private ArrayList<EditText> boxes = new ArrayList<>();
 
+    Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,20 +88,31 @@ public class TesteActivity extends AppCompatActivity {
 
 
         DAOTestes.getTesteFirebase(this.getIntent().getExtras().get("testeId").toString());
-
+        bundle = this.getIntent().getBundleExtra("bundle");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        if(DAOTestes.t.size() == 0){
+        if(DAOTestes.t.size() == 0 || bundle == null){
             textTitle.setText(DAOTestes.t.size()+"true");
             this.recreate();
         }
         else{
             textTitle.setText(DAOTestes.t.size()+"");
-            teste = DAOTestes.t.get(DAOTestes.t.size()-1);
+            //teste = DAOTestes.t.get(DAOTestes.t.size()-1);
+            //teste = DAOTestes.getTesteFirebase(this.getIntent().getExtras().get("testeId").toString());
+            teste = new Teste();
+            teste.setId(this.getIntent().getExtras().get("testeId").toString());
+            teste.setTipo(this.getIntent().getExtras().get("tipoTeste").toString());
+            teste.setTitulo(this.getIntent().getExtras().get("tituloTeste").toString());
+
+            Map<String, String> camposRecebidos = (Map<String, String>) bundle.getSerializable("camposTeste");
+            teste.setCampos(camposRecebidos);
+
+            teste.setVideo(this.getIntent().getExtras().get("videoTeste").toString());
+
             WebView videoTutorial = findViewById(R.id.videoTutorial);
             String iFrame = "<iframe width=\"100%\" height=\"100%\" src=\""+teste.getVideo()+"\" title=\"Como Calcular O IMC (Índice De Massa Corporal) + Tabela De Referência | Dicas De Nutrição\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
             videoTutorial.loadData(iFrame, "text/html", "utf-8");
