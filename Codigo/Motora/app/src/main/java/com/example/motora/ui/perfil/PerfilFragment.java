@@ -155,7 +155,7 @@ public class PerfilFragment extends Fragment {
     private void getUserData() {
         // Coloque aqui o código para obter os dados do usuário
         // Lembre-se de atualizar a UI após obter os dados
-        Toast.makeText(getContext(), "Carregando seus dados...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Espere os seus dados carregarem...", Toast.LENGTH_SHORT).show();
 
         key = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

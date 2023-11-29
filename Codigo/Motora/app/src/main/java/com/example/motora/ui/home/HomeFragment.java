@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<Teste> avaliacoesList = new ArrayList<Teste>();
     private ArrayList<Aluno> alunosList = new ArrayList<Aluno>();
 
-    private String meuNome, key;
+    private String meuNome, meuPapel, key;
     ArrayAdapter<String> tiposAdapter;
     ArrayAdapter<Teste/*String*/> avaliacoesAdapter;
     ArrayAdapter<Aluno/*String*/> alunosAdapter;
@@ -135,6 +135,7 @@ public class HomeFragment extends Fragment {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot != null && documentSnapshot.exists()) {
                                 meuNome = documentSnapshot.getString("nome");
+                                meuPapel = documentSnapshot.getString("papel");
                             }
                         }
                     }
@@ -180,19 +181,23 @@ public class HomeFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeFragment.this.getActivity(), TesteActivity.class);
-                intent.putExtra("alunoId", alunosList.get(aluno.getSelectedItemPosition()).getId());
+                if(meuPapel.equals("Professor")){
+                    Intent intent = new Intent(HomeFragment.this.getActivity(), TesteActivity.class);
+                    intent.putExtra("alunoId", alunosList.get(aluno.getSelectedItemPosition()).getId());
 
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("camposTeste", (Serializable) avaliacoesList.get(avaliacao.getSelectedItemPosition()).getCampos());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("camposTeste", (Serializable) avaliacoesList.get(avaliacao.getSelectedItemPosition()).getCampos());
 
-                intent.putExtra("testeId", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getId());
-                intent.putExtra("tituloTeste", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getTitulo());
-                intent.putExtra("bundle", bundle);
-                intent.putExtra("videoTeste", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getVideo());
+                    intent.putExtra("testeId", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getId());
+                    intent.putExtra("tituloTeste", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getTitulo());
+                    intent.putExtra("bundle", bundle);
+                    intent.putExtra("videoTeste", avaliacoesList.get(avaliacao.getSelectedItemPosition()).getVideo());
 
-                intent.putExtra("tipoTeste", tiposList.get(tipoAvaliacao.getSelectedItemPosition()));
-                startActivity(intent);
+                    intent.putExtra("tipoTeste", tiposList.get(tipoAvaliacao.getSelectedItemPosition()));
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getContext(), "Funcionalidade disponível apenas a professores", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

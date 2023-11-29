@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,6 +40,8 @@ public class ReportFragment extends Fragment {
     private String key, papel;
 
     TextView textViewSugerir;
+
+    TextInputLayout tilSugestao;
     TextInputEditText campoUserReport, campoUserSugestao;
     Button enviarReport, enviarSugestao;
 
@@ -57,6 +60,8 @@ public class ReportFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         textViewSugerir = binding.textViewSugerir;
+
+        tilSugestao = binding.textInputLayoutEscreverSugestao;
 
         campoUserReport = binding.textInputEditTextReport;
         campoUserSugestao = binding.textInputEditTextSugestao;
@@ -100,6 +105,7 @@ public class ReportFragment extends Fragment {
 
                                 if(papel.equals("Aluno") || papel.equals("aluno")){
                                     textViewSugerir.setVisibility(textViewSugerir.GONE);
+                                    tilSugestao.setVisibility(tilSugestao.GONE);
                                     campoUserSugestao.setVisibility(campoUserSugestao.GONE);
                                     enviarSugestao.setVisibility(enviarSugestao.GONE);
                                 }

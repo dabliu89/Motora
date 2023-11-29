@@ -134,7 +134,8 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseUser usuarioAuth = auth.getCurrentUser();
         if(usuarioAuth != null){
-            DAOUsuario.getPapelUser(usuarioAuth.getUid());
+            //DAOUsuario.getPapelUser(usuarioAuth.getUid());
+            abrirHome();
         }
     }
     @Override

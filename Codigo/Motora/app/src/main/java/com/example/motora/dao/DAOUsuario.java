@@ -149,7 +149,7 @@ public class DAOUsuario {
         return alunoName;
     }
 
-    public static String getPapelUser(String userId){
+    /*public static String getPapelUser(String userId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference testes = db.collection("Usuario").document(userId);
         Source source = Source.SERVER;
@@ -173,6 +173,6 @@ public class DAOUsuario {
         });
 
         return papel;
-    }
+    }*/
 }
 

@@ -46,15 +46,15 @@
         </LinearLayout>
 
         <ListView
+            android:id="@+id/listaAvaliacoes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/listaAvaliacoes"
-            android:scrollbars="vertical"
             android:divider="@android:color/transparent"
             android:dividerHeight="10.0sp"
-            tools:listitem="@layout/list_avaliacoes_item"
+            android:scrollbars="vertical"
             app:layout_constraintTop_toBottomOf="@id/search_view"
-            tools:ignore="NotSibling" />
+            tools:ignore="NotSibling"
+            tools:listitem="@layout/list_avaliacoes_item" />
 
     </LinearLayout>
 </LinearLayout>
