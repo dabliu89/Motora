@@ -77,8 +77,10 @@ public class LoginActivity extends AppCompatActivity {
                 Usuario usuario = new Usuario();
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
+
                 boolean result = DAOUsuario.authenticate(usuario);
                 updateUI(result);
+
                 return true;
             }else{
                 showMessage("Preencha o campo Senha");
@@ -136,6 +138,8 @@ public class LoginActivity extends AppCompatActivity {
         if(usuarioAuth != null){
             //DAOUsuario.getPapelUser(usuarioAuth.getUid());
             abrirHome();
+        }else{
+            Toast.makeText(context, "Login não realizado", Toast.LENGTH_SHORT).show();
         }
     }
     @Override

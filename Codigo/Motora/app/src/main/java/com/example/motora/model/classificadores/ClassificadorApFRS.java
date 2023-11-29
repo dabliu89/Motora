@@ -1,10 +1,13 @@
 package com.example.motora.model.classificadores;
 
+import android.util.Log;
+
 import com.example.motora.model.Teste;
 
 public class ClassificadorApFRS extends Teste {
 
-    private String aluno;
+        private static final String TAG = "ViewDatabase";
+        private String aluno;
 
     public ClassificadorApFRS(){super();}
 
@@ -231,7 +234,13 @@ public class ClassificadorApFRS extends Teste {
         }
 
         public String abdominaisEmUmMinuto(String genero, int idade, int resultado) {
+                Log.d(TAG, "genero: "+genero);
+
                 if (genero.equals("Masculino")) {
+
+                        Log.d(TAG, "idade: "+idade);
+                        Log.d(TAG, "resultado: "+resultado);
+
                         if (idade == 6 && resultado < 18) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 7 && resultado < 18) {
@@ -256,6 +265,10 @@ public class ClassificadorApFRS extends Teste {
                                 return "ZONA SAUDÁVEL";
                         }
                 } else if (genero.equals("Feminino")) {
+
+                        Log.d(TAG, "idade: "+idade);
+                        Log.d(TAG, "resultado: "+resultado);
+
                         if (idade >= 6 && idade <= 8 && resultado < 18) {
                                 return "ZONA DE RISCO À SAÚDE";
                         } else if (idade == 9 && resultado < 20) {
