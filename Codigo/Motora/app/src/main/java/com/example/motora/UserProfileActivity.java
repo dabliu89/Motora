@@ -18,7 +18,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
-import android.media.ExifInterface;
+
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.exifinterface.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -147,7 +150,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void getUserProfile() throws IOException {
-        storageReference = FirebaseStorage.getInstance().getReference("Usuario/"+key+".jpg");
+        storageReference = FirebaseStorage.getInstance().getReference("Usuario/" + key + ".jpg");
 
         File localFile = File.createTempFile("tempImage", "jpg");
 
@@ -155,13 +158,18 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                binding.imageProfile.setImageBitmap(bitmap);
-                binding.imageProfile.setRotation(getCameraPhotoOrientation(localFile.getAbsolutePath()));
+
+                RoundedBitmapDrawable roundedDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                roundedDrawable.setCircular(true);
+                photo.setImageDrawable(roundedDrawable);
+                photo.setRotation(getCameraPhotoOrientation(localFile.getAbsolutePath()));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UserProfileActivity.this, "Falha em carregar imagem ou perfil não possui uma foto definida", Toast.LENGTH_SHORT).show();
+                // Define uma imagem padrão quando não há foto
+                //photo.setImageResource(R.drawable.default_profile);
+                Log.d("PerfilFragment", "Usuário sem foto de perfil: " + e.getMessage());
             }
         });
     }
@@ -175,7 +183,6 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public void mudarFoto(View v){
 
         if(checkAndRequestPermissions(UserProfileActivity.this)){

@@ -234,28 +234,38 @@ public class PerfilFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void mudarFoto() {
 
-        if (checkAndRequestPermissions(getContext(), getActivity())) {
-            chooseImage();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkAndRequestPermissions(getContext(), getActivity())) {
+                chooseImage();
+            }
         }
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     public static boolean checkAndRequestPermissions(Context context, Activity activity) {
-        int wExtstorePermission = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int cameraPermission = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.CAMERA);
         List<String> listPermissionsNeeded = new ArrayList<>();
-        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+
+        // Permissões para Android 13+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(Manifest.permission.READ_MEDIA_IMAGES);
+            }
+        } else {
+            // Permissões para versões anteriores
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+        }
+
+        // Permissão da câmera (sempre necessária)
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.CAMERA);
         }
-        if (wExtstorePermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded
-                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
+
         if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(activity, listPermissionsNeeded
-                            .toArray(new String[listPermissionsNeeded.size()]),
+            ActivityCompat.requestPermissions(activity,
+                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
                     REQUEST_ID_MULTIPLE_PERMISSIONS);
             return false;
         }
@@ -265,22 +275,20 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_ID_MULTIPLE_PERMISSIONS:
-                if (ContextCompat.checkSelfPermission(getContext(),
-                        Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getActivity(),
-                                    "É necessário permissão para usar a câmera.", Toast.LENGTH_SHORT)
-                            .show();
-                } else if (ContextCompat.checkSelfPermission(getContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getActivity(),
-                            "É necessário permissão para acessar arquivos.",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    chooseImage();
+        if (requestCode == REQUEST_ID_MULTIPLE_PERMISSIONS) {
+            boolean allGranted = true;
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    allGranted = false;
+                    break;
                 }
-                break;
+            }
+
+            if (allGranted) {
+                chooseImage();
+            } else {
+                Toast.makeText(getContext(), "Permissões necessárias foram negadas", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
